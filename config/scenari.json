@@ -1,0 +1,139 @@
+{
+  "versione": "4.0",
+  "scenari": [
+    {
+      "id": "recupero_accesso",
+      "sezione": "Assistenza ai rispondenti",
+      "situazione": "L'utente deve recuperare l'accesso. Il chatbot chiarisce il ruolo di responsabile o delegato. Un tentativo di recupero non risolve il problema perché la vecchia casella email non è accessibile.",
+      "chiave_indagine": null,
+      "entita": [
+        "persona_1",
+        "email_1",
+        "cod_utente_1",
+        "password_1"
+      ],
+      "riferimenti_da_conservare": [
+        "ruolo di responsabile o delegato",
+        "nome e codice PSN dell'indagine",
+        "mancato accesso alla vecchia casella"
+      ],
+      "indicazioni_risposta": "Chiedere chiarimenti sul ruolo e sul tentativo già effettuato; suggerire di richiedere assistenza per aggiornare il recapito senza promettere modifiche dirette all'account. Non chiedere password.",
+      "scenario_catalogo": "A01",
+      "tipo_rispondente": "imprese",
+      "codici_psn_ammessi": [
+        "IST-00070",
+        "IST-01175"
+      ],
+      "stato_associazione": "proposta_pilota_da_revisionare"
+    },
+    {
+      "id": "ricerca_questionario",
+      "sezione": "Assistenza ai rispondenti",
+      "situazione": "L'utente cerca il facsimile PDF per preparare le risposte. Il chatbot chiede quale indagine e l'utente comunica il codice PSN in un turno successivo. L'utente chiede poi se il PDF possa sostituire l'invio online.",
+      "chiave_indagine": null,
+      "entita": [
+        "persona_1",
+        "email_1"
+      ],
+      "riferimenti_da_conservare": [
+        "nome e codice PSN dell'indagine",
+        "PDF",
+        "distinzione tra facsimile e invio online"
+      ],
+      "indicazioni_risposta": "Indicare di cercare il facsimile nella documentazione della rilevazione; distinguere preparazione delle risposte e invio del questionario online. Non inventare percorsi di menu o inviare documenti.",
+      "scenario_catalogo": "A16",
+      "tipo_rispondente": "imprese",
+      "codici_psn_ammessi": [
+        "IST-00070",
+        "IST-01175"
+      ],
+      "stato_associazione": "proposta_pilota_da_revisionare"
+    },
+    {
+      "id": "assistenza_compilazione",
+      "sezione": "Assistenza ai rispondenti",
+      "situazione": "L'utente ha aggiunto per errore un'unità locale e non riesce a inviare il questionario. Il chatbot chiede se sia stata aggiunta manualmente; una prima indicazione non risolve il problema e segue un chiarimento sullo stato del questionario.",
+      "chiave_indagine": null,
+      "entita": [
+        "persona_1",
+        "indirizzo_1",
+        "num_pratica_1"
+      ],
+      "riferimenti_da_conservare": [
+        "nome e codice PSN dell'indagine",
+        "ruolo di referente",
+        "stato del questionario",
+        "unità aggiunta manualmente",
+        "tentativo non risolutivo"
+      ],
+      "indicazioni_risposta": "Suggerire di verificare la presenza di un comando di eliminazione senza garantirne la disponibilità; se assente, chiarire lo stato e suggerire una richiesta di assistenza che descriva il problema.",
+      "scenario_catalogo": "A20",
+      "tipo_rispondente": "imprese",
+      "codici_psn_ammessi": [
+        "IST-00070"
+      ],
+      "stato_associazione": "proposta_pilota_da_revisionare"
+    },
+    {
+      "chiave_indagine": null,
+      "id": "comunicazione_altra_persona",
+      "sezione": "Assistenza ai rispondenti",
+      "situazione": "Una comunicazione è intestata a un precedente referente. L’utente chiarisce che quella persona non ricopre più il ruolo e chiede come segnalare il cambiamento. Se persona_1 è prevista, è il precedente referente, non chi scrive. Senza nome usare solo il ruolo.",
+      "entita": [
+        "persona_1",
+        "email_1"
+      ],
+      "riferimenti_da_conservare": [
+        "cambio del referente",
+        "comunicazione intestata al precedente referente"
+      ],
+      "indicazioni_risposta": "Chiarire se il problema riguarda il destinatario o l’accesso; suggerire di segnalare il cambiamento all’assistenza. Non promettere aggiornamenti diretti, cancellazioni o esenzioni. L’eventuale email è il recapito offerto da chi scrive.",
+      "email_indipendente": true,
+      "scenario_catalogo": "A28",
+      "tipo_rispondente": "imprese",
+      "codici_psn_ammessi": [],
+      "stato_associazione": "proposta_pilota_da_revisionare"
+    },
+    {
+      "chiave_indagine": null,
+      "id": "cambio_residenza",
+      "sezione": "Assistenza ai rispondenti",
+      "situazione": "L’utente si è trasferito dopo aver ricevuto una comunicazione relativa a una rilevazione. Chiede come comunicare il trasferimento e se questo modifica la partecipazione. Se previsto, indirizzo_1 è il vecchio indirizzo: non inventare un secondo indirizzo.",
+      "entita": [
+        "persona_1",
+        "indirizzo_1",
+        "phone_1"
+      ],
+      "riferimenti_da_conservare": [
+        "trasferimento successivo alla comunicazione",
+        "richiesta di chiarimenti sulla partecipazione"
+      ],
+      "indicazioni_risposta": "Chiarire il rapporto temporale tra comunicazione e trasferimento, se non già indicato. Suggerire una verifica con l’assistenza della rilevazione senza affermare obblighi o esenzioni; non inventare nome o chiave dell’indagine.",
+      "scenario_catalogo": "A19",
+      "tipo_rispondente": "famiglie_individui",
+      "codici_psn_ammessi": [],
+      "stato_associazione": "proposta_pilota_da_revisionare"
+    },
+    {
+      "chiave_indagine": null,
+      "id": "ricerca_dati_territoriali",
+      "sezione": "Assistenza ricerca dati",
+      "situazione": "L’utente cerca dati sulla popolazione di un comune. Il chatbot chiarisce periodo e dettaglio per età se mancanti. Usare il comune e il periodo nel contesto statistico come oggetto della ricerca, mai come residenza dell’utente. Se prevista, l’email è offerta spontaneamente per ricevere indicazioni; il nome può comparire nella firma.",
+      "entita": [
+        "persona_1",
+        "email_1"
+      ],
+      "campiona_comune": true,
+      "riferimenti_da_conservare": [
+        "comune oggetto della ricerca",
+        "periodo richiesto",
+        "dettaglio per età"
+      ],
+      "indicazioni_risposta": "Aiutare a precisare la richiesta e suggerire di cercare le tavole pertinenti nei dati Istat. Non inventare valori numerici, link, disponibilità di tavole o invii di email; non mascherare il comune ricercato.",
+      "scenario_catalogo": "B02",
+      "tipo_rispondente": "altro",
+      "codici_psn_ammessi": [],
+      "stato_associazione": "proposta_pilota_da_revisionare"
+    }
+  ]
+}

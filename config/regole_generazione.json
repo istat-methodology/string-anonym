@@ -1,0 +1,34 @@
+{
+  "versione": "1.0",
+  "COD_UTENTE": {
+    "stato": "formati_di_simulazione",
+    "varianti": [
+      {"prefisso": "P0", "cifre": 8},
+      {"prefisso": "QOL", "cifre": 7},
+      {"prefisso": "", "cifre": 9}
+    ]
+  },
+  "NUM_PRATICA": {
+    "stato": "provvisorio_da_confermare",
+    "cifre": 7,
+    "separatore": "/",
+    "anni": ["25", "26"],
+    "nota": "Prot.n. resta nel testo e fuori dallo span. Esempio: 1589563/25."
+  },
+  "PASSWORD": {
+    "stato": "formato_di_simulazione",
+    "lunghezze": [8, 10, 12],
+    "alfabeto": "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789!@#"
+  },
+  "PHONE": {
+    "stato": "formato_di_simulazione",
+    "prefissi": ["", "+39 "],
+    "inizio": "3",
+    "cifre": 9,
+    "separatori": ["", " ", "."]
+  },
+  "COD_UNITA": {
+    "stato": "in_attesa_di_formato",
+    "nota": "Non generare finché non è disponibile una regola concordata."
+  }
+}
