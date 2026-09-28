@@ -6,5 +6,3 @@ __pycache__/
 *.pyc
 .DS_Store
 data/indirizzi_lazio.csv
-# Risultati locali degli esperimenti; conservarli o archiviarli separatamente.
-/output/

@@ -1,0 +1,17 @@
+{
+  "sistema": "regex",
+  "versione": "1.0",
+  "stati": {
+    "ok": 24
+  },
+  "fonti": {
+    "input": {
+      "path": "/Users/mauro/Projects/string-anonym/output/dataset_masking_v4_4/input.jsonl",
+      "sha256": "bf3b907e808c3ecb3c44f0144733add613bc9600f5f02e2159f6fac902fc56ce"
+    },
+    "regole": {
+      "path": "/Users/mauro/Projects/string-anonym/config/regole_masking.json",
+      "sha256": "458cadb14d18b00b327be7e581a078b793d23bba5672803784913b348f1684c4"
+    }
+  }
+}

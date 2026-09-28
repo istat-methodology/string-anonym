@@ -28,16 +28,36 @@ conversazione. Niente turni futuri nella valutazione del funzionamento online.
 Elaborare sia utente sia chatbot. Dichiarare e misurare l'eventuale limite di
 contesto; non troncare silenziosamente i messaggi.
 
-Il rilevatore riceve solo testi e ruoli. Scheda di generazione, slot, valori
+Il componente di riconoscimento riceve solo testi e ruoli. Scheda di generazione, slot, valori
 campionati, trattamento atteso e riepilogo finale non sono input del modello.
 Il riepilogo, se va mascherato come documento, richiede una valutazione separata.
 
 Output: lista di span con campo, start incluso, end escluso, tipo, provenienza
-del rilevatore e, dove disponibile, score. Le posizioni si riferiscono ai
+del componente di riconoscimento e, dove disponibile, score. Le posizioni si riferiscono ai
 caratteri Unicode del testo originale, coerentemente con le annotazioni locali.
 La conversione token/caratteri deve essere verificata, anche con accenti e apostrofi.
 
 ## Architettura minima
+
+**La soluzione di ricerca proposta è ibrida: il riconoscimento combina regular
+expression e una componente modellistica. Non si prevede di riconoscere tutte
+le categorie, e in particolare gli indirizzi, attraverso sole regex.**
+
+I due canali leggono il testo originale in modo indipendente. Il modello non
+riceve soltanto i candidati trovati dalle regex: può individuare uno span anche
+quando nessuna regola produce una corrispondenza. Le regex non sono quindi un
+filtro preliminare obbligatorio. I risultati vengono successivamente combinati.
+
+| Canale | Contributo previsto | Limite da valutare |
+|---|---|---|
+| Regex e regole contestuali | Formati riconoscibili: email, alcune forme di telefono e identificativi; indizi lessicali locali | Il formato non determina da solo la funzione personale o pubblica del valore; varianti non previste possono sfuggire |
+| Modello contestuale | Individuazione di span, inclusi nomi e indirizzi variabili, usando il messaggio e i turni precedenti | Richiede dati appropriati e valutazione; può omettere entità, sbagliare confini o mascherare riferimenti pubblici |
+| Combinazione | Integrare le predizioni e gestire accordi, disaccordi e sovrapposizioni | Nessuna priorità automatica universale delle regex sul modello: la politica va verificata sui dati di validazione |
+
+Le categorie non sono assegnate in modo esclusivo a un canale: il modello può
+riconoscere anche un telefono, e una regola può fornire un indizio su un indirizzo.
+L'obiettivo degli esperimenti è misurare il contributo dei due canali, non
+presupporre che la loro combinazione sia sempre migliore.
 
 1. Regex e modello leggono il testo originale e producono span candidati.
 2. Una funzione combina i risultati e risolve sovrapposizioni con regole
@@ -51,10 +71,134 @@ La conversione token/caratteri deve essere verificata, anche con accenti e apost
    va dedotta da una semplice uguaglianza testuale in contesti incompatibili.
 
 Nessun servizio separato necessario: poche funzioni con un formato comune.
-Errori del rilevatore devono essere espliciti, non convertiti in esiti riusciti
+Errori tecnici del componente di riconoscimento devono essere espliciti, non convertiti in esiti riusciti
 con testo parzialmente mascherato. Conservare gli originali per la ricerca.
 
+### Esempio: riconoscimento e masking degli indirizzi
+
+Un indirizzo non ha un unico formato rigido. Il modello dovrà essere valutato
+su espressioni quali «via Garibaldi 12, Roma», «v. Garibaldi, civico dodici» e
+«piazza dell’Unità, senza numero», oltre che su refusi e informazioni distribuite
+fra turni. Le regex possono contribuire con indizi, ma non costituiscono una
+soluzione sufficiente per questa categoria.
+
+Occorre inoltre distinguere la forma dell'espressione dalla sua funzione:
+
+| Contesto | Decisione attesa |
+|---|---|
+| «Abito in via Garibaldi 12, Roma» | Mascherare «via Garibaldi 12, Roma» come ADDRESS |
+| «Vorrei riceverlo a casa», seguito da «Via Garibaldi 12, Roma» | Usare il turno precedente per riconoscere il recapito personale nel messaggio corrente |
+| «Cerco dati sui residenti di via Garibaldi» | Conservare il riferimento stradale quando è chiaramente oggetto della ricerca, senza funzione identificativa personale |
+
+Nella prima soluzione modellistica si propone di addestrare il modello a
+predire direttamente gli span da mascherare nel contesto: il riconoscimento
+della forma e la decisione contestuale possono quindi essere appresi insieme.
+Non è necessario introdurre un secondo modello dedicato alla decisione.
+
+Il dataset dovrà includere coppie contrastive e varianti di forma, non soltanto
+nuovi nomi di strade inseriti nella stessa frase. Lo stradario compatto oggi
+serve alla generazione: non è un elenco esaustivo per decidere cosa mascherare.
+Una strada assente dallo stradario può essere un indirizzo personale; una strada
+presente può essere un riferimento pubblico da conservare. La generalizzazione
+a nomi e forme non visti deve essere misurata esplicitamente.
+
+## Terminologia
+
+Usiamo **componente di riconoscimento** per il software che individua gli span
+candidati: può applicare regole, un modello o entrambi. Il termine «rilevatore»
+è riservato ai colleghi che svolgono le indagini sul campo.
+
+Il **componente di decisione** stabilisce quali candidati mascherare nel contesto
+e risolve i conflitti. Il **componente di sostituzione** applica le etichette al
+testo. Il **valutatore** confronta le predizioni con le annotazioni revisionate.
+Sono responsabilità logiche, non necessariamente moduli o modelli separati:
+un modello può già incorporare la decisione contestuale nella predizione.
+
+## Workflow di elaborazione di una conversazione
+
+```mermaid
+flowchart TD
+    A[Messaggio corrente e ruolo] --> B[Preparazione del contesto]
+    H[Turni precedenti della stessa conversazione] --> B
+    B --> C[Componente di riconoscimento: regole, modello o entrambi]
+    C --> D[Span candidati sul testo originale]
+    D --> E[Decisione contestuale e risoluzione dei conflitti]
+    E --> F[Span da mascherare e associazione alle entità]
+    F --> G[Sostituzione deterministica]
+    G --> O[Testo mascherato e annotazioni predette]
+    B -. errore tecnico .-> X[Esito di errore esplicito]
+    C -. errore tecnico .-> X
+    E -. errore tecnico .-> X
+    G -. errore tecnico .-> X
+```
+
+1. Validare testo e ruolo, associando ID di conversazione e messaggio solo per
+   tracciabilità. Costruire il contesto senza includere turni futuri o gold.
+2. Riconoscere candidati nel messaggio corrente, usando il passato come contesto.
+   Regole e modello lavorano sullo stesso testo originale, non sul testo già
+   sostituito dall'altro componente.
+3. Decidere quali span mascherare. Risolvere sovrapposizioni e validare confini,
+   tipo e corrispondenza col testo. Le politiche di conflitto vanno versionate.
+4. Associare le occorrenze alle entità della conversazione e assegnare etichette
+   coerenti, per esempio PERSON_1 e PERSON_2. Inizialmente usare corrispondenze
+   conservative; alias e coreferenze ambigue richiedono valutazione dedicata.
+5. Sostituire gli span senza alterare il testo esterno e restituire testo
+   mascherato, annotazioni e stato dell'elaborazione. Aggiornare lo stato della
+   conversazione soltanto dopo un'elaborazione riuscita.
+
+Nella ricerca il contesto è costituito dai turni originali precedenti, disponibili
+nell'ambiente di elaborazione; le annotazioni gold non fanno parte dello stato.
+L'eventuale uso del solo passato mascherato sarà un esperimento distinto, perché
+modifica le informazioni disponibili. Per ogni esperimento azzerare lo stato tra
+conversazioni e mantenerlo separato fra sistemi confrontati.
+
+Un esito riuscito con zero span è diverso da un errore tecnico. Nel secondo caso
+non presentare il testo come correttamente mascherato; registrare il fallimento
+separatamente dalle omissioni di previsione. Il comportamento operativo in caso
+di errore sarà definito prima dell'integrazione nel servizio.
+
+Esempio: «Cerco dati su Roma; abito in Via Verdi 12, Milano». La decisione
+conserva Roma come oggetto della ricerca e maschera l'indirizzo personale;
+la sostituzione produce «Cerco dati su Roma; abito in [ADDRESS_1]».
+
+## Workflow della ricerca
+
+```mermaid
+flowchart TD
+    A[Lotti sintetici e annotazioni da slot] --> B[Revisione e separazione degli scarti]
+    B --> C[Esportazione: input separati dalle annotazioni attese]
+    C --> D[Dati di sviluppo e validazione]
+    D --> E[Esecuzione R, M e R+M]
+    E --> F[Predizioni e fallimenti tecnici]
+    F --> G[Valutatore e analisi degli errori]
+    C --> GOLD[Annotazioni revisionate]
+    GOLD --> G
+    G --> I[Revisione di regole, modello e copertura dei dati]
+    I --> D
+    I --> NEW[Nuove varianti e nuovi dati di sviluppo]
+    NEW --> B
+    I --> FREEZE[Configurazione finale congelata]
+    TEST[Test indipendente revisionato e tenuto da parte] --> FINAL[Valutazione finale]
+    FREEZE --> FINAL
+```
+
+I lotti già esaminati alimentano lo sviluppo. Prima di generare il dataset più
+ampio si riservano famiglie di varianti per validazione e test. Le annotazioni
+attese sono accessibili al valutatore; quelle di training sono usate come target
+di addestramento, mai come parte dell'input testuale del modello. Gli errori sul
+test finale non guidano una nuova ottimizzazione mantenendo lo stesso test come
+indipendente: in quel caso occorre un nuovo insieme finale.
+
+Primo incremento concreto: esportatore, piccolo insieme revisionato, valutatore,
+baseline a regole e sostituzione. Successivamente ampliare i dati e introdurre
+il modello, mantenendo input, output e metriche comuni. Nessuno dei due diagrammi
+implica che questi componenti siano già implementati.
+
 ## Esperimenti
+
+La baseline a sole regole è un riferimento sperimentale e un primo incremento
+implementativo, **non l'architettura finale proposta né una promessa di copertura
+degli indirizzi**. La componente modellistica fa parte del percorso previsto.
 
 - R: baseline a regole, con formati e contesto locale espliciti.
 - M: encoder preaddestrato a pesi aperti, adattato al riconoscimento degli span

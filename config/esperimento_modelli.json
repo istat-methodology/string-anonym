@@ -1,0 +1,95 @@
+{
+  "versione": "1.0",
+  "contesto": "messaggio_isolato",
+  "input": "output/dataset_masking_v4_4/input.jsonl",
+  "attese": "output/dataset_masking_v4_4/annotazioni_attese.jsonl",
+  "output": "output/confronto_modelli_v1_v4_4",
+  "modelli": [
+    {
+      "nome": "gliner_multi",
+      "repository": "urchade/gliner_multi-v2.1",
+      "revision": "main",
+      "backend": "gliner",
+      "soglia": 0.5,
+      "max_tokens": 384,
+      "etichette": {
+        "person": "PERSON",
+        "full address": "ADDRESS",
+        "email": "EMAIL",
+        "phone number": "PHONE",
+        "username": "COD_UTENTE",
+        "password": "PASSWORD",
+        "case reference number": "NUM_PRATICA"
+      },
+      "unisci_adiacenti": [],
+      "licenza": "apache-2.0"
+    },
+    {
+      "nome": "gliner_pii",
+      "repository": "urchade/gliner_multi_pii-v1",
+      "revision": "main",
+      "backend": "gliner",
+      "soglia": 0.5,
+      "max_tokens": 384,
+      "etichette": {
+        "person": "PERSON",
+        "full address": "ADDRESS",
+        "email": "EMAIL",
+        "phone number": "PHONE",
+        "username": "COD_UTENTE",
+        "password": "PASSWORD",
+        "case reference number": "NUM_PRATICA"
+      },
+      "unisci_adiacenti": [],
+      "licenza": "apache-2.0"
+    },
+    {
+      "nome": "wikineural",
+      "repository": "Babelscape/wikineural-multilingual-ner",
+      "revision": "main",
+      "backend": "transformers",
+      "soglia": 0.0,
+      "max_tokens": 512,
+      "etichette": {
+        "PER": "PERSON",
+        "LOC": null,
+        "ORG": null,
+        "MISC": null
+      },
+      "unisci_adiacenti": [],
+      "licenza": "cc-by-nc-sa-4.0"
+    },
+    {
+      "nome": "piiranha",
+      "repository": "iiiorg/piiranha-v1-detect-personal-information",
+      "revision": "main",
+      "backend": "transformers",
+      "soglia": 0.0,
+      "max_tokens": 256,
+      "etichette": {
+        "ACCOUNTNUM": null,
+        "BUILDINGNUM": "ADDRESS",
+        "CITY": null,
+        "CREDITCARDNUMBER": null,
+        "DATEOFBIRTH": null,
+        "DRIVERLICENSENUM": null,
+        "EMAIL": "EMAIL",
+        "GIVENNAME": "PERSON",
+        "IDCARDNUM": null,
+        "PASSWORD": "PASSWORD",
+        "SOCIALNUM": null,
+        "STREET": "ADDRESS",
+        "SURNAME": "PERSON",
+        "TAXNUM": null,
+        "TELEPHONENUM": "PHONE",
+        "USERNAME": "COD_UTENTE",
+        "ZIPCODE": "ADDRESS"
+      },
+      "unisci_adiacenti": [
+        "PERSON",
+        "ADDRESS"
+      ],
+      "licenza": "cc-by-nc-nd-4.0"
+    }
+  ]
+}

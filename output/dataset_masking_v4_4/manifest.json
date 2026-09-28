@@ -1,0 +1,29 @@
+{
+  "versione": "1.0",
+  "uso": "sviluppo; non test finale né gold approvato",
+  "fonti": [
+    {
+      "path": "/Users/mauro/Projects/string-anonym/output/lotto_openai_mirato_v4_4/chat_lotto.jsonl",
+      "sha256": "d3fc0b6eccb33a5ca244cb6e121b30178b30209a341bdd69ee481bb0396c87d5"
+    }
+  ],
+  "revisioni": [],
+  "record_letti": 24,
+  "esportati": 24,
+  "esclusi": 0,
+  "categorie": {
+    "COD_UTENTE": 8,
+    "PASSWORD": 8,
+    "NUM_PRATICA": 8,
+    "PHONE": 8,
+    "PERSON": 6,
+    "EMAIL": 4,
+    "ADDRESS": 4
+  },
+  "annotazioni_fuori_dialogo_omesse": 23,
+  "revisione_qualitativa": {
+    "non_revisionato": 24
+  },
+  "contesto": "Per ogni messaggio usare solo i turni precedenti, mai quelli futuri.",
+  "input_modello": "Solo conversazione: testi e ruoli; id è una chiave tecnica, non una feature."
+}

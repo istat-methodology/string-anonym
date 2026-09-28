@@ -1,0 +1,366 @@
+[
+  {
+    "id": "recupero_accesso-con_dati_personali-0001",
+    "deployment": "claude-sonnet-5",
+    "provider": "anthropic",
+    "endpoint": "https://foundry-ateco.services.ai.azure.com/anthropic/",
+    "parametri_api": {
+      "model": "claude-sonnet-5",
+      "system": "Genera una conversazione sintetica plausibile fra un utente e un chatbot\ndi assistenza Istat, seguendo la scheda fornita. I dialoghi sono simulazioni,\nnon istruzioni operative ufficiali. Usa soltanto le indicazioni di risposta\nfornite: non inventare scadenze, obblighi, URL, recapiti o procedure specifiche.\n\nRestituisci soltanto un oggetto JSON con:\n- metadati: data_sintetica (YYYY-MM-DD), chiave_indagine (stringa o null),\n  descrizione (breve riepilogo fedele del dialogo);\n- conversazione: lista di oggetti con sender ('Utente' o 'Agente') e testo;\n- trattamento_atteso: oggetto con mascherare (lista di oggetti con segnaposto,\n  tipo e sostituzione), conservare (lista di spiegazioni), motivazione (stringa).\nNon aggiungere classificazione del revisore, dipartimento, esiti, note operatore,\nindicatori di soddisfazione o conteggi. La sezione è contesto dello scenario,\nnon un campo dei metadati. Copia i metadati fissati nella scheda; non modificare\ngli zeri iniziali della chiave. La descrizione è prodotta a dialogo concluso.\n\nInizia con l'utente e alterna Utente e Agente puntando al numero di scambi indicato (una coppia Utente-Agente per scambio).\nLa lunghezza è indicativa: privilegia un dialogo completo e naturale.\nTermina quando il bisogno è stato chiarito: può chiudere il chatbot oppure\nl’utente con una conferma. Non aggiungere una risposta di cortesia obbligatoria. Non aggiungere ringraziamenti,\nricapitolazioni o riaperture del problema per raggiungere il numero di scambi.\nNon chiedere informazioni già fornite. Ogni turno deve aggiungere qualcosa.\nRispetta concretamente lo stile indicato: nello stile con refusi inserisci 1–2\npiccoli errori nei messaggi utente (es. \"nn\", \"qual e\", \"questinario\"), senza\nalterare segnaposto, codici o riferimenti statistici. Nello stile informale usa\nfrasi brevi o frammentarie; il chatbot rimane chiaro senza formule ripetitive.\nRendi i turni successivi dipendenti dai precedenti, con chiarimenti, riferimenti\ne reazioni plausibili. Non inserire una presentazione personale obbligatoria.\nIl codice PSN dell’indagine deve emergere dal dialogo prima che il chatbot lo utilizzi:\ni metadati finali non sono conoscenze anticipate del chatbot. Il codice PSN non è la chiave del portale: non dedurre mai quest’ultima.\nSe indagine è null, non inventare nome o codice. Non chiedere password o dati personali per riempire il dialogo: se previsti,\nl’utente li comunica spontaneamente. Prot.n. è un’introduzione, fuori dallo slot NUM_PRATICA.\nIl contesto_statistico contiene riferimenti\npubblici da usare letteralmente e conservare: un comune oggetto di ricerca non\nè un indirizzo personale. Fai emergere questi riferimenti nei messaggi utente\nprima che il chatbot li utilizzi.\n\nUsa esattamente i segnaposto autorizzati per le entità personali, senza creare\nnomi, indirizzi, email, password o identificativi personali fuori dai segnaposto.\nOgni entità include un valore_proposto campionato localmente: usalo come\ncontesto, ma nel testo scrivi il segnaposto. Il valore sarà inserito in seguito.\nSe un'entità si ripete, riusa lo stesso segnaposto, anche nella descrizione.\nNon alterare i segnaposto con refusi e non inventarne altri. Inserisci tutte le\nentità richieste in modo naturale nel dialogo, anche in turni successivi.\nPer 'senza_dati_personali' non inserire alcuna entità personale e restituisci\nmascherare vuoto. Per 'con_dati_personali' inserisci le entità previste.\nIn entrambe le modalità conserva i riferimenti al servizio utili: non sono\nidentificativi dell'utente. Non inserire entità personali non richieste.\nIl trattamento atteso deve essere coerente con ciò che compare effettivamente\nnel dialogo e nei metadati, non un elenco generico.\n",
+      "messages": [
+        {
+          "role": "user",
+          "content": "{\n  \"scenario\": \"recupero_accesso\",\n  \"sezione\": \"Assistenza ai rispondenti\",\n  \"situazione\": \"L'utente deve recuperare l'accesso. Il chatbot chiarisce il ruolo di responsabile o delegato. Un tentativo di recupero non risolve il problema perché la vecchia casella email non è accessibile.\",\n  \"contesto_statistico\": {},\n  \"metadati_fissati\": {\n    \"data_sintetica\": \"2026-04-16\",\n    \"chiave_indagine\": null\n  },\n  \"nome_indagine\": \"Rilevazione sulle tecnologie dell’informazione e della comunicazione nelle imprese\",\n  \"indagine\": {\n    \"codice_psn\": \"IST-01175\",\n    \"nome_indagine\": \"Rilevazione sulle tecnologie dell’informazione e della comunicazione nelle imprese\",\n    \"tipo_rispondente\": \"imprese\"\n  },\n  \"scenario_catalogo\": \"A01\",\n  \"tipo_rispondente\": \"imprese\",\n  \"lingua\": \"it\",\n  \"split\": \"pilota\",\n  \"modalita\": \"con_dati_personali\",\n  \"numero_scambi\": 5,\n  \"stile\": \"neutro\",\n  \"entita_previste\": [\n    {\n      \"tipo\": \"COD_UTENTE\",\n      \"segnaposto\": \"{{cod_utente_1}}\",\n      \"sostituzione\": \"[COD_UTENTE_1]\",\n      \"id_entita\": \"cod_utente_1\",\n      \"id_forma\": \"completa\",\n      \"valore_proposto\": \"P094892411\"\n    },\n    {\n      \"tipo\": \"EMAIL\",\n      \"segnaposto\": \"{{email_1}}\",\n      \"sostituzione\": \"[EMAIL_1]\",\n      \"id_entita\": \"email_1\",\n      \"id_forma\": \"completa\",\n      \"valore_proposto\": \"ioana.ciccioli@example.org\"\n    },\n    {\n      \"tipo\": \"PERSON\",\n      \"segnaposto\": \"{{persona_1}}\",\n      \"sostituzione\": \"[PERSON_1]\",\n      \"id_entita\": \"persona_1\",\n      \"id_forma\": \"completa\",\n      \"valore_proposto\": \"Ioana Ciccioli\"\n    }\n  ],\n  \"riferimenti_da_conservare\": [\n    \"ruolo di responsabile o delegato\",\n    \"nome e codice PSN dell'indagine\",\n    \"mancato accesso alla vecchia casella\"\n  ],\n  \"indicazioni_risposta\": \"Chiedere chiarimenti sul ruolo e sul tentativo già effettuato; suggerire di richiedere assistenza per aggiornare il recapito senza promettere modifiche dirette all'account. Non chiedere password.\"\n}"
+        }
+      ],
+      "max_tokens": 6000
+    },
+    "data_generazione": "2026-09-27T08:46:10.510570+00:00",
+    "max_output_tokens": 6000,
+    "prompt": {
+      "id": "recupero_accesso-con_dati_personali-0001",
+      "versione_prompt": "4.0",
+      "versione_catalogo": "4.0",
+      "versione_regole": "1.0",
+      "regole_generazione": {
+        "versione": "1.0",
+        "COD_UTENTE": {
+          "stato": "formati_di_simulazione",
+          "varianti": [
+            {
+              "prefisso": "P0",
+              "cifre": 8
+            },
+            {
+              "prefisso": "QOL",
+              "cifre": 7
+            },
+            {
+              "prefisso": "",
+              "cifre": 9
+            }
+          ]
+        },
+        "NUM_PRATICA": {
+          "stato": "provvisorio_da_confermare",
+          "cifre": 7,
+          "separatore": "/",
+          "anni": [
+            "25",
+            "26"
+          ],
+          "nota": "Prot.n. resta nel testo e fuori dallo span. Esempio: 1589563/25."
+        },
+        "PASSWORD": {
+          "stato": "formato_di_simulazione",
+          "lunghezze": [
+            8,
+            10,
+            12
+          ],
+          "alfabeto": "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789!@#"
+        },
+        "PHONE": {
+          "stato": "formato_di_simulazione",
+          "prefissi": [
+            "",
+            "+39 "
+          ],
+          "inizio": "3",
+          "cifre": 9,
+          "separatori": [
+            "",
+            " ",
+            "."
+          ]
+        },
+        "COD_UNITA": {
+          "stato": "in_attesa_di_formato",
+          "nota": "Non generare finché non è disponibile una regola concordata."
+        }
+      },
+      "seed": 0,
+      "scheda": {
+        "scenario": "recupero_accesso",
+        "sezione": "Assistenza ai rispondenti",
+        "situazione": "L'utente deve recuperare l'accesso. Il chatbot chiarisce il ruolo di responsabile o delegato. Un tentativo di recupero non risolve il problema perché la vecchia casella email non è accessibile.",
+        "contesto_statistico": {},
+        "metadati_fissati": {
+          "data_sintetica": "2026-04-16",
+          "chiave_indagine": null
+        },
+        "nome_indagine": "Rilevazione sulle tecnologie dell’informazione e della comunicazione nelle imprese",
+        "indagine": {
+          "codice_psn": "IST-01175",
+          "nome_indagine": "Rilevazione sulle tecnologie dell’informazione e della comunicazione nelle imprese",
+          "tipo_rispondente": "imprese"
+        },
+        "scenario_catalogo": "A01",
+        "tipo_rispondente": "imprese",
+        "lingua": "it",
+        "split": "pilota",
+        "modalita": "con_dati_personali",
+        "numero_scambi": 5,
+        "stile": "neutro",
+        "entita_previste": [
+          {
+            "tipo": "COD_UTENTE",
+            "segnaposto": "{{cod_utente_1}}",
+            "sostituzione": "[COD_UTENTE_1]",
+            "id_entita": "cod_utente_1",
+            "id_forma": "completa",
+            "valore_proposto": "P094892411"
+          },
+          {
+            "tipo": "EMAIL",
+            "segnaposto": "{{email_1}}",
+            "sostituzione": "[EMAIL_1]",
+            "id_entita": "email_1",
+            "id_forma": "completa",
+            "valore_proposto": "ioana.ciccioli@example.org"
+          },
+          {
+            "tipo": "PERSON",
+            "segnaposto": "{{persona_1}}",
+            "sostituzione": "[PERSON_1]",
+            "id_entita": "persona_1",
+            "id_forma": "completa",
+            "valore_proposto": "Ioana Ciccioli"
+          }
+        ],
+        "riferimenti_da_conservare": [
+          "ruolo di responsabile o delegato",
+          "nome e codice PSN dell'indagine",
+          "mancato accesso alla vecchia casella"
+        ],
+        "indicazioni_risposta": "Chiedere chiarimenti sul ruolo e sul tentativo già effettuato; suggerire di richiedere assistenza per aggiornare il recapito senza promettere modifiche dirette all'account. Non chiedere password."
+      },
+      "messages": [
+        {
+          "role": "system",
+          "content": "Genera una conversazione sintetica plausibile fra un utente e un chatbot\ndi assistenza Istat, seguendo la scheda fornita. I dialoghi sono simulazioni,\nnon istruzioni operative ufficiali. Usa soltanto le indicazioni di risposta\nfornite: non inventare scadenze, obblighi, URL, recapiti o procedure specifiche.\n\nRestituisci soltanto un oggetto JSON con:\n- metadati: data_sintetica (YYYY-MM-DD), chiave_indagine (stringa o null),\n  descrizione (breve riepilogo fedele del dialogo);\n- conversazione: lista di oggetti con sender ('Utente' o 'Agente') e testo;\n- trattamento_atteso: oggetto con mascherare (lista di oggetti con segnaposto,\n  tipo e sostituzione), conservare (lista di spiegazioni), motivazione (stringa).\nNon aggiungere classificazione del revisore, dipartimento, esiti, note operatore,\nindicatori di soddisfazione o conteggi. La sezione è contesto dello scenario,\nnon un campo dei metadati. Copia i metadati fissati nella scheda; non modificare\ngli zeri iniziali della chiave. La descrizione è prodotta a dialogo concluso.\n\nInizia con l'utente e alterna Utente e Agente puntando al numero di scambi indicato (una coppia Utente-Agente per scambio).\nLa lunghezza è indicativa: privilegia un dialogo completo e naturale.\nTermina quando il bisogno è stato chiarito: può chiudere il chatbot oppure\nl’utente con una conferma. Non aggiungere una risposta di cortesia obbligatoria. Non aggiungere ringraziamenti,\nricapitolazioni o riaperture del problema per raggiungere il numero di scambi.\nNon chiedere informazioni già fornite. Ogni turno deve aggiungere qualcosa.\nRispetta concretamente lo stile indicato: nello stile con refusi inserisci 1–2\npiccoli errori nei messaggi utente (es. \"nn\", \"qual e\", \"questinario\"), senza\nalterare segnaposto, codici o riferimenti statistici. Nello stile informale usa\nfrasi brevi o frammentarie; il chatbot rimane chiaro senza formule ripetitive.\nRendi i turni successivi dipendenti dai precedenti, con chiarimenti, riferimenti\ne reazioni plausibili. Non inserire una presentazione personale obbligatoria.\nIl codice PSN dell’indagine deve emergere dal dialogo prima che il chatbot lo utilizzi:\ni metadati finali non sono conoscenze anticipate del chatbot. Il codice PSN non è la chiave del portale: non dedurre mai quest’ultima.\nSe indagine è null, non inventare nome o codice. Non chiedere password o dati personali per riempire il dialogo: se previsti,\nl’utente li comunica spontaneamente. Prot.n. è un’introduzione, fuori dallo slot NUM_PRATICA.\nIl contesto_statistico contiene riferimenti\npubblici da usare letteralmente e conservare: un comune oggetto di ricerca non\nè un indirizzo personale. Fai emergere questi riferimenti nei messaggi utente\nprima che il chatbot li utilizzi.\n\nUsa esattamente i segnaposto autorizzati per le entità personali, senza creare\nnomi, indirizzi, email, password o identificativi personali fuori dai segnaposto.\nOgni entità include un valore_proposto campionato localmente: usalo come\ncontesto, ma nel testo scrivi il segnaposto. Il valore sarà inserito in seguito.\nSe un'entità si ripete, riusa lo stesso segnaposto, anche nella descrizione.\nNon alterare i segnaposto con refusi e non inventarne altri. Inserisci tutte le\nentità richieste in modo naturale nel dialogo, anche in turni successivi.\nPer 'senza_dati_personali' non inserire alcuna entità personale e restituisci\nmascherare vuoto. Per 'con_dati_personali' inserisci le entità previste.\nIn entrambe le modalità conserva i riferimenti al servizio utili: non sono\nidentificativi dell'utente. Non inserire entità personali non richieste.\nIl trattamento atteso deve essere coerente con ciò che compare effettivamente\nnel dialogo e nei metadati, non un elenco generico.\n"
+        },
+        {
+          "role": "user",
+          "content": "{\n  \"scenario\": \"recupero_accesso\",\n  \"sezione\": \"Assistenza ai rispondenti\",\n  \"situazione\": \"L'utente deve recuperare l'accesso. Il chatbot chiarisce il ruolo di responsabile o delegato. Un tentativo di recupero non risolve il problema perché la vecchia casella email non è accessibile.\",\n  \"contesto_statistico\": {},\n  \"metadati_fissati\": {\n    \"data_sintetica\": \"2026-04-16\",\n    \"chiave_indagine\": null\n  },\n  \"nome_indagine\": \"Rilevazione sulle tecnologie dell’informazione e della comunicazione nelle imprese\",\n  \"indagine\": {\n    \"codice_psn\": \"IST-01175\",\n    \"nome_indagine\": \"Rilevazione sulle tecnologie dell’informazione e della comunicazione nelle imprese\",\n    \"tipo_rispondente\": \"imprese\"\n  },\n  \"scenario_catalogo\": \"A01\",\n  \"tipo_rispondente\": \"imprese\",\n  \"lingua\": \"it\",\n  \"split\": \"pilota\",\n  \"modalita\": \"con_dati_personali\",\n  \"numero_scambi\": 5,\n  \"stile\": \"neutro\",\n  \"entita_previste\": [\n    {\n      \"tipo\": \"COD_UTENTE\",\n      \"segnaposto\": \"{{cod_utente_1}}\",\n      \"sostituzione\": \"[COD_UTENTE_1]\",\n      \"id_entita\": \"cod_utente_1\",\n      \"id_forma\": \"completa\",\n      \"valore_proposto\": \"P094892411\"\n    },\n    {\n      \"tipo\": \"EMAIL\",\n      \"segnaposto\": \"{{email_1}}\",\n      \"sostituzione\": \"[EMAIL_1]\",\n      \"id_entita\": \"email_1\",\n      \"id_forma\": \"completa\",\n      \"valore_proposto\": \"ioana.ciccioli@example.org\"\n    },\n    {\n      \"tipo\": \"PERSON\",\n      \"segnaposto\": \"{{persona_1}}\",\n      \"sostituzione\": \"[PERSON_1]\",\n      \"id_entita\": \"persona_1\",\n      \"id_forma\": \"completa\",\n      \"valore_proposto\": \"Ioana Ciccioli\"\n    }\n  ],\n  \"riferimenti_da_conservare\": [\n    \"ruolo di responsabile o delegato\",\n    \"nome e codice PSN dell'indagine\",\n    \"mancato accesso alla vecchia casella\"\n  ],\n  \"indicazioni_risposta\": \"Chiedere chiarimenti sul ruolo e sul tentativo già effettuato; suggerire di richiedere assistenza per aggiornare il recapito senza promettere modifiche dirette all'account. Non chiedere password.\"\n}"
+        }
+      ],
+      "provenienza_locale": {
+        "specifica": "0.4",
+        "sha256_file": {
+          "nomi.txt": "d889315b2c5561e25b6e83b17c21982992c5813c32a2b5e4e1240bc06fbab88f",
+          "cognomi.txt": "60db87325b74d6c5bc49f67c90bc52fb850d9190101295ea611b32f80b115ee2",
+          "codici_comuni.csv": "5a429133df12f9b9e16d193f93df628952d8c33c36f44fa6d8ac3e171975afca",
+          "strade_lazio.csv": "a96f8e2bc9468f1b7e9f430d37209c6ea3be3de76c21b6f768da11e8d655fed1",
+          "codici_psn.csv": "6ff087e0f10be4f1fd6deddd1b49efc0779503651243789059968164dfea9fed",
+          "scenari.json": "9f39ec44670bba7050e061d0010db285655b4940c021ee7f97a76603a924249c",
+          "regole_generazione.json": "7357e333aa164c36bbea0f5f4c76c5a868690240364f0fcbae287abc96ad8631"
+        }
+      }
+    },
+    "risposta_originale": {
+      "id": "msg_011CfTemiNexYiiSCZNzGaFY",
+      "container": null,
+      "content": [
+        {
+          "citations": null,
+          "text": "{\n  \"metadati\": {\n    \"data_sintetica\": \"2026-04-16\",\n    \"chiave_indagine\": null,\n    \"descrizione\": \"Un'utente, riferendosi alla Rilevazione sulle tecnologie dell'informazione e della comunicazione nelle imprese (IST-01175), segnala di non riuscire ad accedere perché la procedura di recupero invia il codice alla vecchia email non più attiva. Il chatbot chiarisce il ruolo di responsabile/delegato e suggerisce di richiedere assistenza per l'aggiornamento del recapito, senza garantire modifiche dirette.\"\n  },\n  \"conversazione\": [\n    {\n      \"sender\": \"Utente\",\n      \"testo\": \"Buongiorno, sono {{persona_1}} e non riesco più ad accedere per compilare il questionario dell'indagine sulle tecnologie dell'informazione e della comunicazione nelle imprese, codice IST-01175.\"\n    },\n    {\n      \"sender\": \"Agente\",\n      \"testo\": \"Buongiorno. Per capire come aiutarla, mi conferma se lei è il responsabile della compilazione per l'impresa oppure un delegato indicato da quest'ultimo?\"\n    },\n    {\n      \"sender\": \"Utente\",\n      \"testo\": \"Sono la responsabile, il mio codice utente è {{cod_utente_1}}. Ho provato la procedura di recupero ma nn ha funzionato.\"\n    },\n    {\n      \"sender\": \"Agente\",\n      \"testo\": \"Grazie per il codice. Può dirmi cosa succede esattamente quando avvia il recupero? Ad esempio riceve un messaggio di errore o non arriva nulla?\"\n    },\n    {\n      \"sender\": \"Utente\",\n      \"testo\": \"Il sistema dice che ha inviato il codice a {{email_1}}, ma quella casella non esiste più, era della vecchia sede.\"\n    },\n    {\n      \"sender\": \"Agente\",\n      \"testo\": \"Capisco, quindi il recupero automatico non può funzionare perché il recapito registrato non è più attivo. In questo caso non posso modificare direttamente l'email associata all'account: le consiglio di richiedere assistenza specifica per l'aggiornamento del recapito, indicando il codice utente e i suoi dati di responsabile, così che possano verificare l'identità e procedere con l'aggiornamento.\"\n    },\n    {\n      \"sender\": \"Utente\",\n      \"testo\": \"Va bene, quindi devo aspettare che aggiornino l'indirizzo prima di poter tentare di nuovo il recupero, giusto?\"\n    },\n    {\n      \"sender\": \"Agente\",\n      \"testo\": \"Esatto, una volta aggiornato il recapito potrà ripetere la procedura di recupero e ricevere il codice sulla nuova casella email. Nel frattempo tenga a portata di mano il codice utente {{cod_utente_1}} per velocizzare la verifica.\"\n    }\n  ],\n  \"trattamento_atteso\": {\n    \"mascherare\": [\n      {\"segnaposto\": \"{{persona_1}}\", \"tipo\": \"PERSON\", \"sostituzione\": \"[PERSON_1]\"},\n      {\"segnaposto\": \"{{cod_utente_1}}\", \"tipo\": \"COD_UTENTE\", \"sostituzione\": \"[COD_UTENTE_1]\"},\n      {\"segnaposto\": \"{{email_1}}\", \"tipo\": \"EMAIL\", \"sostituzione\": \"[EMAIL_1]\"}\n    ],\n    \"conservare\": [\n      \"Il riferimento al ruolo di responsabile/delegato va mantenuto in chiaro perché descrive una funzione, non un dato personale identificativo.\",\n      \"Il nome e il codice PSN dell'indagine (Rilevazione sulle tecnologie dell'informazione e della comunicazione nelle imprese, IST-01175) sono riferimenti pubblici e vanno conservati.\",\n      \"La descrizione del problema (vecchia casella email non accessibile) va mantenuta come contesto della richiesta di assistenza.\"\n    ],\n    \"motivazione\": \"Il dialogo contiene dati personali dell'utente (nome, codice utente, indirizzo email) che devono essere mascherati con i segnaposto previsti, mentre i riferimenti al ruolo istituzionale e all'indagine restano in chiaro in quanto informazioni pubbliche o funzionali necessarie a comprendere la richiesta di assistenza.\"\n  }\n}",
+          "type": "text"
+        }
+      ],
+      "model": "claude-sonnet-5",
+      "role": "assistant",
+      "stop_details": null,
+      "stop_reason": "end_turn",
+      "stop_sequence": null,
+      "type": "message",
+      "usage": {
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 0,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "inference_geo": "global",
+        "input_tokens": 2472,
+        "output_tokens": 1521,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "server_tool_use": null,
+        "service_tier": "standard"
+      },
+      "diagnostics": null
+    },
+    "chat_template": {
+      "metadati": {
+        "data_sintetica": "2026-04-16",
+        "chiave_indagine": null,
+        "descrizione": "Un'utente, riferendosi alla Rilevazione sulle tecnologie dell'informazione e della comunicazione nelle imprese (IST-01175), segnala di non riuscire ad accedere perché la procedura di recupero invia il codice alla vecchia email non più attiva. Il chatbot chiarisce il ruolo di responsabile/delegato e suggerisce di richiedere assistenza per l'aggiornamento del recapito, senza garantire modifiche dirette."
+      },
+      "conversazione": [
+        {
+          "sender": "Utente",
+          "testo": "Buongiorno, sono {{persona_1}} e non riesco più ad accedere per compilare il questionario dell'indagine sulle tecnologie dell'informazione e della comunicazione nelle imprese, codice IST-01175."
+        },
+        {
+          "sender": "Agente",
+          "testo": "Buongiorno. Per capire come aiutarla, mi conferma se lei è il responsabile della compilazione per l'impresa oppure un delegato indicato da quest'ultimo?"
+        },
+        {
+          "sender": "Utente",
+          "testo": "Sono la responsabile, il mio codice utente è {{cod_utente_1}}. Ho provato la procedura di recupero ma nn ha funzionato."
+        },
+        {
+          "sender": "Agente",
+          "testo": "Grazie per il codice. Può dirmi cosa succede esattamente quando avvia il recupero? Ad esempio riceve un messaggio di errore o non arriva nulla?"
+        },
+        {
+          "sender": "Utente",
+          "testo": "Il sistema dice che ha inviato il codice a {{email_1}}, ma quella casella non esiste più, era della vecchia sede."
+        },
+        {
+          "sender": "Agente",
+          "testo": "Capisco, quindi il recupero automatico non può funzionare perché il recapito registrato non è più attivo. In questo caso non posso modificare direttamente l'email associata all'account: le consiglio di richiedere assistenza specifica per l'aggiornamento del recapito, indicando il codice utente e i suoi dati di responsabile, così che possano verificare l'identità e procedere con l'aggiornamento."
+        },
+        {
+          "sender": "Utente",
+          "testo": "Va bene, quindi devo aspettare che aggiornino l'indirizzo prima di poter tentare di nuovo il recupero, giusto?"
+        },
+        {
+          "sender": "Agente",
+          "testo": "Esatto, una volta aggiornato il recapito potrà ripetere la procedura di recupero e ricevere il codice sulla nuova casella email. Nel frattempo tenga a portata di mano il codice utente {{cod_utente_1}} per velocizzare la verifica."
+        }
+      ],
+      "trattamento_atteso": {
+        "mascherare": [
+          {
+            "segnaposto": "{{persona_1}}",
+            "tipo": "PERSON",
+            "sostituzione": "[PERSON_1]"
+          },
+          {
+            "segnaposto": "{{cod_utente_1}}",
+            "tipo": "COD_UTENTE",
+            "sostituzione": "[COD_UTENTE_1]"
+          },
+          {
+            "segnaposto": "{{email_1}}",
+            "tipo": "EMAIL",
+            "sostituzione": "[EMAIL_1]"
+          }
+        ],
+        "conservare": [
+          "Il riferimento al ruolo di responsabile/delegato va mantenuto in chiaro perché descrive una funzione, non un dato personale identificativo.",
+          "Il nome e il codice PSN dell'indagine (Rilevazione sulle tecnologie dell'informazione e della comunicazione nelle imprese, IST-01175) sono riferimenti pubblici e vanno conservati.",
+          "La descrizione del problema (vecchia casella email non accessibile) va mantenuta come contesto della richiesta di assistenza."
+        ],
+        "motivazione": "Il dialogo contiene dati personali dell'utente (nome, codice utente, indirizzo email) che devono essere mascherati con i segnaposto previsti, mentre i riferimenti al ruolo istituzionale e all'indagine restano in chiaro in quanto informazioni pubbliche o funzionali necessarie a comprendere la richiesta di assistenza."
+      }
+    },
+    "chat": {
+      "metadati": {
+        "data_sintetica": "2026-04-16",
+        "chiave_indagine": null,
+        "descrizione": "Un'utente, riferendosi alla Rilevazione sulle tecnologie dell'informazione e della comunicazione nelle imprese (IST-01175), segnala di non riuscire ad accedere perché la procedura di recupero invia il codice alla vecchia email non più attiva. Il chatbot chiarisce il ruolo di responsabile/delegato e suggerisce di richiedere assistenza per l'aggiornamento del recapito, senza garantire modifiche dirette."
+      },
+      "conversazione": [
+        {
+          "sender": "Utente",
+          "testo": "Buongiorno, sono Ioana Ciccioli e non riesco più ad accedere per compilare il questionario dell'indagine sulle tecnologie dell'informazione e della comunicazione nelle imprese, codice IST-01175."
+        },
+        {
+          "sender": "Agente",
+          "testo": "Buongiorno. Per capire come aiutarla, mi conferma se lei è il responsabile della compilazione per l'impresa oppure un delegato indicato da quest'ultimo?"
+        },
+        {
+          "sender": "Utente",
+          "testo": "Sono la responsabile, il mio codice utente è P094892411. Ho provato la procedura di recupero ma nn ha funzionato."
+        },
+        {
+          "sender": "Agente",
+          "testo": "Grazie per il codice. Può dirmi cosa succede esattamente quando avvia il recupero? Ad esempio riceve un messaggio di errore o non arriva nulla?"
+        },
+        {
+          "sender": "Utente",
+          "testo": "Il sistema dice che ha inviato il codice a ioana.ciccioli@example.org, ma quella casella non esiste più, era della vecchia sede."
+        },
+        {
+          "sender": "Agente",
+          "testo": "Capisco, quindi il recupero automatico non può funzionare perché il recapito registrato non è più attivo. In questo caso non posso modificare direttamente l'email associata all'account: le consiglio di richiedere assistenza specifica per l'aggiornamento del recapito, indicando il codice utente e i suoi dati di responsabile, così che possano verificare l'identità e procedere con l'aggiornamento."
+        },
+        {
+          "sender": "Utente",
+          "testo": "Va bene, quindi devo aspettare che aggiornino l'indirizzo prima di poter tentare di nuovo il recupero, giusto?"
+        },
+        {
+          "sender": "Agente",
+          "testo": "Esatto, una volta aggiornato il recapito potrà ripetere la procedura di recupero e ricevere il codice sulla nuova casella email. Nel frattempo tenga a portata di mano il codice utente P094892411 per velocizzare la verifica."
+        }
+      ],
+      "trattamento_atteso": {
+        "mascherare": [
+          {
+            "campo": "conversazione.0.testo",
+            "start": 17,
+            "end": 31,
+            "tipo": "PERSON",
+            "id_entita": "persona_1",
+            "id_forma": "completa",
+            "testo": "Ioana Ciccioli",
+            "sostituzione": "[PERSON_1]"
+          },
+          {
+            "campo": "conversazione.2.testo",
+            "start": 45,
+            "end": 55,
+            "tipo": "COD_UTENTE",
+            "id_entita": "cod_utente_1",
+            "id_forma": "completa",
+            "testo": "P094892411",
+            "sostituzione": "[COD_UTENTE_1]"
+          },
+          {
+            "campo": "conversazione.4.testo",
+            "start": 43,
+            "end": 69,
+            "tipo": "EMAIL",
+            "id_entita": "email_1",
+            "id_forma": "completa",
+            "testo": "ioana.ciccioli@example.org",
+            "sostituzione": "[EMAIL_1]"
+          },
+          {
+            "campo": "conversazione.7.testo",
+            "start": 184,
+            "end": 194,
+            "tipo": "COD_UTENTE",
+            "id_entita": "cod_utente_1",
+            "id_forma": "completa",
+            "testo": "P094892411",
+            "sostituzione": "[COD_UTENTE_1]"
+          }
+        ],
+        "conservare": [
+          "Il riferimento al ruolo di responsabile/delegato va mantenuto in chiaro perché descrive una funzione, non un dato personale identificativo.",
+          "Il nome e il codice PSN dell'indagine (Rilevazione sulle tecnologie dell'informazione e della comunicazione nelle imprese, IST-01175) sono riferimenti pubblici e vanno conservati.",
+          "La descrizione del problema (vecchia casella email non accessibile) va mantenuta come contesto della richiesta di assistenza."
+        ],
+        "motivazione": "Il dialogo contiene dati personali dell'utente (nome, codice utente, indirizzo email) che devono essere mascherati con i segnaposto previsti, mentre i riferimenti al ruolo istituzionale e all'indagine restano in chiaro in quanto informazioni pubbliche o funzionali necessarie a comprendere la richiesta di assistenza."
+      }
+    },
+    "stato": "valido",
+    "validazione": {
+      "versione": "3.0",
+      "ambito": "strutturale_con_segnali_di_coerenza",
+      "segnali_coerenza": [],
+      "correzioni": [],
+      "avvisi": [
+        "Scambi desiderati: 5; effettivi: 4"
+      ],
+      "scambi_effettivi": 4,
+      "messaggi_totali": 8,
+      "chiusura_utente": false
+    }
+  }
+]

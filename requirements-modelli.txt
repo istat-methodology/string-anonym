@@ -1,0 +1,8 @@
+# Ambiente di ricerca separato dalle API di generazione.
+# Installare torch adatto al CUDA della macchina; verificare le licenze dei pesi.
+torch>=2.6,<3
+transformers>=4.44,<5
+gliner==0.2.21
+huggingface-hub>=0.24,<1
+sentencepiece>=0.2,<1
+protobuf>=4,<7

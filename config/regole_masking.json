@@ -1,0 +1,11 @@
+{
+  "versione": "1.0",
+  "regole": [
+    {"nome": "email", "tipo": "EMAIL", "priorita": 100, "pattern": "(?<![\\w.+-])(?P<valore>[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,})(?![\\w-])"},
+    {"nome": "password_esplicita", "tipo": "PASSWORD", "priorita": 90, "pattern": "\\b(?:password|pwd|pass)\\s*(?:(?:è|e)\\s+|[:=]\\s*)?[\\\"'«]?(?P<valore>(?=[A-Za-z0-9@#$%^&+=!?_-]{6,}(?![\\w@#$%^&+=!?_-]))(?=[A-Za-z0-9@#$%^&+=!?_-]*[A-Za-z])(?=[A-Za-z0-9@#$%^&+=!?_-]*[0-9@#$%^&+=!?_-])[A-Za-z0-9@#$%^&+=!?_-]+)"},
+    {"nome": "pratica_contestuale", "tipo": "NUM_PRATICA", "priorita": 80, "pattern": "\\b(?:prot\\.?|protocollo|pratica|ticket)\\s*(?:(?:numero|n\\.?|n°)\\s*)?[:#]?\\s*(?P<valore>\\d{4,}(?:[/-]\\d{2,4})?)(?![\\w/-])"},
+    {"nome": "utente_prefisso", "tipo": "COD_UTENTE", "priorita": 70, "pattern": "\\b(?P<valore>P0\\d{8}|QOL\\d{5,12})\\b"},
+    {"nome": "utente_numerico", "tipo": "COD_UTENTE", "priorita": 70, "pattern": "\\b(?:codice\\s+utente|cod\\.?\\s+utente|username|id\\s+utente)\\s*(?:(?:è|e)\\s+|[:=]\\s*)?(?P<valore>\\d{7,12})(?![\\w/-])"},
+    {"nome": "cellulare_italiano", "tipo": "PHONE", "priorita": 50, "pattern": "(?<![\\w+])(?P<valore>(?:\\+39[ .]?)?3\\d{2}[ .]?\\d{3}[ .]?\\d{4})(?![\\w/]|[ .]\\d)"}
+  ]
+}

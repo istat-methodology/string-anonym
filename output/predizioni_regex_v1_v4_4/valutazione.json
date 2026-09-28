@@ -1,0 +1,281 @@
+{
+  "versione": "1.0",
+  "conversazioni_totali": 24,
+  "conversazioni_valutate": 24,
+  "fallimenti_tecnici": [],
+  "nota": "Metriche sui soli esiti ok; fallimenti e predizioni mancanti esclusi e riportati separatamente. Annotazioni attese non necessariamente revisionate.",
+  "span_esatti_micro": {
+    "tp": 27,
+    "fp": 0,
+    "fn": 19,
+    "precision": 1.0,
+    "recall": 0.5869565217391305,
+    "f1": 0.7397260273972602
+  },
+  "per_tipo": {
+    "ADDRESS": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 4,
+      "precision": null,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "COD_UTENTE": {
+      "tp": 5,
+      "fp": 0,
+      "fn": 3,
+      "precision": 1.0,
+      "recall": 0.625,
+      "f1": 0.7692307692307693
+    },
+    "EMAIL": {
+      "tp": 4,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "NUM_PRATICA": {
+      "tp": 7,
+      "fp": 0,
+      "fn": 1,
+      "precision": 1.0,
+      "recall": 0.875,
+      "f1": 0.9333333333333333
+    },
+    "PASSWORD": {
+      "tp": 3,
+      "fp": 0,
+      "fn": 5,
+      "precision": 1.0,
+      "recall": 0.375,
+      "f1": 0.5454545454545454
+    },
+    "PERSON": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 6,
+      "precision": null,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "PHONE": {
+      "tp": 8,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    }
+  },
+  "per_ruolo": {
+    "Utente": {
+      "tp": 15,
+      "fp": 0,
+      "fn": 9,
+      "precision": 1.0,
+      "recall": 0.625,
+      "f1": 0.7692307692307693
+    },
+    "Agente": {
+      "tp": 12,
+      "fp": 0,
+      "fn": 10,
+      "precision": 1.0,
+      "recall": 0.5454545454545454,
+      "f1": 0.7058823529411765
+    }
+  },
+  "caratteri": {
+    "sensibili_attesi": 620,
+    "sensibili_coperti": 367,
+    "sensibili_scoperti": 253,
+    "non_sensibili_mascherati": 0,
+    "non_sensibili_totali": 15649,
+    "recall_copertura": 0.5919354838709677
+  },
+  "conversazioni_con_omissioni_caratteri": 8,
+  "conversazioni_con_dati_attesi_valutate": 12,
+  "negative_valutate": 12,
+  "negative_con_falsi_positivi": 0,
+  "errori_span": [
+    {
+      "id": "d3fc0b6eccb33a5ca244cb6e121b30178b30209a341bdd69ee481bb0396c87d5:mirato_accesso_tentativi-con_dati_personali-0001",
+      "fp": [],
+      "fn": [
+        [
+          0,
+          187,
+          195,
+          "PASSWORD"
+        ],
+        [
+          1,
+          60,
+          68,
+          "PASSWORD"
+        ]
+      ]
+    },
+    {
+      "id": "d3fc0b6eccb33a5ca244cb6e121b30178b30209a341bdd69ee481bb0396c87d5:mirato_accesso_codici-con_dati_personali-0001",
+      "fp": [],
+      "fn": [
+        [
+          3,
+          17,
+          26,
+          "COD_UTENTE"
+        ],
+        [
+          3,
+          29,
+          37,
+          "PASSWORD"
+        ]
+      ]
+    },
+    {
+      "id": "d3fc0b6eccb33a5ca244cb6e121b30178b30209a341bdd69ee481bb0396c87d5:mirato_accesso_frammenti-con_dati_personali-0001",
+      "fp": [],
+      "fn": [
+        [
+          2,
+          10,
+          19,
+          "COD_UTENTE"
+        ],
+        [
+          2,
+          22,
+          32,
+          "PASSWORD"
+        ],
+        [
+          3,
+          35,
+          44,
+          "COD_UTENTE"
+        ],
+        [
+          3,
+          47,
+          57,
+          "PASSWORD"
+        ]
+      ]
+    },
+    {
+      "id": "d3fc0b6eccb33a5ca244cb6e121b30178b30209a341bdd69ee481bb0396c87d5:mirato_pratica_invio-con_dati_personali-0001",
+      "fp": [],
+      "fn": [
+        [
+          3,
+          15,
+          25,
+          "NUM_PRATICA"
+        ]
+      ]
+    },
+    {
+      "id": "d3fc0b6eccb33a5ca244cb6e121b30178b30209a341bdd69ee481bb0396c87d5:mirato_referente_destinatario-con_dati_personali-0001",
+      "fp": [],
+      "fn": [
+        [
+          0,
+          67,
+          81,
+          "PERSON"
+        ],
+        [
+          1,
+          42,
+          56,
+          "PERSON"
+        ]
+      ]
+    },
+    {
+      "id": "d3fc0b6eccb33a5ca244cb6e121b30178b30209a341bdd69ee481bb0396c87d5:mirato_referente_firma-con_dati_personali-0001",
+      "fp": [],
+      "fn": [
+        [
+          0,
+          65,
+          78,
+          "PERSON"
+        ],
+        [
+          1,
+          59,
+          72,
+          "PERSON"
+        ]
+      ]
+    },
+    {
+      "id": "d3fc0b6eccb33a5ca244cb6e121b30178b30209a341bdd69ee481bb0396c87d5:mirato_territorio_residenza-con_dati_personali-0001",
+      "fp": [],
+      "fn": [
+        [
+          0,
+          59,
+          78,
+          "PERSON"
+        ],
+        [
+          0,
+          89,
+          110,
+          "ADDRESS"
+        ],
+        [
+          1,
+          12,
+          33,
+          "ADDRESS"
+        ]
+      ]
+    },
+    {
+      "id": "d3fc0b6eccb33a5ca244cb6e121b30178b30209a341bdd69ee481bb0396c87d5:mirato_territorio_spedizione-con_dati_personali-0001",
+      "fp": [],
+      "fn": [
+        [
+          2,
+          92,
+          107,
+          "PERSON"
+        ],
+        [
+          2,
+          109,
+          130,
+          "ADDRESS"
+        ],
+        [
+          3,
+          45,
+          66,
+          "ADDRESS"
+        ]
+      ]
+    }
+  ],
+  "fonti": {
+    "input": {
+      "path": "/Users/mauro/Projects/string-anonym/output/dataset_masking_v4_4/input.jsonl",
+      "sha256": "bf3b907e808c3ecb3c44f0144733add613bc9600f5f02e2159f6fac902fc56ce"
+    },
+    "attese": {
+      "path": "/Users/mauro/Projects/string-anonym/output/dataset_masking_v4_4/annotazioni_attese.jsonl",
+      "sha256": "afe8bd92a7d921b9709537b23c0b645c36af8adecd3106cae84f6ef905c2ad60"
+    },
+    "predizioni": {
+      "path": "/Users/mauro/Projects/string-anonym/output/predizioni_regex_v1_v4_4/predizioni.jsonl",
+      "sha256": "cf8069e33e5ce3a65de1d70dee279d7005307a19dbe99a75f0495df90affd4fe"
+    }
+  }
+}

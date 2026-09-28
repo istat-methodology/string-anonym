@@ -1,0 +1,4 @@
+# Ambiente Python della VM Azure: generazione e confronto dei modelli.
+# Verificare driver/CUDA e installare PyTorch compatibile prima di questo file.
+-r requirements.txt
+-r requirements-modelli.txt
