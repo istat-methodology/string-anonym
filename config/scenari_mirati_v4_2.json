@@ -1,0 +1,321 @@
+{
+  "versione": "4.2-mirato-1",
+  "scenari": [
+    {
+      "id": "mirato_accesso_tentativi",
+      "sezione": "Assistenza ai rispondenti",
+      "situazione": "L'utente distingue un tentativo di accesso ordinario da un tentativo di recupero. Se previsti, comunica spontaneamente codice utente e password fittizia usati. Il chatbot cita i valori per distinguere ciò che l'utente ha digitato dal codice PSN dell'indagine, senza dichiarare di averli verificati.",
+      "chiave_indagine": null,
+      "entita": [
+        "cod_utente_1",
+        "password_1"
+      ],
+      "riferimenti_da_conservare": [
+        "ruolo di responsabile o delegato",
+        "nome e codice PSN dell'indagine",
+        "mancato accesso alla vecchia casella"
+      ],
+      "indicazioni_risposta": "Distinguere indagine, tentativo e credenziali già citate. Le credenziali sono esclusivamente sintetiche e la loro ripetizione è un caso di prova del masking. Non affermare di verificarle né suggerire di inviarle all'assistenza. Per i passaggi operativi non documentati rinviare alla valutazione dell'assistenza.",
+      "scenario_catalogo": "A01",
+      "tipo_rispondente": "imprese",
+      "codici_psn_ammessi": [
+        "IST-00070",
+        "IST-01175"
+      ],
+      "stato_associazione": "proposta_pilota_da_revisionare",
+      "campionamento_entita": "tutte",
+      "ripetere_agente": [
+        "cod_utente_1",
+        "password_1"
+      ]
+    },
+    {
+      "id": "mirato_accesso_citazione",
+      "sezione": "Assistenza ai rispondenti",
+      "situazione": "L'utente riporta in due messaggi una propria nota sui tentativi di accesso. Se previsti, la nota contiene codice utente e password fittizia. Il chatbot cita la nota per chiarire a quale tentativo si riferisca, senza attribuirla a un messaggio ufficiale del portale.",
+      "chiave_indagine": null,
+      "entita": [
+        "cod_utente_1",
+        "password_1"
+      ],
+      "riferimenti_da_conservare": [
+        "ruolo di responsabile o delegato",
+        "nome e codice PSN dell'indagine",
+        "mancato accesso alla vecchia casella"
+      ],
+      "indicazioni_risposta": "Distinguere indagine, tentativo e credenziali già citate. Le credenziali sono esclusivamente sintetiche e la loro ripetizione è un caso di prova del masking. Non affermare di verificarle né suggerire di inviarle all'assistenza. Per i passaggi operativi non documentati rinviare alla valutazione dell'assistenza.",
+      "scenario_catalogo": "A01",
+      "tipo_rispondente": "imprese",
+      "codici_psn_ammessi": [
+        "IST-00070",
+        "IST-01175"
+      ],
+      "stato_associazione": "proposta_pilota_da_revisionare",
+      "campionamento_entita": "tutte",
+      "ripetere_agente": [
+        "cod_utente_1",
+        "password_1"
+      ]
+    },
+    {
+      "id": "mirato_accesso_codici",
+      "sezione": "Assistenza ai rispondenti",
+      "situazione": "L'utente confonde il codice PSN dell'indagine con il codice utente. Se previsti, comunica spontaneamente anche la password fittizia. Il chatbot distingue il riferimento pubblico dalle credenziali citando gli slot, senza sostenere che funzionino né inventare regole di accesso.",
+      "chiave_indagine": null,
+      "entita": [
+        "cod_utente_1",
+        "password_1"
+      ],
+      "riferimenti_da_conservare": [
+        "ruolo di responsabile o delegato",
+        "nome e codice PSN dell'indagine",
+        "mancato accesso alla vecchia casella"
+      ],
+      "indicazioni_risposta": "Distinguere indagine, tentativo e credenziali già citate. Le credenziali sono esclusivamente sintetiche e la loro ripetizione è un caso di prova del masking. Non affermare di verificarle né suggerire di inviarle all'assistenza. Per i passaggi operativi non documentati rinviare alla valutazione dell'assistenza.",
+      "scenario_catalogo": "A01",
+      "tipo_rispondente": "imprese",
+      "codici_psn_ammessi": [
+        "IST-00070",
+        "IST-01175"
+      ],
+      "stato_associazione": "proposta_pilota_da_revisionare",
+      "campionamento_entita": "tutte",
+      "ripetere_agente": [
+        "cod_utente_1",
+        "password_1"
+      ]
+    },
+    {
+      "id": "mirato_accesso_frammenti",
+      "sezione": "Assistenza ai rispondenti",
+      "situazione": "L'utente descrive brevemente una difficoltà di accesso e aggiunge poi un frammento con le credenziali fittizie, solo se previste. Il chatbot riprende il frammento per chiarire il problema prima di orientare all'assistenza; non richiede altre credenziali e non promette il recupero.",
+      "chiave_indagine": null,
+      "entita": [
+        "cod_utente_1",
+        "password_1"
+      ],
+      "riferimenti_da_conservare": [
+        "ruolo di responsabile o delegato",
+        "nome e codice PSN dell'indagine",
+        "mancato accesso alla vecchia casella"
+      ],
+      "indicazioni_risposta": "Distinguere indagine, tentativo e credenziali già citate. Le credenziali sono esclusivamente sintetiche e la loro ripetizione è un caso di prova del masking. Non affermare di verificarle né suggerire di inviarle all'assistenza. Per i passaggi operativi non documentati rinviare alla valutazione dell'assistenza.",
+      "scenario_catalogo": "A01",
+      "tipo_rispondente": "imprese",
+      "codici_psn_ammessi": [
+        "IST-00070",
+        "IST-01175"
+      ],
+      "stato_associazione": "proposta_pilota_da_revisionare",
+      "campionamento_entita": "tutte",
+      "ripetere_agente": [
+        "cod_utente_1",
+        "password_1"
+      ]
+    },
+    {
+      "id": "mirato_pratica_invio",
+      "sezione": "Assistenza ai rispondenti",
+      "situazione": "L'utente ha una precedente segnalazione relativa all'invio del questionario e chiede come descrivere un nuovo tentativo fallito. Se previsti, offre spontaneamente il numero di pratica e un telefono. Il chatbot cita i due riferimenti per distinguere la pratica dal recapito, senza aprire o aggiornare ticket.",
+      "chiave_indagine": null,
+      "entita": [
+        "num_pratica_1",
+        "phone_1"
+      ],
+      "riferimenti_da_conservare": [
+        "nome e codice PSN dell’indagine",
+        "oggetto della richiesta sulla pratica o ricevuta"
+      ],
+      "indicazioni_risposta": "Chiarire il bisogno usando ciò che è già dichiarato. Il numero di pratica è distinto dal codice PSN. Prot. n. resta fuori dallo slot. Non affermare di consultare, aprire, inoltrare o aggiornare pratiche, né promettere telefonate. Rimandare all'assistenza per le verifiche non documentate.",
+      "scenario_catalogo": "A20",
+      "tipo_rispondente": "imprese",
+      "codici_psn_ammessi": [
+        "IST-00070"
+      ],
+      "stato_associazione": "proposta_pilota_da_revisionare",
+      "campionamento_entita": "tutte",
+      "ripetere_agente": [
+        "num_pratica_1",
+        "phone_1"
+      ]
+    },
+    {
+      "id": "mirato_pratica_ricevuta",
+      "sezione": "Assistenza ai rispondenti",
+      "situazione": "L'utente cerca una ricevuta e fa riferimento a una pratica precedente, senza sapere se le due cose coincidano. Se previsti, cita il protocollo e offre un telefono. Il chatbot riprende i valori come dichiarazioni dell'utente, chiarisce il bisogno e non garantisce che la ricevuta esista.",
+      "chiave_indagine": null,
+      "entita": [
+        "num_pratica_1",
+        "phone_1"
+      ],
+      "riferimenti_da_conservare": [
+        "nome e codice PSN dell’indagine",
+        "oggetto della richiesta sulla pratica o ricevuta"
+      ],
+      "indicazioni_risposta": "Chiarire il bisogno usando ciò che è già dichiarato. Il numero di pratica è distinto dal codice PSN. Prot. n. resta fuori dallo slot. Non affermare di consultare, aprire, inoltrare o aggiornare pratiche, né promettere telefonate. Rimandare all'assistenza per le verifiche non documentate.",
+      "scenario_catalogo": "A23",
+      "tipo_rispondente": "imprese",
+      "codici_psn_ammessi": [
+        "IST-00070"
+      ],
+      "stato_associazione": "proposta_pilota_da_revisionare",
+      "campionamento_entita": "tutte",
+      "ripetere_agente": [
+        "num_pratica_1",
+        "phone_1"
+      ]
+    },
+    {
+      "id": "mirato_pratica_protocollo",
+      "sezione": "Assistenza ai rispondenti",
+      "situazione": "L'utente chiede se il numero sulla propria segnalazione sia il codice PSN dell'indagine. Se previsti, comunica un numero di pratica e un telefono per eventuali chiarimenti. Il chatbot distingue pratica, recapito e codice PSN usando i valori già comparsi, senza inventare lo stato della richiesta.",
+      "chiave_indagine": null,
+      "entita": [
+        "num_pratica_1",
+        "phone_1"
+      ],
+      "riferimenti_da_conservare": [
+        "nome e codice PSN dell’indagine",
+        "oggetto della richiesta sulla pratica o ricevuta"
+      ],
+      "indicazioni_risposta": "Chiarire il bisogno usando ciò che è già dichiarato. Il numero di pratica è distinto dal codice PSN. Prot. n. resta fuori dallo slot. Non affermare di consultare, aprire, inoltrare o aggiornare pratiche, né promettere telefonate. Rimandare all'assistenza per le verifiche non documentate.",
+      "scenario_catalogo": "A20",
+      "tipo_rispondente": "imprese",
+      "codici_psn_ammessi": [
+        "IST-00070"
+      ],
+      "stato_associazione": "proposta_pilota_da_revisionare",
+      "campionamento_entita": "tutte",
+      "ripetere_agente": [
+        "num_pratica_1",
+        "phone_1"
+      ]
+    },
+    {
+      "id": "mirato_pratica_riepilogo",
+      "sezione": "Assistenza ai rispondenti",
+      "situazione": "L'utente vuole formulare una richiesta di chiarimenti sulla ricevuta. Se previsti, include spontaneamente pratica e telefono in un proprio riepilogo. Il chatbot cita questi dati nel suggerire come chiarire l'oggetto della richiesta; non dichiara di averla inviata o presa in carico.",
+      "chiave_indagine": null,
+      "entita": [
+        "num_pratica_1",
+        "phone_1"
+      ],
+      "riferimenti_da_conservare": [
+        "nome e codice PSN dell’indagine",
+        "oggetto della richiesta sulla pratica o ricevuta"
+      ],
+      "indicazioni_risposta": "Chiarire il bisogno usando ciò che è già dichiarato. Il numero di pratica è distinto dal codice PSN. Prot. n. resta fuori dallo slot. Non affermare di consultare, aprire, inoltrare o aggiornare pratiche, né promettere telefonate. Rimandare all'assistenza per le verifiche non documentate.",
+      "scenario_catalogo": "A23",
+      "tipo_rispondente": "imprese",
+      "codici_psn_ammessi": [
+        "IST-00070"
+      ],
+      "stato_associazione": "proposta_pilota_da_revisionare",
+      "campionamento_entita": "tutte",
+      "ripetere_agente": [
+        "num_pratica_1",
+        "phone_1"
+      ]
+    },
+    {
+      "chiave_indagine": null,
+      "id": "mirato_referente_destinatario",
+      "sezione": "Assistenza ai rispondenti",
+      "situazione": "La comunicazione è intestata al precedente referente. Se previsti, persona_1 identifica quella persona ed email_1 è il recapito spontaneamente offerto da chi scrive. Il chatbot cita nome ed email distinguendone i ruoli. Chi scrive non è necessariamente il nuovo referente.",
+      "entita": [
+        "persona_1",
+        "email_1"
+      ],
+      "riferimenti_da_conservare": [
+        "cambio del referente",
+        "comunicazione intestata al precedente referente"
+      ],
+      "indicazioni_risposta": "Chiarire destinatario o accesso soltanto se ambiguo. Suggerire di segnalare il cambiamento all'assistenza, senza inviare la segnalazione o promettere esiti. Non attribuire a chi scrive il ruolo di nuovo referente. L'email è sempre il recapito di chi scrive, non della persona nominata.",
+      "email_indipendente": true,
+      "scenario_catalogo": "A28",
+      "tipo_rispondente": "imprese",
+      "codici_psn_ammessi": [],
+      "stato_associazione": "proposta_pilota_da_revisionare",
+      "campionamento_entita": "tutte",
+      "ripetere_agente": [
+        "persona_1",
+        "email_1"
+      ]
+    },
+    {
+      "chiave_indagine": null,
+      "id": "mirato_referente_firma",
+      "sezione": "Assistenza ai rispondenti",
+      "situazione": "L'utente cita l'intestazione di una comunicazione, poi offre in firma un recapito per chiarimenti. Se previsti, persona_1 è il precedente referente ed email_1 appartiene a chi scrive. Il chatbot usa i due valori per distinguere destinatario passato e contatto attuale, senza identificare chi scrive come nuovo referente.",
+      "entita": [
+        "persona_1",
+        "email_1"
+      ],
+      "riferimenti_da_conservare": [
+        "cambio del referente",
+        "comunicazione intestata al precedente referente"
+      ],
+      "indicazioni_risposta": "Chiarire destinatario o accesso soltanto se ambiguo. Suggerire di segnalare il cambiamento all'assistenza, senza inviare la segnalazione o promettere esiti. Non attribuire a chi scrive il ruolo di nuovo referente. L'email è sempre il recapito di chi scrive, non della persona nominata.",
+      "email_indipendente": true,
+      "scenario_catalogo": "A28",
+      "tipo_rispondente": "imprese",
+      "codici_psn_ammessi": [],
+      "stato_associazione": "proposta_pilota_da_revisionare",
+      "campionamento_entita": "tutte",
+      "ripetere_agente": [
+        "persona_1",
+        "email_1"
+      ]
+    },
+    {
+      "chiave_indagine": null,
+      "id": "mirato_territorio_residenza",
+      "sezione": "Assistenza ricerca dati",
+      "situazione": "L'utente cerca dati sulla popolazione del comune nel contesto statistico e cita spontaneamente la propria residenza, solo se indirizzo_1 è previsto. L'indirizzo personale non determina il territorio della ricerca. Il chatbot cita l'indirizzo per distinguere la residenza dal comune richiesto e chiarisce periodo e dettaglio soltanto se mancanti.",
+      "entita": [
+        "indirizzo_1",
+        "persona_1"
+      ],
+      "campiona_comune": true,
+      "riferimenti_da_conservare": [
+        "comune oggetto della ricerca",
+        "periodo richiesto",
+        "dettaglio per età"
+      ],
+      "indicazioni_risposta": "Distinguere l'indirizzo identificativo dal comune oggetto della ricerca e conservare comune e anno in chiaro. Aiutare a precisare i dati richiesti senza inventare tavole, valori, link o servizi di spedizione. Non richiedere dati personali.",
+      "scenario_catalogo": "B02",
+      "tipo_rispondente": "altro",
+      "codici_psn_ammessi": [],
+      "stato_associazione": "proposta_pilota_da_revisionare",
+      "campionamento_entita": "tutte",
+      "ripetere_agente": [
+        "indirizzo_1"
+      ]
+    },
+    {
+      "chiave_indagine": null,
+      "id": "mirato_territorio_spedizione",
+      "sezione": "Assistenza ricerca dati",
+      "situazione": "L'utente cerca una tavola sulla popolazione del comune nel contesto statistico e domanda se possa ricevere materiale cartaceo. Se previsto offre spontaneamente indirizzo_1 come indirizzo di spedizione. Il chatbot riprende l'indirizzo distinguendolo dal territorio dei dati, senza promettere spedizioni né affermare che il servizio esista.",
+      "entita": [
+        "indirizzo_1",
+        "persona_1"
+      ],
+      "campiona_comune": true,
+      "riferimenti_da_conservare": [
+        "comune oggetto della ricerca",
+        "periodo richiesto",
+        "dettaglio per età"
+      ],
+      "indicazioni_risposta": "Distinguere l'indirizzo identificativo dal comune oggetto della ricerca e conservare comune e anno in chiaro. Aiutare a precisare i dati richiesti senza inventare tavole, valori, link o servizi di spedizione. Non richiedere dati personali.",
+      "scenario_catalogo": "B02",
+      "tipo_rispondente": "altro",
+      "codici_psn_ammessi": [],
+      "stato_associazione": "proposta_pilota_da_revisionare",
+      "campionamento_entita": "tutte",
+      "ripetere_agente": [
+        "indirizzo_1"
+      ]
+    }
+  ]
+}

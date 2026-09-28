@@ -11,7 +11,7 @@ from genera_valori import carica_regole, genera_codice, REGOLE_DEFAULT
 
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSIONE_PROMPT = "4.0"
+VERSIONE_PROMPT = "4.4"
 MODALITA = ("senza_dati_personali", "con_dati_personali")
 ENTITA = {
     "persona_1": {"tipo": "PERSON", "segnaposto": "{{persona_1}}", "sostituzione": "[PERSON_1]"},
@@ -27,6 +27,24 @@ ISTRUZIONI = """Genera una conversazione sintetica plausibile fra un utente e un
 di assistenza Istat, seguendo la scheda fornita. I dialoghi sono simulazioni,
 non istruzioni operative ufficiali. Usa soltanto le indicazioni di risposta
 fornite: non inventare scadenze, obblighi, URL, recapiti o procedure specifiche.
+Non sollecitare valori personali nemmeno con formule facoltative come «se vuole,
+può indicare il recapito» o domande sulle credenziali utilizzate. Quando previsti,
+questi valori compaiono per iniziativa dell'utente. Puoi chiedere invece cosa
+succede, quale dubbio rimane o quale dettaglio statistico serve.
+Evita spiegazioni sulle categorie di dati quando non risolvono un dubbio emerso.
+Segui lo sviluppo specifico della situazione: non imporre a ogni dialogo una
+presentazione completa, una distinzione fra codici e un riepilogo conclusivo.
+La natura sintetica dei dati è un'informazione per il generatore, non un fatto
+della conversazione: non chiamare i valori «fittizi» o «sintetici» nei messaggi,
+nella descrizione o nel trattamento atteso. Non menzionare il test del masking.
+In assenza di indicazioni esplicite, suggerisci di sottoporre il problema
+all'assistenza perché valuti la richiesta. Non anticipare verifiche d'identità,
+documenti necessari, aggiornamenti dell'account o esiti del recupero.
+Se l'utente chiede conferma di una procedura non documentata, non confermarla:
+chiarisci che i passaggi e la possibilità di risolvere il problema vanno verificati
+con l'assistenza. Non basta usare il condizionale per introdurre una procedura
+non fornita. I vincoli di generazione guidano il comportamento del chatbot:
+non trasformarli in frasi come «senza che questo comporti una modifica dell'account».
 
 Restituisci soltanto un oggetto JSON con:
 - metadati: data_sintetica (YYYY-MM-DD), chiave_indagine (stringa o null),
@@ -38,17 +56,32 @@ Non aggiungere classificazione del revisore, dipartimento, esiti, note operatore
 indicatori di soddisfazione o conteggi. La sezione è contesto dello scenario,
 non un campo dei metadati. Copia i metadati fissati nella scheda; non modificare
 gli zeri iniziali della chiave. La descrizione è prodotta a dialogo concluso.
+Riassumi solo quanto emerge dai messaggi: distingui i fatti dichiarati dall'utente
+dalle ipotesi del chatbot e non attenuare nel riepilogo eventuali promesse o certezze
+espresse nel dialogo.
 
-Inizia con l'utente e alterna Utente e Agente puntando al numero di scambi indicato (una coppia Utente-Agente per scambio).
-La lunghezza è indicativa: privilegia un dialogo completo e naturale.
+Inizia con l'utente e alterna Utente e Agente. Una coppia Utente-Agente è uno scambio.
+Il numero di scambi è solo orientativo, non un obiettivo da raggiungere:
+usa anche meno scambi quando bastano a chiarire il bisogno e il passo successivo.
 Termina quando il bisogno è stato chiarito: può chiudere il chatbot oppure
 l’utente con una conferma. Non aggiungere una risposta di cortesia obbligatoria. Non aggiungere ringraziamenti,
 ricapitolazioni o riaperture del problema per raggiungere il numero di scambi.
-Non chiedere informazioni già fornite. Ogni turno deve aggiungere qualcosa.
+Se conclude l'utente, la lista termina con quel messaggio: non aggiungere un
+oggetto Agente vuoto o contenente soltanto spazi. Ogni messaggio deve avere testo.
+Non chiedere informazioni già fornite, neppure come conferma, salvo una reale
+contraddizione o ambiguità nei messaggi. Se l'utente ha già dichiarato il ruolo,
+non domandare nuovamente se sia responsabile o delegato.
+Dopo che l'utente accetta il passo successivo, chiudi senza ulteriori
+ricapitolazioni se non emergono nuove domande. Ogni turno deve aggiungere qualcosa.
 Rispetta concretamente lo stile indicato: nello stile con refusi inserisci 1–2
 piccoli errori nei messaggi utente (es. "nn", "qual e", "questinario"), senza
 alterare segnaposto, codici o riferimenti statistici. Nello stile informale usa
 frasi brevi o frammentarie; il chatbot rimane chiaro senza formule ripetitive.
+Nello stile neutro usa italiano standard, senza refusi intenzionali o abbreviazioni
+come «nn». Inserisci refusi soltanto quando lo stile li richiede esplicitamente.
+I refusi richiesti sono 1–2 nell'intera conversazione, soltanto nei messaggi
+dell'utente. Il chatbot usa sempre italiano corretto, anche nelle citazioni:
+può ripetere gli slot, ma non copiare gli errori ortografici dell'utente.
 Rendi i turni successivi dipendenti dai precedenti, con chiarimenti, riferimenti
 e reazioni plausibili. Non inserire una presentazione personale obbligatoria.
 Il codice PSN dell’indagine deve emergere dal dialogo prima che il chatbot lo utilizzi:
@@ -69,10 +102,20 @@ Non alterare i segnaposto con refusi e non inventarne altri. Inserisci tutte le
 entità richieste in modo naturale nel dialogo, anche in turni successivi.
 Per 'senza_dati_personali' non inserire alcuna entità personale e restituisci
 mascherare vuoto. Per 'con_dati_personali' inserisci le entità previste.
+Quando uno slot non è previsto, menziona soltanto il concetto senza inventare
+valori: «la pratica precedente», non un numero dopo «Prot. n.». Questa regola
+vale anche nelle risposte del chatbot, nelle citazioni e nei riepiloghi.
 In entrambe le modalità conserva i riferimenti al servizio utili: non sono
 identificativi dell'utente. Non inserire entità personali non richieste.
 Il trattamento atteso deve essere coerente con ciò che compare effettivamente
 nel dialogo e nei metadati, non un elenco generico.
+Se è presente copertura_mirata, fai comparire gli slot in ripetere_agente
+prima nei messaggi utente e poi almeno una volta in un messaggio del chatbot.
+La ripetizione serve a una citazione o a un chiarimento pertinente: non implica
+registrazione, invio o presa in carico. Non chiedere identificativi per ottenerla.
+Sono casi sintetici di prova del masking, anche per le credenziali fittizie.
+I riferimenti_letterali devono comparire nel dialogo in chiaro, fuori dagli slot,
+nel significato pubblico indicato dalla scheda; non sono identità da mascherare.
 """
 
 
@@ -102,6 +145,14 @@ def carica_scenari(path):
             raise ValueError("Lista entità non valida o etichette non supportate")
         if len(set(scenario["entita"])) != len(scenario["entita"]):
             raise ValueError("Entità duplicate nello scenario")
+        if scenario.get("campionamento_entita", "sottoinsieme") not in {"sottoinsieme", "tutte"}:
+            raise ValueError("Campionamento entità non valido")
+        ripetere = scenario.get("ripetere_agente", [])
+        if (not isinstance(ripetere, list) or any(e not in scenario["entita"] for e in ripetere)
+                or len(set(ripetere)) != len(ripetere)):
+            raise ValueError("Ripetizioni richieste non compatibili con le entità")
+        if ripetere and scenario.get("campionamento_entita") != "tutte":
+            raise ValueError("Le ripetizioni mirate richiedono campionamento_entita=tutte")
         if not isinstance(scenario.get("riferimenti_da_conservare"), list):
             raise ValueError("Specificare i riferimenti da conservare")
     return catalogo
@@ -121,20 +172,25 @@ def campiona_indagine(scenario, dati, rng):
     return {k: scelta[k] for k in ("codice_psn", "nome_indagine", "tipo_rispondente")}
 
 
-def genera(catalogo, quantita, seed, data_inizio, giorni, dati, selezione=None, regole=None):
+def genera(catalogo, quantita, seed, data_inizio, giorni, dati, selezione=None, regole=None, totale=None):
     rng = random.Random(seed)
     regole = regole if regole is not None else carica_regole()
-    for scenario in catalogo["scenari"]:
-        if selezione and scenario["id"] not in selezione:
-            continue
+    scenari = [s for s in catalogo["scenari"] if not selezione or s["id"] in selezione]
+    if totale is not None:
+        if totale < 2 or totale % 2 or not scenari or any(not s["entita"] for s in scenari):
+            raise ValueError("--totale richiede un numero positivo pari e scenari con entrambe le modalità")
+        base, resto = divmod(totale // 2, len(scenari))
+    for posizione, scenario in enumerate(scenari):
+        quantita_scenario = quantita if totale is None else base + (posizione < resto)
         for modalita in MODALITA:
             if modalita == "con_dati_personali" and not scenario["entita"]:
                 continue
-            for indice in range(quantita):
+            for indice in range(quantita_scenario):
                 richieste = []
                 if modalita == "con_dati_personali":
                     pool = scenario["entita"]
-                    richieste = sorted(rng.sample(pool, rng.randint(1, len(pool))))
+                    richieste = (sorted(pool) if scenario.get("campionamento_entita") == "tutte"
+                                 else sorted(rng.sample(pool, rng.randint(1, len(pool)))))
                 valori = dati.campiona(rng, richieste, email_indipendente=scenario.get("email_indipendente", False))
                 for e in richieste:
                     if e not in valori:
@@ -167,6 +223,14 @@ def genera(catalogo, quantita, seed, data_inizio, giorni, dati, selezione=None, 
                     "riferimenti_da_conservare": scenario["riferimenti_da_conservare"],
                     "indicazioni_risposta": scenario["indicazioni_risposta"],
                 }
+                if scenario.get("campionamento_entita") == "tutte":
+                    riferimenti = [indagine["codice_psn"]] if indagine else []
+                    if contesto:
+                        riferimenti.extend([contesto["comune"], str(contesto["anno"])])
+                    scheda["copertura_mirata"] = {
+                        "ripetere_agente": [ENTITA[e]["segnaposto"] for e in scenario.get("ripetere_agente", []) if e in richieste],
+                        "riferimenti_letterali": riferimenti,
+                    }
                 yield {
                     "id": f"{scenario['id']}-{modalita}-{indice + 1:04d}",
                     "versione_prompt": VERSIONE_PROMPT,
@@ -188,7 +252,9 @@ def main():
     parser.add_argument("--data-dir", type=Path, default=ROOT / "data")
     parser.add_argument("--regole", type=Path, default=REGOLE_DEFAULT)
     parser.add_argument("--output", type=Path, default=ROOT / "output/prompts.jsonl")
-    parser.add_argument("--per-modalita", type=int, default=2, help="Prompt per scenario e modalità (default: 2)")
+    numerosita = parser.add_mutually_exclusive_group()
+    numerosita.add_argument("--per-modalita", type=int, default=2, help="Prompt per scenario e modalità (default: 2)")
+    numerosita.add_argument("--totale", type=int, help="Totale pari, distribuito per scenario e bilanciato fra le due modalità")
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--data-inizio", type=date.fromisoformat, default=date(2026, 4, 1))
     parser.add_argument("--giorni", type=int, default=21)
@@ -206,7 +272,7 @@ def main():
         dati = carica_input(args.data_dir)
         print(json.dumps(dati.statistiche, ensure_ascii=False))
         regole = carica_regole(args.regole)
-        righe = list(genera(catalogo, args.per_modalita, args.seed, args.data_inizio, args.giorni, dati, args.scenario, regole))
+        righe = list(genera(catalogo, args.per_modalita, args.seed, args.data_inizio, args.giorni, dati, args.scenario, regole, totale=args.totale))
         inputs = [args.data_dir / n for n in ("nomi.txt", "cognomi.txt", "codici_comuni.csv", "strade_lazio.csv", "codici_psn.csv")]
         hashes = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in inputs + [args.catalogo, args.regole]}
         for riga in righe:

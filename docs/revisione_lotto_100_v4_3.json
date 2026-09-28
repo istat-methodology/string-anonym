@@ -1,0 +1,40 @@
+{
+  "fonte": "output/lotto_openai_100_v4_3/chat_lotto.jsonl",
+  "sha256": "aa14c70d7417e55205940f9c5cfd942962e7ddb920948f60c2327d578ff18f6f",
+  "tipo": "revisione qualitativa separata dalla validazione automatica",
+  "nota": "Segnalazioni osservate, non elenco esaustivo né approvazione semantica degli altri record. Originali invariati.",
+  "record_totali": 100,
+  "validi_automatici": 99,
+  "annotazioni_con_offset_verificati": 281,
+  "segnalazioni": [
+    {
+      "id": "mirato_accesso_tentativi-con_dati_personali-0004",
+      "osservazione": "Risposta finale vuota; riepilogo anticipa una spiegazione assente. Non recuperare eliminando soltanto il turno vuoto."
+    },
+    {
+      "id": "mirato_accesso_codici-con_dati_personali-0001",
+      "osservazione": "Il chatbot chiede quali credenziali siano state utilizzate, sollecitando i valori."
+    },
+    {
+      "id": "mirato_pratica_invio-con_dati_personali-0001",
+      "osservazione": "Il chatbot invita a riportare numero della pratica e recapito."
+    },
+    {
+      "id": "mirato_territorio_spedizione-con_dati_personali-0001",
+      "osservazione": "Il chatbot invita a comunicare un recapito di spedizione."
+    },
+    {
+      "id": "mirato_territorio_spedizione-con_dati_personali-0004",
+      "osservazione": "Il chatbot invita a comunicare un recapito di spedizione."
+    },
+    {
+      "id": "mirato_pratica_protocollo-senza_dati_personali-0001",
+      "osservazione": "Il codice PSN compare prima nel chatbot: viola il vincolo temporale del prompt, pur essendo un riferimento pubblico."
+    }
+  ],
+  "osservazioni_generali": [
+    "Dialoghi ripetitivi e formule di rinvio all’assistenza ricorrenti.",
+    "Almeno 8 record contengono refusi espliciti fuori dallo stile previsto.",
+    "Il lotto è mirato e non rappresentativo del traffico del contact centre."
+  ]
+}

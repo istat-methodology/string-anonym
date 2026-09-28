@@ -1,0 +1,8 @@
+{
+  "catalogo": "config/scenari_mirati_v4_4.json",
+  "totale": 24,
+  "seed": 44,
+  "prompts": "output/prompts_mirati_v4_4.jsonl",
+  "output": "output/lotto_openai_mirato_v4_4",
+  "deployment": "gpt-5.6-terra"
+}

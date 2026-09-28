@@ -6,7 +6,8 @@ import copy
 import json
 from pathlib import Path
 
-from validazione import prepara_chat
+from validazione import prepara_testo
+from genera_chat import estrai_testo
 
 
 def rivalida(record):
@@ -16,11 +17,8 @@ def rivalida(record):
         nuovo.pop(campo, None)
     try:
         risposta = record.get("risposta_originale", {})
-        if risposta.get("status") != "completed":
-            raise ValueError("Risposta originale assente o incompleta")
-        testo = "".join(c.get("text", "") for o in risposta.get("output", [])
-                        for c in o.get("content", []) if c.get("type") == "output_text")
-        nuovo.update(prepara_chat(json.loads(testo), record["prompt"]["scheda"]))
+        testo = estrai_testo(risposta, record.get("provider", "openai"))
+        nuovo.update(prepara_testo(testo, record["prompt"]["scheda"]))
     except (ValueError, KeyError, TypeError) as error:
         nuovo.update(stato="da_verificare", errore=str(error))
     return nuovo

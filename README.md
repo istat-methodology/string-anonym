@@ -105,3 +105,118 @@ il pilota campiona per ora una forma completa per entità.
 - [Classificazione PSN e limiti](docs/classificazione_psn.md).
 - [Convenzioni di mascheramento concordate e punti aperti](docs/casi_ambigui_masking.md).
 - [Documentazione storica fino alla versione 3.1](docs/cronologia_pipeline_v3.md).
+
+## Scelta GPT / Claude su Foundry
+
+`--deployment` sceglie il deployment e prevale sul `.env` e sulla costante `MODEL`.
+In assenza dell’opzione si usa `AZURE_OPENAI_DEPLOYMENT`, se impostato, altrimenti
+`MODEL`. Un nome che inizia con `claude-` seleziona Anthropic Messages;
+gli altri usano Responses. Per nomi personalizzati usare `--provider anthropic`
+o `--provider openai`.
+
+Claude usa `AnthropicFoundry` dalla dipendenza `anthropic`. Le istruzioni system
+sono separate dai messaggi e il limite viene passato come `max_tokens`.
+Si richiede JSON nel prompt e lo si valida localmente; non viene trasferito
+il parametro OpenAI `text.format`. JSON non valido, risposte troncate o rifiuti
+restano `da_verificare`, con la risposta originale conservata.
+
+Per Claude, `--endpoint` indica la base URL terminante in `/anthropic/`.
+In sua assenza si usa `ANTHROPIC_FOUNDRY_BASE_URL`, oppure il percorso
+`/anthropic/` sulla stessa risorsa Foundry configurata per OpenAI.
+La chiave è letta da `ANTHROPIC_FOUNDRY_API_KEY`, oppure dall’esistente `API_KEY`
+o `AZURE_OPENAI_API_KEY`. Per risorse diverse configurare endpoint e chiave
+appropriati. Le credenziali non vengono registrate nell’output.
+
+Ogni nuovo record conserva provider, endpoint e parametri API effettivi.
+La rivalidazione gestisce entrambi i formati; i record storici senza provider
+sono interpretati come Responses. Retry automatici disabilitati per entrambi.
+
+Riferimento: [Claude in Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry).
+
+## Prompt 4.1
+
+Il prompt 4.1 e il catalogo 4.1 rendono espliciti i limiti delle risposte
+operative: nessuna procedura o risultato non documentato, anche se presentato
+al condizionale. Rafforzano la chiusura naturale, evitano conferme ridondanti
+e riservano i refusi agli stili che li richiedono. Il riepilogo deve riflettere
+le affermazioni effettive del dialogo.
+
+Il sampling e i generatori di valori restano invariati. Per confrontare le
+stesse schede del pilota usare seed 0 e un nuovo output `output/prompts_v4_1.jsonl`.
+I prompt 4.0 già salvati non vengono aggiornati automaticamente.
+
+## Validazione 3.1: cornice Markdown
+
+Generazione e rivalidazione accettano JSON puro oppure un unico blocco delimitato
+con tre backtick, con etichetta `json` o senza etichetta. Sono ammessi spazi
+esterni, ma non prosa, blocchi multipli o altre etichette. Il JSON interno deve
+essere valido e superare gli stessi controlli della risposta senza cornice.
+La rimozione è registrata in `validazione.correzioni`; `risposta_originale`
+rimane intatta. Una risposta troncata resta da verificare anche se contiene
+un blocco JSON leggibile. Il recupero di output già salvati non richiede API.
+
+## Metodologia e gestione degli esperimenti
+
+La [metodologia del masking](docs/metodologia_masking.md) descrive il prossimo
+percorso di ricerca, ancora da implementare. La [guida alla pulizia](docs/pulizia_repository.md)
+distingue sorgenti, risultati da archiviare e file eliminabili.
+`output/` è esclusa da Git: conservare i risultati degli esperimenti separatamente.
+
+## Lotto pilota con riuso dei test precedenti
+
+Per eseguire nuovi lotti OpenAI usare il comando comune `src/lotto.py` con
+le fasi `prepara`, `controlla` (senza API) e `genera`, passando `--config FILE`.
+La configurazione del lotto da 100 e le istruzioni sono descritte in
+[Lotto 100](docs/lotto_100_v4_3.md). I due script shell specifici sono stati
+sostituiti dal comando comune. Gli esiti della revisione del lotto sono in
+[Revisione qualitativa](docs/revisione_lotto_100_v4_3.json), separati dagli
+output originali e dagli esiti della validazione automatica.
+
+`src/genera_lotto.py` esegue il lotto OpenAI 4.1 con una chiamata sequenziale
+per scheda mancante, tramite `genera_chat.py`. Riutilizza i file
+`test_openai*.jsonl` accanto ai prompt solo se coincidono prompt completo,
+provider, deployment, endpoint e parametri API. Un ID uguale non basta.
+Con `--riusa FILE` ripetibile si possono scegliere esplicitamente le fonti.
+`--solo-controllo` mostra i conteggi senza scrivere file o chiamare API.
+
+L'esecuzione crea `output/lotto_openai_v4_1/` con piano, prompt mancanti,
+risposte riutilizzate, risposte nuove e `chat_lotto.jsonl` nell'ordine delle
+schede originali. Gli stati `da_verificare` sono conservati. Un errore API
+interrompe le nuove chiamate e il riepilogo indica i risultati disponibili.
+La cartella deve essere nuova: questo script non implementa ripresa automatica.
+In caso di interruzione conservare i file e verificare gli esiti prima di rilanciare.
+Non cancellare la cartella per ripetere automaticamente le chiamate.
+
+## Secondo lotto mirato (prompt 4.2)
+
+Il catalogo separato `config/scenari_mirati_v4_2.json` prepara 24 schede
+con `--per-modalita 1`: 12 positive con combinazioni prefissate e 12 negative.
+Include ripetizioni del chatbot e riferimenti pubblici da conservare.
+La validazione 3.2 segnala obiettivi di copertura mancanti senza riscrivere
+le conversazioni. [Piano, copertura e istruzioni](docs/lotto_mirato_v4_2.md).
+
+## Correzioni: prompt 4.3 e validazione 3.3
+
+Il prompt 4.3 vieta di riportare nel dialogo istruzioni sulla natura sintetica
+dei dati, di inventare numeri di pratica fuori dagli slot e di aggiungere un
+messaggio vuoto dopo la chiusura dell’utente. Il catalogo
+`config/scenari_mirati_v4_3.json` elimina dai casi di accesso i riferimenti
+ereditati alla vecchia casella e al ruolo di responsabile/delegato.
+I prompt già salvati restano invariati: le nuove istruzioni richiedono
+la preparazione di nuove schede con questo catalogo.
+
+La validazione 3.3 segnala numeri introdotti da “Prot.”, “protocollo”,
+“pratica” o “ticket” fuori dagli slot autorizzati, nel dialogo, nel riepilogo
+e nelle spiegazioni del trattamento. I risultati diventano `da_verificare`;
+il controllo non inventa annotazioni né modifica le risposte originali.
+È un controllo contestuale limitato ai numeri, non un riconoscitore generale
+di dati personali. I messaggi finali vuoti restano errori da verificare.
+
+Per rivalidare il lotto esistente senza chiamate API, dalla root del progetto:
+
+```sh
+.venv/bin/python src/rivalida_chat.py --input output/lotto_openai_mirato_v4_2/chat_lotto.jsonl --output output/lotto_openai_mirato_v4_2/chat_lotto_rivalidato_v3_3.jsonl
+```
+
+Il file di destinazione deve essere nuovo. La rivalidazione applica i nuovi
+controlli alle risposte salvate, senza applicare retroattivamente il prompt 4.3.

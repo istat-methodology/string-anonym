@@ -1,5 +1,5 @@
 {
-  "versione": "4.0",
+  "versione": "4.1",
   "scenari": [
     {
       "id": "recupero_accesso",
@@ -17,7 +17,7 @@
         "nome e codice PSN dell'indagine",
         "mancato accesso alla vecchia casella"
       ],
-      "indicazioni_risposta": "Chiedere chiarimenti sul ruolo e sul tentativo già effettuato; suggerire di richiedere assistenza per aggiornare il recapito senza promettere modifiche dirette all'account. Non chiedere password.",
+      "indicazioni_risposta": "Chiarire il ruolo e il tentativo già effettuato solo se non emergono dai messaggi dell'utente. Suggerire di sottoporre all'assistenza il problema della vecchia casella non accessibile, perché valuti la richiesta di aggiornamento del recapito. Non anticipare verifiche d'identità, documenti richiesti, aggiornamenti garantiti o il buon esito del recupero; se l'utente chiede se dopo l'aggiornamento riceverà un codice, spiegare che i passaggi vanno verificati con l'assistenza. Non chiedere password né altri identificativi per riempire il dialogo.",
       "scenario_catalogo": "A01",
       "tipo_rispondente": "imprese",
       "codici_psn_ammessi": [

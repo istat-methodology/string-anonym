@@ -1,9 +1,23 @@
 """Validazione locale e annotazioni; nessuna dipendenza dal client API."""
 
 import copy
+import json
 import re
 
 from annotazioni import sostituisci_con_span
+
+def prepara_testo(testo, scheda):
+    """Accetta JSON puro o un solo blocco Markdown, senza testo esterno."""
+    testo = testo.strip()
+    cornice = re.fullmatch(r"```(?:json)?[ \t]*\r?\n(.*?)\r?\n```", testo, re.DOTALL)
+    contenuto = cornice.group(1) if cornice else testo
+    # json.loads rifiuta blocchi multipli, prosa e JSON incompleto.
+    risultato = prepara_chat(json.loads(contenuto), scheda)
+    if cornice:
+        risultato["validazione"]["correzioni"].insert(
+            0, "Rimossa unica cornice Markdown dal JSON della risposta")
+    return risultato
+
 
 def valida(chat, scheda):
     """Controlli strutturali e sui vincoli espliciti; non una revisione semantica."""
@@ -78,6 +92,47 @@ def controlla_coerenza(chat):
     return segnali
 
 
+def controlla_copertura(chat, scheda):
+    """Controlli letterali sui soli obiettivi espliciti del lotto mirato."""
+    obiettivi = scheda.get("copertura_mirata", {})
+    segnali = []
+    messaggi = chat["conversazione"]
+    for slot in obiettivi.get("ripetere_agente", []):
+        posizioni_utente = [i for i, m in enumerate(messaggi) if m["sender"] == "Utente" and slot in m["testo"]]
+        posizioni_agente = [i for i, m in enumerate(messaggi) if m["sender"] == "Agente" and slot in m["testo"]]
+        if not posizioni_utente or not posizioni_agente:
+            segnali.append(f"Copertura mirata: {slot} deve comparire nell'utente e nel chatbot")
+        elif min(posizioni_agente) < min(posizioni_utente):
+            segnali.append(f"Copertura mirata: il chatbot anticipa {slot} prima dell'utente")
+    dialogo = "\n".join(m["testo"] for m in messaggi)
+    for riferimento in obiettivi.get("riferimenti_letterali", []):
+        if riferimento not in dialogo:
+            segnali.append(f"Copertura mirata: riferimento da conservare assente: {riferimento}")
+    return segnali
+
+
+def controlla_identificativi_fuori_slot(chat):
+    """Segnale contestuale limitato alle pratiche numeriche, non un NER completo."""
+    pattern = re.compile(
+        r"\b(?:prot\.?\s*|protocollo\s*|pratica\s*|ticket\s*)"
+        r"(?:(?:numero|num\.?|n\.?|n[°º])\s*)?[:#]?\s*"
+        r"(?P<valore>[0-9][A-Za-z0-9/-]*)\b", re.IGNORECASE)
+    campi = [(f"conversazione.{i}.testo", m["testo"]) for i, m in enumerate(chat["conversazione"])]
+    campi.append(("metadati.descrizione", chat["metadati"]["descrizione"]))
+    campi.extend((f"trattamento_atteso.conservare.{i}", t)
+                 for i, t in enumerate(chat["trattamento_atteso"]["conservare"]))
+    campi.append(("trattamento_atteso.motivazione", chat["trattamento_atteso"]["motivazione"]))
+    segnali = []
+    for campo, testo in campi:
+        # Un marcatore non numerico evita di collegare Prot.n. a cifre dopo uno slot.
+        senza_slot = re.sub(r"\{\{[^{}]+\}\}", " SLOT_AUTORIZZATO ", testo)
+        for match in pattern.finditer(senza_slot):
+            segnali.append({"campo": campo, "tipo_sospetto": "NUM_PRATICA",
+                            "testo": match.group("valore"),
+                            "motivo": "Numero introdotto come pratica/protocollo/ticket fuori dagli slot: revisionare"})
+    return segnali
+
+
 def prepara_chat(chat, scheda):
     """Normalizza solo alias inequivocabili, poi applica tutti i controlli."""
     chat = copy.deepcopy(chat)
@@ -103,6 +158,8 @@ def prepara_chat(chat, scheda):
         chat["conversazione"] = puliti
     valida(chat, scheda)
     segnali = controlla_coerenza(chat)
+    copertura = controlla_copertura(chat, scheda)
+    fuori_slot = controlla_identificativi_fuori_slot(chat)
     effettivi = len(chat["conversazione"]) // 2
     avvisi = []
     if effettivi != scheda["numero_scambi"]:
@@ -133,12 +190,13 @@ def prepara_chat(chat, scheda):
         spans.extend(extra)
     return {
         "chat_template": chat, "chat": concreta,
-        "stato": "da_verificare" if segnali else "valido",
-        "validazione": {"versione": "3.0", "ambito": "strutturale_con_segnali_di_coerenza",
+        "stato": "da_verificare" if segnali or copertura or fuori_slot else "valido",
+        "validazione": {"versione": "3.3", "ambito": "strutturale_con_segnali_di_coerenza",
+                        "identificativi_fuori_slot": fuori_slot,
+                        "segnali_copertura": copertura,
                         "segnali_coerenza": segnali,
                         "correzioni": correzioni, "avvisi": avvisi,
                         "scambi_effettivi": effettivi,
                         "messaggi_totali": len(chat["conversazione"]),
                         "chiusura_utente": chat["conversazione"][-1]["sender"] == "Utente"},
     }
-
