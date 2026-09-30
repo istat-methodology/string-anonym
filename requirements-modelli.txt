@@ -3,6 +3,7 @@
 torch>=2.6,<3
 transformers>=4.44,<5
 gliner==0.2.21
+gliner2[local]==2.0.0
 huggingface-hub>=0.24,<1
 sentencepiece>=0.2,<1
 protobuf>=4,<7

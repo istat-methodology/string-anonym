@@ -59,6 +59,7 @@ ancora approvate come gold, non una stima delle prestazioni sul traffico reale.
 | [Specifica della generazione](specifica_pipeline_conversazioni_sintetiche.md) | Requisiti della pipeline sintetica |
 | [Baseline regex](docs/baseline_regex.md) | Regole implementate e limiti |
 | [Confronto modelli](docs/confronto_modelli.md) | Configurazione, esecuzione sequenziale e limiti del confronto |
+| [Setup Azure A100](docs/setup_azure.md) | Ambiente GPU, verifica CUDA, avvio e recupero dello spazio su disco |
 | [Valutatore](docs/valutatore_masking.md) | Formati delle predizioni e interpretazione dei risultati |
 
 ## Organizzazione

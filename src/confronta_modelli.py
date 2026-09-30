@@ -33,7 +33,7 @@ def carica(path):
         if not re.fullmatch(r'[a-z0-9_]+', m['nome']) or m['nome'] in names:
             raise ValueError('Nome modello duplicato o non valido')
         names.add(m['nome'])
-        if m['backend'] not in {'gliner', 'transformers'}:
+        if m['backend'] not in {'gliner', 'gliner2', 'transformers'}:
             raise ValueError('Backend non supportato')
         if not 0 <= m['soglia'] <= 1 or type(m['max_tokens']) is not int or m['max_tokens'] < 2:
             raise ValueError('Soglia o limite non valido')
@@ -60,6 +60,14 @@ def normalizza(raw, testo, m):
         start, end, score = int(a['start']), int(a['end']), float(a['score'])
         if not 0 <= start < end <= len(testo) or not math.isfinite(score):
             raise ValueError('Span o score del modello non valido')
+        # Alcuni tokenizer includono negli offset gli spazi adiacenti all'entità.
+        # Il formato comune usa invece i confini del solo contenuto identificativo.
+        while start < end and testo[start].isspace():
+            start += 1
+        while end > start and testo[end-1].isspace():
+            end -= 1
+        if start == end:
+            raise ValueError('Span vuoto dopo la normalizzazione degli spazi')
         if tipo is None:
             ignorate[label] += 1
             continue
@@ -103,6 +111,21 @@ def predici(record, m, infer):
                 'secondi': time.perf_counter()-start}, raw_messages
 
 
+def converti_gliner2(result):
+    if not isinstance(result, dict) or not isinstance(result.get('entities'), dict):
+        raise ValueError('Risultato GLiNER2 non valido')
+    raw = []
+    for label, entities in result['entities'].items():
+        if not isinstance(entities, list):
+            raise ValueError('Entità GLiNER2 non valide')
+        for entity in entities:
+            if not isinstance(entity, dict) or not {'start', 'end'} <= entity.keys():
+                raise ValueError('Offset GLiNER2 mancanti')
+            raw.append({'label': label, 'start': int(entity['start']), 'end': int(entity['end']),
+                        'score': float(entity.get('confidence', 1.0))})
+    return raw
+
+
 def backend(m, device, metadata):
     # Import e accesso alla rete avvengono soltanto nell'esecuzione esplicita.
     from huggingface_hub import HfApi, snapshot_download
@@ -129,7 +152,7 @@ def backend(m, device, metadata):
                 raise ValueError(f'Messaggio oltre il limite di {limite} token; non troncato')
             return [{k: (float(a[k]) if k == 'score' else int(a[k]) if k in {'start','end'} else a[k])
                      for k in ('entity_group','start','end','score')} for a in pipe(text)]
-    else:
+    elif m['backend'] == 'gliner':
         from gliner import GLiNER
         model = GLiNER.from_pretrained(folder).to(device)
         model.eval()
@@ -151,6 +174,18 @@ def backend(m, device, metadata):
                 entities = model.predict_entities(text, labels, threshold=m['soglia'], flat_ner=True)
             return [{k: (float(a[k]) if k=='score' else int(a[k]) if k in {'start','end'} else a[k])
                      for k in ('label','start','end','score')} for a in entities]
+    else:
+        from gliner2 import AutoExtractor
+        model = AutoExtractor.from_pretrained(str(folder), map_location=device)
+        if hasattr(model, 'eval'):
+            model.eval()
+        labels = list(m['etichette'])
+        def infer(text):
+            if len(text.split()) > m['max_tokens']:
+                raise ValueError(f'Messaggio oltre il limite di {m["max_tokens"]} parole GLiNER2; non troncato')
+            result = model.extract_entities(text, labels, threshold=m['soglia'],
+                                            include_confidence=True, include_spans=True)
+            return converti_gliner2(result)
     return infer
 
 
@@ -159,7 +194,7 @@ def esegui(cfg, inputs, gold, device, loader=backend):
     out.mkdir(parents=True, exist_ok=False)
     salva(out/'config.json', cfg)
     versions = {}
-    for package in ('torch','transformers','gliner','huggingface-hub'):
+    for package in ('torch','transformers','gliner','gliner2','huggingface-hub'):
         try:
             versions[package] = importlib.metadata.version(package)
         except importlib.metadata.PackageNotFoundError:
@@ -174,8 +209,18 @@ def esegui(cfg, inputs, gold, device, loader=backend):
         directory = out / m['nome']; directory.mkdir()
         metadata = {'modello':m, 'categorie_mappate': sorted(set(m['etichette'].values())-{None})}
         infer = None
+        model_start = time.perf_counter()
         try:
+            load_start = time.perf_counter()
             infer = loader(m, device, metadata)
+            import sys
+            torch = sys.modules.get('torch')
+            usa_cuda = bool(torch and device.startswith('cuda') and torch.cuda.is_available())
+            if usa_cuda:
+                torch.cuda.synchronize(device)
+                torch.cuda.reset_peak_memory_stats(device)
+            load_seconds = time.perf_counter() - load_start
+            inference_start = time.perf_counter()
             predictions = []
             with (directory/'predizioni.jsonl').open('x', encoding='utf-8') as pf, (directory/'predizioni_native.jsonl').open('x', encoding='utf-8') as rf:
                 for r in inputs:
@@ -183,13 +228,26 @@ def esegui(cfg, inputs, gold, device, loader=backend):
                     predictions.append(prediction)
                     pf.write(json.dumps(prediction, ensure_ascii=False)+'\n'); pf.flush()
                     rf.write(json.dumps({'id':r['id'], 'messaggi':raw}, ensure_ascii=False)+'\n'); rf.flush()
+            if usa_cuda:
+                torch.cuda.synchronize(device)
+            inference_seconds = time.perf_counter() - inference_start
             report = valuta(inputs, gold, predictions)
             salva(directory/'valutazione.json', report)
+            performance = {
+                'secondi_caricamento': load_seconds,
+                'secondi_inferenza': inference_seconds,
+                'secondi_totali': time.perf_counter() - model_start,
+                'picco_vram_allocata_byte': int(torch.cuda.max_memory_allocated(device)) if usa_cuda else None,
+                'picco_vram_riservata_byte': int(torch.cuda.max_memory_reserved(device)) if usa_cuda else None,
+            }
+            metadata['prestazioni'] = performance
             summary.append({'modello':m['nome'], 'stato':'completato' if not report['fallimenti_tecnici'] else 'parziale',
                             'valutate':report['conversazioni_valutate'], 'totali':len(inputs),
-                            'fallimenti':len(report['fallimenti_tecnici']), 'metriche':report['span_esatti_micro']})
+                            'fallimenti':len(report['fallimenti_tecnici']), 'metriche':report['span_esatti_micro'],
+                            'prestazioni':performance})
         except Exception as error:
             metadata['errore'] = f'{type(error).__name__}: {error}'
+            metadata['secondi_fino_errore'] = time.perf_counter() - model_start
             summary.append({'modello':m['nome'], 'stato':'errore', 'errore':metadata['errore']})
         finally:
             salva(directory/'manifest.json', metadata)

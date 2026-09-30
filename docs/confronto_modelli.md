@@ -15,6 +15,14 @@ successivi. Non esegue fine-tuning, combinazioni con regex o sostituzioni nel te
 | [WikiNEuRal](https://huggingface.co/Babelscape/wikineural-multilingual-ner) | Baseline NER multilingue a categorie fisse | CC-BY-NC-SA-4.0 |
 | [Piiranha](https://huggingface.co/iiiorg/piiranha-v1-detect-personal-information) | Riconoscimento PII a categorie fisse | CC-BY-NC-ND-4.0 |
 
+La configurazione v2 aggiunge due candidati Apache-2.0: GLiNER2 PII
+multilingue, specializzato su 42 tipi di informazioni identificative, e
+GLiNER2.5 Multi, generalista multilingue con architettura boundary. Il backend
+GLiNER2 usa gli offset restituiti dalla libreria e conserva l'output convertito
+nel formato nativo del runner. NuNER Zero non è incluso in questa fase perché la
+model card lo presenta come modello inglese; potrà essere provato separatamente
+senza confondere il confronto principale in italiano.
+
 La disponibilità dei pesi non implica libertà di impiego o modifica per ogni
 scopo. Le licenze dei due ultimi modelli richiedono una verifica distinta prima
 di impieghi ulteriori rispetto al confronto di ricerca.
@@ -38,6 +46,9 @@ ACCOUNTNUM non viene convertito in NUM_PRATICA.
 Per Piiranha, segmenti adiacenti della stessa categoria PERSON o ADDRESS,
 separati soltanto da spazi o virgole, vengono uniti. È un’euristica esplicita,
 che può sbagliare; le predizioni native restano disponibili per l’analisi.
+Gli spazi esterni inclusi negli offset dal tokenizer vengono rimossi prima della
+valutazione; gli output nativi conservano gli offset originali. La punteggiatura
+non viene rimossa automaticamente.
 I conflitti fra span dello stesso modello sono risolti per score, poi lunghezza.
 Non confrontiamo gli score fra modelli diversi.
 
@@ -76,7 +87,11 @@ I modelli vengono caricati uno alla volta; non c’è ripresa automatica dei run
 
 La cartella dell’esperimento contiene la configurazione utilizzata, un manifest
 con hash dei dati e versioni delle librerie, e `riepilogo.json` con stato e
-metriche di ciascun modello. Ogni sottocartella contiene:
+metriche di ciascun modello. Il riepilogo e i manifest dei modelli registrano
+anche durata di caricamento, durata di inferenza, durata totale e, su CUDA, i
+picchi di memoria allocata e riservata osservati da PyTorch. Queste misure sono
+utili per confrontare GPU diverse, ma includono rumore di sistema e vanno
+raccolte a parità di configurazione e stato della cache. Ogni sottocartella contiene:
 
 - `predizioni.jsonl`: span convertiti nel formato comune o errori espliciti;
 - `predizioni_native.jsonl`: etichette originali e offset per ogni messaggio;

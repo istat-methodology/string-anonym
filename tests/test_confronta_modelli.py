@@ -6,7 +6,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]/'src'))
-from confronta_modelli import ROOT, carica, esegui, normalizza, predici
+from confronta_modelli import ROOT, carica, converti_gliner2, esegui, normalizza, predici
 
 
 class ConfrontoTest(unittest.TestCase):
@@ -25,6 +25,27 @@ class ConfrontoTest(unittest.TestCase):
         self.assertEqual((spans[0]['start'],spans[0]['end']),(2,12))
         self.assertEqual(ignored,{'CITY':1})
         self.assertEqual(len(spans),1)
+
+    def test_rimuove_spazi_esterni_dagli_offset(self):
+        raw = [dict(label='GIVENNAME', start=0, end=6, score=0.9)]
+        spans, ignored = normalizza(raw, ' Anna ', self.model)
+        self.assertEqual(ignored, {})
+        self.assertEqual(spans, [dict(start=1, end=5, tipo='PERSON', score=0.9, testo='Anna')])
+
+    def test_rifiuta_span_di_soli_spazi(self):
+        raw = [dict(label='GIVENNAME', start=0, end=2, score=0.9)]
+        with self.assertRaisesRegex(ValueError, 'Span vuoto'):
+            normalizza(raw, '  ', self.model)
+
+    def test_conversione_output_gliner2(self):
+        result = {'entities': {'person': [
+            {'text':'Anna', 'start':2, 'end':6, 'confidence':0.91}
+        ], 'address': []}}
+        self.assertEqual(converti_gliner2(result), [
+            {'label':'person', 'start':2, 'end':6, 'score':0.91}
+        ])
+        with self.assertRaisesRegex(ValueError, 'Offset'):
+            converti_gliner2({'entities': {'person':[{'text':'Anna'}]}})
 
     def test_nessuna_fusione_attraverso_parole(self):
         raw=[dict(label='GIVENNAME',start=0,end=4,score=0.9),dict(label='SURNAME',start=7,end=12,score=0.9)]
@@ -72,6 +93,9 @@ class ConfrontoTest(unittest.TestCase):
             results=esegui(cfg,inputs,attese,'cpu',loader)
             self.assertEqual([r['stato'] for r in results],['errore','completato'])
             self.assertEqual(results[1]['metriche']['f1'],1)
+            self.assertIsNone(results[1]['prestazioni']['picco_vram_allocata_byte'])
+            self.assertIsNone(results[1]['prestazioni']['picco_vram_riservata_byte'])
+            self.assertGreaterEqual(results[1]['prestazioni']['secondi_inferenza'], 0)
             self.assertEqual(seen,['È Anna Rossi, Roma.'])
             self.assertTrue((root/'run/fake/predizioni_native.jsonl').exists())
             with self.assertRaises(FileExistsError):esegui(cfg,inputs,attese,'cpu',loader)
