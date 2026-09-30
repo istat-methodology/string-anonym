@@ -29,6 +29,10 @@ di impieghi ulteriori rispetto al confronto di ricerca.
 
 La configurazione definisce per ogni modello repository, revisione, backend,
 soglia, limite di token, mappatura delle etichette e categorie da aggregare.
+La chiave opzionale `tipi_valutati` limita sia le annotazioni attese sia le
+metriche a un sottoinsieme dichiarato delle sette categorie. Serve per confronti
+specialistici, senza contare come omissioni le categorie intenzionalmente fuori
+scopo; la configurazione usata viene copiata negli output.
 Per aggiungere o rimuovere un modello dei backend supportati basta modificare
 la lista `modelli`. I percorsi dei dati sono relativi alla root del progetto.
 

@@ -29,6 +29,9 @@ def carica(path):
     names = set()
     if not cfg['modelli']:
         raise ValueError('Lista modelli vuota')
+    tipi_valutati = set(cfg.get('tipi_valutati', TIPI))
+    if not tipi_valutati or tipi_valutati - TIPI:
+        raise ValueError('Categorie da valutare non valide')
     for m in cfg['modelli']:
         if not re.fullmatch(r'[a-z0-9_]+', m['nome']) or m['nome'] in names:
             raise ValueError('Nome modello duplicato o non valido')
@@ -47,6 +50,9 @@ def carica(path):
     gold = leggi(ROOT / cfg['attese'])
     # Valida i riferimenti prima di scaricare pesi o creare cartelle.
     valuta(inputs, gold, [])
+    if tipi_valutati != TIPI:
+        gold = [{**r, 'annotazioni':[a for a in r['annotazioni'] if a['tipo'] in tipi_valutati]}
+                for r in gold]
     return cfg, inputs, gold
 
 
@@ -272,7 +278,8 @@ def main():
         if (ROOT/cfg['output']).exists():
             raise ValueError('Cartella output già esistente; scegliere un nuovo esperimento')
         if args.solo_controllo:
-            print(f'Conversazioni: {len(inputs)}; modelli: {len(cfg["modelli"])}; contesto: {cfg["contesto"]}')
+            tipi = sorted(cfg.get('tipi_valutati', TIPI))
+            print(f'Conversazioni: {len(inputs)}; modelli: {len(cfg["modelli"])}; contesto: {cfg["contesto"]}; categorie valutate: {tipi}')
             for m in cfg['modelli']:
                 print(f"{m['nome']}: {m['repository']} — categorie mappate: {sorted(set(m['etichette'].values())-{None})}")
             print('Nessun download o inferenza. Licenze e limiti: docs/confronto_modelli.md')

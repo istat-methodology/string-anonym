@@ -106,5 +106,21 @@ class ConfrontoTest(unittest.TestCase):
         wiki=next(m for m in cfg['modelli'] if m['nome']=='wikineural')
         self.assertIsNone(wiki['etichette']['LOC'])
 
+    def test_config_puo_limitare_le_categorie_valutate(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory)
+            inp=root/'input.jsonl'; gold=root/'gold.jsonl'
+            inp.write_text(json.dumps(self.record))
+            expected={'id':'a','annotazioni':[
+                dict(campo='conversazione.0.testo',start=2,end=12,tipo='PERSON'),
+                dict(campo='conversazione.0.testo',start=14,end=18,tipo='ADDRESS'),
+            ]}
+            gold.write_text(json.dumps(expected))
+            cfg=dict(versione='1', contesto='messaggio_isolato', input=str(inp), attese=str(gold),
+                     output=str(root/'run'), tipi_valutati=['PERSON'], modelli=[self.model])
+            path=root/'config.json'; path.write_text(json.dumps(cfg))
+            _, _, filtered=carica(path)
+            self.assertEqual([a['tipo'] for a in filtered[0]['annotazioni']], ['PERSON'])
+
 
 if __name__=='__main__':unittest.main()
