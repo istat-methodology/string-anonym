@@ -25,11 +25,13 @@ inserisce i valori campionati localmente e costruisce le annotazioni con posizio
 esatte. Questo rende tracciabile il riferimento atteso, ma non sostituisce la
 revisione dei contenuti o la ricerca di dati introdotti fuori dagli slot.
 
-Per il masking proponiamo due canali complementari: regex per forme
-riconoscibili e un modello contestuale per le espressioni variabili e la loro
-funzione nel dialogo. Il modello potrà riconoscere entità anche senza una
-corrispondenza regex. Il confronto fra regole, modello e sistema ibrido dovrà
-misurarne il contributo, senza presumere che la combinazione sia sempre migliore.
+La nuova architettura distingue tre step analitici. La detection opera sul
+singolo messaggio: regex e NER leggono il testo originale e `merge_detection`
+ne combina i risultati. La policy usa poi l'intera conversazione come contesto
+e assegna a ogni detection `KEEP`, `MASK`, `GENERALIZE` o `REVIEW`. Una futura
+valutazione complessiva dovrà stimare il rischio residuo della conversazione dopo
+queste decisioni, ma non è ancora implementata. La valutazione sull'intero dataset
+resta fuori dal perimetro corrente.
 
 ## Stato attuale
 
@@ -37,7 +39,10 @@ misurarne il contributo, senza presumere che la combinazione sia sempre migliore
 - Esportazione separata di input, annotazioni attese e informazioni di revisione.
 - Baseline regex e valutatore indipendente dal modello, entrambi locali.
 - Runner configurabile per confrontare quattro modelli NER (da verificare sulla GPU).
-- Sette categorie: PERSON, ADDRESS, EMAIL, PHONE, COD_UTENTE, PASSWORD, NUM_PRATICA.
+- Prompt chat 5.0 separato dal prompt sperimentale di policy.
+- Gold di detection costruito localmente da slot e riferimenti controllati.
+- Policy contestuale `conversation-draft-2` eseguita su 46 conversazioni.
+- Output legacy conservati per riproducibilità.
 
 Il confronto sperimentale, il fine-tuning e la sostituzione coerente delle predizioni
 lungo la conversazione sono ancora da implementare. I lotti esistenti sono
@@ -53,6 +58,9 @@ ancora approvate come gold, non una stima delle prestazioni sul traffico reale.
 
 | Documento | Scopo |
 |---|---|
+| [Decisione detection/policy](docs/decisione_architetturale_detection_policy.md) | Confini dei componenti e migrazione |
+| [Prompt chat e policy](docs/prompt_policy.md) | Formati 5.0, stati delle ipotesi e limiti |
+| [Esperimento policy contestuale](docs/esperimento_policy_conversation_draft2.md) | Risultati del lotto e decisioni ancora aperte |
 | [Metodologia del masking](docs/metodologia_masking.md) | Obiettivi, workflow, disegno sperimentale, dati e metriche |
 | [Pipeline operativa](docs/pipeline.md) | Comandi, input/output, verifiche e istruzioni di generazione |
 | [Convenzioni di masking](docs/casi_ambigui_masking.md) | Decisioni sui casi ambigui e riferimenti da conservare |

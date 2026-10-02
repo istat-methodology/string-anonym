@@ -5,12 +5,59 @@ La prima parte descrive esportazione, baseline e valutazione del masking;
 la seconda conserva istruzioni di generazione e note delle versioni precedenti.
 Le note storiche non rappresentano lo stato corrente dei prompt.
 
-## Pipeline di masking: stato attuale
+## Pipeline legacy di masking
 
+Questa sezione documenta gli esperimenti 4.x, mantenuti per riproducibilità.
 Sono implementati esportazione del dataset, baseline regex e valutatore.
 La componente modellistica, la combinazione contestuale e la sostituzione delle
 predizioni con etichette coerenti sono i passi successivi. Le annotazioni da
 slot del generatore sono il riferimento atteso, non predizioni di un sistema.
+Le metriche sono una proxy end-to-end del masking, non una misura pura del NER.
+
+## Pipeline 5.0 in sviluppo
+
+I tre step analitici sono:
+
+1. detection indipendente sul singolo messaggio;
+2. policy per ciascuna detection, usando l'intera conversazione come contesto;
+3. valutazione complessiva del rischio residuo della conversazione.
+
+Gli step 1 e 2 sono implementati. Lo step 3 non è ancora implementato. La
+sostituzione finale è un'operazione tecnica successiva; la valutazione a livello
+dell'intero dataset resta fuori perimetro.
+
+Il prompt chat produce soltanto metadati e conversazione. Il codice inserisce i
+valori sintetici e costruisce `detection_attesa` con offset sul testo originale.
+Le decisioni attese rimangono fuori dal prompt chat e hanno stato `APPROVED`,
+`PROVISIONAL` oppure `OPEN`.
+
+```text
+scheda -> prompt chat -> conversazione -> detection -> policy contestuale
+                                             |
+                                             +-> valutazione complessiva futura
+```
+
+```sh
+python3 src/genera_prompt_policy.py \
+  --input OUTPUT_CHAT_5.jsonl \
+  --output OUTPUT_PROMPT_POLICY.jsonl
+```
+
+Il prompt policy contiene conversazione, detection e versione della policy.
+`attese_policy` resta separato e non compare nei messaggi dati al modello.
+
+Per provare un solo prompt tramite Foundry:
+
+```sh
+.venv/bin/python src/genera_policy.py \
+  --input output/prompts_policy_v5_draft4_conversation_draft2.jsonl \
+  --max-prompt 1 \
+  --output output/policy_v5_prova.jsonl
+```
+
+Il runner remoto è disponibile; valutatore quantitativo della policy e
+sostituzione finale non sono ancora implementati. Anche la valutazione
+complessiva della conversazione è rinviata.
 
 ```mermaid
 flowchart LR
@@ -25,7 +72,7 @@ flowchart LR
     G --> H[Report di metriche ed errori]
 ```
 
-I tre step seguenti sono locali: non richiedono API, credenziali o GPU.
+I tre comandi legacy seguenti sono locali: non richiedono API, credenziali o GPU.
 Eseguire dalla root del progetto, un passo alla volta. I percorsi mostrati
 corrispondono all'esperimento già eseguito: per ripeterlo scegliere output nuovi,
 aggiornando anche i comandi successivi. Gli script rifiutano sovrascritture.
@@ -160,16 +207,15 @@ Richiede Python 3.10+, senza dipendenze esterne:
 
 ```sh
 python3 src/parse_input.py
-python3 src/genera_prompt.py --seed 0 --output output/prompts_v4.jsonl
+python3 src/genera_prompt.py --seed 0 --output output/prompts_v5_draft4.jsonl
 python3 -m unittest discover -s tests -v
 ```
 
-Il percorso `output/prompts_v4.jsonl` è un esempio storico: il generatore usa
-la versione corrente del prompt, indipendentemente dal nome del file. Per
-ricreare schede scegliere un nuovo percorso di output. Non contengono risposte
-del modello.
+Scegliere sempre un percorso nuovo. I prompt 5.0 chiedono soltanto metadati e
+conversazione; non chiedono al generatore detection o policy.
 
-Il default prepara 24 prompt: sei casi × due modalità × due esempi. I codici
+Il catalogo 5.0 contiene dodici scenari. Con due esempi per modalità prepara 46
+prompt, perché lo scenario microdati non prevede la modalità con dati personali. I codici
 PSN sono campionati come coppie codice–nome dalla lista ammessa per lo scenario;
 le categorie `da_verificare` non vengono selezionate. Non si deducono chiavi
 di portale, obblighi, scadenze o procedure dai cataloghi.
@@ -177,7 +223,7 @@ di portale, obblighi, scadenze o procedure dai cataloghi.
 Per cambiare regole o selezionare un caso:
 
 ```sh
-python3 src/genera_prompt.py --scenario recupero_accesso --regole config/regole_generazione.json --seed 7 --per-modalita 3 --output output/accesso_v4.jsonl
+python3 src/genera_prompt.py --scenario recupero_accesso --regole config/regole_generazione.json --seed 7 --per-modalita 3 --output output/accesso_v5.jsonl
 ```
 
 Nessun output esistente viene sovrascritto. I prompt conservano seed, versioni,
@@ -192,8 +238,8 @@ per Azure Foundry. Il percorso dei prompt è obbligatorio, per evitare di usare
 inavvertitamente un lotto storico:
 
 ```sh
-.venv/bin/python src/genera_chat.py --input output/prompts_v4.jsonl --max-conversazioni 1 --output output/chat_v4_prova.jsonl
-python3 src/rivalida_chat.py --input output/chat_v4_prova.jsonl --output output/chat_v4_rivalidate.jsonl
+.venv/bin/python src/genera_chat.py --input output/prompts_v5_draft4.jsonl --max-conversazioni 1 --output output/chat_v5_prova_draft4.jsonl
+python3 src/rivalida_chat.py --input output/chat_v5_prova_draft4.jsonl --output output/chat_v5_prova_draft4_rivalidate.jsonl
 ```
 
 `--limit` rimane un alias di `--max-conversazioni`. Le credenziali restano nel
@@ -207,7 +253,7 @@ sono superati i controlli implementati, non una revisione semantica completa:
 identificativi inventati fuori dagli slot e riepiloghi infedeli richiedono ancora
 revisione. I controlli lessicali esistenti coprono solo alcuni stati del questionario.
 
-## Annotazioni
+## Annotazioni 4.x (legacy)
 
 Nel nuovo formato `chat.trattamento_atteso.mascherare` contiene un oggetto per
 ogni occorrenza con `campo`, `start`, `end`, `tipo`, `id_entita`, `id_forma`,

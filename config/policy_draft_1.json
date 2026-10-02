@@ -1,0 +1,19 @@
+{
+  "versione": "draft-1",
+  "stato": "sperimentale",
+  "azioni": ["KEEP", "MASK", "GENERALIZE", "REVIEW"],
+  "indicazioni": [
+    "Valuta la conversazione completa, non i messaggi in isolamento.",
+    "MASK rimuove integralmente un riferimento identificativo.",
+    "KEEP conserva un riferimento utile che non identifica il richiedente nel contesto.",
+    "GENERALIZE riduce la specificità conservando il significato utile.",
+    "REVIEW segnala una decisione incerta o una combinazione di elementi potenzialmente identificativa.",
+    "Un elemento correttamente rilevato non deve essere mascherato automaticamente.",
+    "Non modificare o aggiungere detection."
+  ],
+  "fuori_perimetro": [
+    "valutazione del rischio sull'intero dataset",
+    "dati sanitari",
+    "certificazione di anonimizzazione"
+  ]
+}

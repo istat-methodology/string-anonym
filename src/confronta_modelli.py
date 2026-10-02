@@ -10,6 +10,7 @@ from pathlib import Path
 import re
 import time
 
+from detection import DETECTION_TYPES, merge_detection
 from esporta_dataset_masking import leggi, TIPI
 from valuta_masking import span_validi, valuta
 
@@ -42,7 +43,7 @@ def carica(path):
             raise ValueError('Soglia o limite non valido')
         if not m['repository'] or not m['revision'] or not m['etichette']:
             raise ValueError('Repository, revisione ed etichette obbligatori')
-        if any(t is not None and t not in TIPI for t in m['etichette'].values()):
+        if any(t is not None and t not in DETECTION_TYPES for t in m['etichette'].values()):
             raise ValueError('Mappatura etichette non valida')
         if set(m['unisci_adiacenti']) - TIPI:
             raise ValueError('Categorie di aggregazione non valide')
@@ -98,19 +99,63 @@ def normalizza(raw, testo, m):
     return result, dict(ignorate)
 
 
+def detect_model(raw, testo, m, campo):
+    """Converte l'output NER senza eliminare sovrapposizioni o disaccordi."""
+    detections = []
+    ignorate = Counter()
+    for entity in raw:
+        label = entity.get('entity_group', entity.get('label'))
+        if label not in m['etichette']:
+            raise ValueError(f'Etichetta inattesa: {label}')
+        tipo = m['etichette'][label]
+        start, end, score = int(entity['start']), int(entity['end']), float(entity['score'])
+        if not 0 <= start < end <= len(testo) or not math.isfinite(score):
+            raise ValueError('Span o score del modello non valido')
+        while start < end and testo[start].isspace():
+            start += 1
+        while end > start and testo[end-1].isspace():
+            end -= 1
+        if start == end:
+            raise ValueError('Span vuoto dopo la normalizzazione degli spazi')
+        if tipo is None:
+            ignorate[label] += 1
+            continue
+        if score < m['soglia']:
+            continue
+        detections.append({
+            'field': campo,
+            'start': start,
+            'end': end,
+            'text': testo[start:end],
+            'type': tipo,
+            'sources': [{
+                'detector': 'ner',
+                'name': m['nome'],
+                'native_type': label,
+                'score': score,
+            }],
+        })
+    return detections, dict(ignorate)
+
+
 def predici(record, m, infer):
-    spans = []; raw_messages = []; ignorate = Counter()
+    spans = []; raw_messages = []; ignorate = Counter(); raw_detections = []; fields = {}
     start = time.perf_counter()
     try:
         for i, message in enumerate(record['conversazione']):
             testo = message['testo']
+            campo = f'conversazione.{i}.testo'
+            fields[campo] = testo
             raw = infer(testo) if testo.strip() else []
-            raw_messages.append({'campo': f'conversazione.{i}.testo', 'entita': raw})
-            normalized, ignored = normalizza(raw, testo, m)
+            raw_messages.append({'campo': campo, 'entita': raw})
+            detections, ignored = detect_model(raw, testo, m, campo)
+            raw_detections.extend(detections)
             ignorate.update(ignored)
-            spans.extend({'campo': f'conversazione.{i}.testo', **a} for a in normalized)
+            normalized, _ = normalizza(raw, testo, m)
+            spans.extend({'campo': campo, **a} for a in normalized if a['tipo'] in TIPI)
         span_validi(spans, record['conversazione'])
-        return {'id': record['id'], 'stato': 'ok', 'annotazioni': spans,
+        detections = merge_detection(raw_detections, fields, record['id'])
+        return {'id': record['id'], 'stato': 'ok', 'detections': detections, 'annotazioni': spans,
                 'etichette_ignorate': dict(ignorate), 'secondi': time.perf_counter()-start}, raw_messages
     except Exception as error:
         return {'id': record['id'], 'stato': 'errore', 'errore': f'{type(error).__name__}: {error}',

@@ -5,6 +5,7 @@ import hashlib
 import json
 from pathlib import Path
 import re
+from detection import DETECTION_TYPES, merge_detection
 from esporta_dataset_masking import leggi, TIPI
 from valuta_masking import indicizza
 
@@ -15,7 +16,7 @@ def carica_regole(path):
     config = json.loads(path.read_text(encoding='utf-8'))
     nomi = set()
     for r in config['regole']:
-        if r['nome'] in nomi or r['tipo'] not in TIPI or type(r['priorita']) is not int:
+        if r['nome'] in nomi or r['tipo'] not in DETECTION_TYPES or type(r['priorita']) is not int:
             raise ValueError('Regola duplicata o non valida')
         nomi.add(r['nome'])
         r['regex'] = re.compile(r['pattern'], re.IGNORECASE)
@@ -40,18 +41,49 @@ def riconosci(testo, regole):
     return sorted(scelti, key=lambda a: a['start'])
 
 
+def detect_regex(testo, regole, campo):
+    """Produce tutte le detection regex sul testo originale, senza risolvere conflitti."""
+    detections = []
+    for rule in regole:
+        for match in rule['regex'].finditer(testo):
+            start, end = match.span('valore')
+            if start < 0 or end <= start:
+                raise ValueError('Regola con span vuoto')
+            detections.append({
+                'field': campo,
+                'start': start,
+                'end': end,
+                'text': testo[start:end],
+                'type': rule['tipo'],
+                'sources': [{
+                    'detector': 'regex',
+                    'rule': rule['nome'],
+                    'priority': rule['priorita'],
+                }],
+            })
+    return detections
+
+
 def predici(record, config):
     try:
         conv = record['conversazione']
         if not isinstance(conv, list) or not conv:
             raise ValueError('Conversazione vuota o non valida')
         spans = []
+        raw_detections = []
+        fields = {}
         for i, m in enumerate(conv):
             if m['sender'] not in {'Utente', 'Agente'} or not isinstance(m['testo'], str):
                 raise ValueError('Messaggio non valido')
+            campo = f'conversazione.{i}.testo'
+            fields[campo] = m['testo']
+            raw_detections.extend(detect_regex(m['testo'], config['regole'], campo))
             for a in riconosci(m['testo'], config['regole']):
-                spans.append({'campo': f'conversazione.{i}.testo', **a})
-        return {'id': record['id'], 'stato': 'ok', 'annotazioni': spans, 'versione_regole': config['versione']}
+                if a['tipo'] in TIPI:
+                    spans.append({'campo': f'conversazione.{i}.testo', **a})
+        detections = merge_detection(raw_detections, fields, record['id'])
+        return {'id': record['id'], 'stato': 'ok', 'detections': detections,
+                'annotazioni': spans, 'versione_regole': config['versione']}
     except (ValueError, KeyError, TypeError) as error:
         return {'id': record['id'], 'stato': 'errore', 'errore': str(error)}
 

@@ -1,0 +1,27 @@
+{
+  "versione": "draft-2",
+  "stato": "sperimentale",
+  "azioni": ["KEEP", "MASK", "GENERALIZE", "REVIEW"],
+  "indicazioni": [
+    "Valuta la conversazione completa, non i messaggi in isolamento.",
+    "MASK rimuove integralmente un riferimento identificativo.",
+    "KEEP conserva un riferimento utile che non identifica il richiedente nel contesto.",
+    "GENERALIZE riduce la specificità conservando il significato utile.",
+    "REVIEW segnala una decisione incerta su una singola detection.",
+    "Un elemento correttamente rilevato non deve essere mascherato automaticamente.",
+    "Non modificare o aggiungere detection."
+  ],
+  "valutazione_conversazione": [
+    "Valuta il rischio residuo dopo aver immaginato applicate tutte le decisioni MASK e GENERALIZE.",
+    "Considera la combinazione fra informazioni conservate o generalizzate, anche quando ciascuna appare innocua isolatamente.",
+    "Usa REVIEW se ruolo, territorio, periodo, organizzazione, indagine, evento o altra circostanza possono insieme rendere distinguibile una persona, un'organizzazione o uno specifico caso.",
+    "Usa REVIEW anche quando non ci sono elementi sufficienti per escludere ragionevolmente il rischio combinato.",
+    "Usa OK soltanto quando, dopo le trasformazioni proposte, non emerge un rischio combinato plausibile dalla conversazione.",
+    "Nella motivazione indica sinteticamente quali combinazioni producono il rischio; non inventare informazioni assenti."
+  ],
+  "fuori_perimetro": [
+    "valutazione del rischio sull'intero dataset",
+    "dati sanitari",
+    "certificazione di anonimizzazione"
+  ]
+}

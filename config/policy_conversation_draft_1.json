@@ -1,0 +1,22 @@
+{
+  "versione": "conversation-draft-1",
+  "stato": "sperimentale",
+  "azioni": ["KEEP", "MASK", "GENERALIZE", "REVIEW"],
+  "indicazioni": [
+    "Usa l'intera conversazione come contesto per decidere ogni detection.",
+    "MASK rimuove integralmente un riferimento identificativo diretto.",
+    "KEEP conserva un riferimento utile che non identifica il richiedente nel contesto.",
+    "GENERALIZE riduce la specificità conservando il significato utile.",
+    "REVIEW segnala una decisione incerta sulla singola detection.",
+    "I nomi pubblici e i codici PSN delle indagini, quando descrivono il servizio richiesto, devono essere mantenuti.",
+    "Nomi, recapiti e identificativi personali del richiedente o di terzi devono essere mascherati.",
+    "Un elemento correttamente rilevato non deve essere mascherato automaticamente.",
+    "Non modificare o aggiungere detection."
+  ],
+  "fuori_perimetro": [
+    "valutazione aggregata del rischio residuo della conversazione",
+    "valutazione del rischio sull'intero dataset",
+    "dati sanitari",
+    "certificazione di anonimizzazione"
+  ]
+}

@@ -15,10 +15,14 @@ class PromptTest(unittest.TestCase):
         args = (catalogo, 2, 42, date(2026, 4, 1), 21, dati)
         righe = list(genera(*args))
         self.assertEqual(righe, list(genera(*args)))
-        self.assertEqual(len(righe), 24)
-        self.assertEqual(len({r['id'] for r in righe}), 24)
+        self.assertEqual(len(righe), 46)
+        self.assertEqual(len({r['id'] for r in righe}), 46)
         for r in righe:
             s = r['scheda']
+            self.assertEqual(r['versione_prompt'], '5.0-draft4')
+            self.assertEqual(s['schema_output'], 'chat_v5')
+            self.assertIn('riferimenti_detection', s)
+            self.assertIn('ipotesi_policy', r)
             self.assertNotIn('canale', s['metadati_fissati'])
             self.assertIsNone(s['metadati_fissati']['chiave_indagine'])
             if s['indagine']:
@@ -29,6 +33,8 @@ class PromptTest(unittest.TestCase):
                 self.assertIsNone(s['metadati_fissati']['chiave_indagine'])
                 self.assertIsNone(s['nome_indagine'])
                 self.assertNotIn('ADDRESS', [e['tipo'] for e in s['entita_previste']])
+                tipi = {e['tipo'] for e in s['riferimenti_detection']}
+                self.assertTrue({'LOCATION', 'DATE'} <= tipi)
 
     def test_email_del_nuovo_contatto_indipendente(self):
         dati = DatiInput(['Anna'], ['Rossi'], {'001001': 'Alfa'}, [('001001', 'VIA ROMA')], {})

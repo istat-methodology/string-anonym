@@ -1,5 +1,11 @@
 # Pipeline per la generazione di conversazioni sintetiche del Contact Centre Istat
 
+> **Nota sulla versione 5.0.** Questa specifica descrive il disegno originario
+> end-to-end. Le parti in cui il generatore produce anche annotazioni o decisioni
+> di masking sono ora legacy. Il contratto corrente separa generazione della chat,
+> detection sul singolo messaggio e policy sulla conversazione; si vedano
+> `docs/decisione_architetturale_detection_policy.md` e `docs/prompt_policy.md`.
+
 Versione 0.4 — 27 settembre 2026  
 Stato: specifica di lavoro per il confronto con i colleghi e per la successiva implementazione.
 

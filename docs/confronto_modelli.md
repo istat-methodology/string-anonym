@@ -6,6 +6,15 @@ Questo primo esperimento usa messaggi isolati: ciascun modello riceve soltanto
 il testo del messaggio corrente, senza annotazioni attese, riepiloghi o turni
 successivi. Non esegue fine-tuning, combinazioni con regex o sostituzioni nel testo.
 
+Durante la migrazione ogni predizione contiene anche `detections`, che conserva
+provenienza, score, sovrapposizioni e disaccordi prima della policy. Il campo
+legacy `annotazioni` resta disponibile per riprodurre il confronto storico.
+
+Il confronto descritto qui valuta esclusivamente lo **step 1**, cioè la detection
+sul singolo messaggio. Non misura la policy contestuale, la futura valutazione
+complessiva della conversazione o l'anonimizzazione finale. Questa separazione
+evita di attribuire al NER errori o meriti che dipendono dalle decisioni di policy.
+
 ## Modelli e conversione delle categorie
 
 | Modello | Funzione nel confronto | Licenza dichiarata dei pesi |

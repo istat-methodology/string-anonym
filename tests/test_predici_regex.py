@@ -1,9 +1,10 @@
 import copy
 from pathlib import Path
+import re
 import sys
 import unittest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]/'src'))
-from predici_regex import carica_regole, riconosci, predici, ROOT
+from predici_regex import carica_regole, detect_regex, riconosci, predici, ROOT
 from valuta_masking import span_validi
 
 
@@ -36,9 +37,21 @@ class RegexTest(unittest.TestCase):
         before=copy.deepcopy(r)
         p=predici(r,self.config)
         self.assertEqual([a['tipo'] for a in p['annotazioni']],['COD_UTENTE','NUM_PRATICA'])
+        self.assertEqual([d['type'] for d in p['detections']],
+                         ['COD_UTENTE','PHONE','NUM_PRATICA','PHONE'])
         span_validi(p['annotazioni'],r['conversazione'])
         self.assertEqual(r,before)
         self.assertEqual(predici({'id':'bad','conversazione':None},self.config)['stato'],'errore')
+
+    def test_detection_regex_non_risolve_sovrapposizioni(self):
+        rules = [
+            {'nome':'lunga', 'tipo':'PASSWORD', 'priorita':2,
+             'regex':re.compile(r'(?P<valore>abc123)')},
+            {'nome':'corta', 'tipo':'COD_UTENTE', 'priorita':1,
+             'regex':re.compile(r'(?P<valore>abc)')},
+        ]
+        detections=detect_regex('abc123', rules, 'conversazione.0.testo')
+        self.assertEqual(len(detections),2)
 
 
 if __name__=='__main__':unittest.main()

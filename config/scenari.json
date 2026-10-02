@@ -1,5 +1,5 @@
 {
-  "versione": "4.1",
+  "versione": "5.0-draft1",
   "scenari": [
     {
       "id": "recupero_accesso",
@@ -134,6 +134,94 @@
       "tipo_rispondente": "altro",
       "codici_psn_ammessi": [],
       "stato_associazione": "proposta_pilota_da_revisionare"
+    },
+    {
+      "chiave_indagine": null,
+      "id": "impresa_acquisita",
+      "sezione": "Assistenza ai rispondenti",
+      "situazione": "L'utente scrive per una società acquisita da un'altra impresa. La documentazione di fusione è già stata inviata, ma continua ad arrivare la richiesta di compilazione. Le due organizzazioni emergono in turni distinti.",
+      "entita": ["persona_1", "email_1"],
+      "riferimenti_statici": [
+        {"id": "impresa_acquisita", "riferimento": "Alfa Componenti S.r.l.", "tipo": "ORGANIZATION", "ipotesi_iniziale": "GENERALIZE", "stato": "OPEN"},
+        {"id": "impresa_acquirente", "riferimento": "Gruppo Beta S.p.A.", "tipo": "ORGANIZATION", "ipotesi_iniziale": "GENERALIZE", "stato": "OPEN"}
+      ],
+      "riferimenti_da_conservare": ["acquisizione societaria", "documentazione di fusione già inviata", "richiesta ancora presente"],
+      "indicazioni_risposta": "Chiarire il rapporto tra le imprese e suggerire di far verificare la posizione all'assistenza. Non stabilire quale impresa sia obbligata e non confermare la ricezione dei documenti.",
+      "scenario_catalogo": "NUOVO-01",
+      "tipo_rispondente": "imprese",
+      "codici_psn_ammessi": ["IST-01175"],
+      "stato_associazione": "ipotesi_da_revisionare"
+    },
+    {
+      "chiave_indagine": null,
+      "id": "referente_irreperibile",
+      "sezione": "Assistenza ai rispondenti",
+      "situazione": "Il precedente referente non lavora più nell'organizzazione e nessuno conosce l'email associata. Se persona_1 è presente rappresenta il precedente referente.",
+      "entita": ["persona_1", "email_1", "cod_utente_1"],
+      "riferimenti_statici": [
+        {"id": "ruolo_precedente", "riferimento": "precedente referente", "tipo": "ROLE", "ipotesi_iniziale": "KEEP", "stato": "PROVISIONAL"}
+      ],
+      "riferimenti_da_conservare": ["cessazione del rapporto del referente", "email di registrazione non conosciuta"],
+      "indicazioni_risposta": "Distinguere recupero delle credenziali e aggiornamento del referente. Non chiedere password, non promettere modifiche e non inventare documenti necessari.",
+      "scenario_catalogo": "NUOVO-02",
+      "tipo_rispondente": "imprese",
+      "codici_psn_ammessi": [],
+      "stato_associazione": "ipotesi_da_revisionare"
+    },
+    {
+      "chiave_indagine": null,
+      "id": "ricevuta_sollecito_conflitto",
+      "sezione": "Assistenza ai rispondenti",
+      "situazione": "Il portale mostra il questionario come inviato e l'utente ha scaricato la ricevuta, ma il giorno successivo riceve un sollecito via PEC.",
+      "entita": ["num_pratica_1", "email_1"],
+      "riferimenti_da_conservare": ["stato inviato", "ricevuta scaricata", "sollecito successivo via PEC"],
+      "indicazioni_risposta": "Riconoscere la contraddizione e suggerire una verifica senza affermare che l'invio sia stato acquisito o che il sollecito sia errato.",
+      "scenario_catalogo": "NUOVO-03",
+      "tipo_rispondente": "imprese",
+      "codici_psn_ammessi": ["IST-01175", "IST-01381"],
+      "stato_associazione": "ipotesi_da_revisionare"
+    },
+    {
+      "chiave_indagine": null,
+      "id": "obbligo_sanzione",
+      "sezione": "Normativa e partecipazione",
+      "situazione": "L'utente domanda se la rilevazione sia obbligatoria e se la mancata partecipazione comporti una sanzione. Può fornire spontaneamente il codice utente.",
+      "entita": ["cod_utente_1"],
+      "riferimenti_da_conservare": ["domanda sull'obbligo", "domanda sulle sanzioni"],
+      "indicazioni_risposta": "Non affermare obblighi, esenzioni, importi o riferimenti normativi non presenti nella scheda. Indicare che la posizione specifica deve essere verificata nelle informazioni ufficiali o con l'assistenza.",
+      "scenario_catalogo": "NUOVO-04",
+      "tipo_rispondente": "imprese",
+      "codici_psn_ammessi": ["IST-01381"],
+      "stato_associazione": "ipotesi_da_revisionare"
+    },
+    {
+      "chiave_indagine": null,
+      "id": "tracciamento_richiesta_documento",
+      "sezione": "Contact Centre",
+      "situazione": "L'utente ha già richiesto una copia di un documento e comunica spontaneamente il numero della richiesta per sapere dove trovare il risultato e come verrà notificato.",
+      "entita": ["num_pratica_1", "email_1"],
+      "riferimenti_da_conservare": ["richiesta già presentata", "attesa del documento", "canale di notifica non confermato"],
+      "indicazioni_risposta": "Non confermare tempi, stato o invio via email. Suggerire di verificare la richiesta tramite il canale appropriato senza chiedere altri identificativi.",
+      "scenario_catalogo": "NUOVO-05",
+      "tipo_rispondente": "altro",
+      "codici_psn_ammessi": [],
+      "stato_associazione": "ipotesi_da_revisionare"
+    },
+    {
+      "chiave_indagine": null,
+      "id": "accesso_microdati",
+      "sezione": "Assistenza ricerca dati",
+      "situazione": "Un ricercatore chiede se sia possibile accedere ai microdati EU-SILC con dettaglio territoriale NUTS 2 o NUTS 3. Non inserire dati personali.",
+      "entita": [],
+      "riferimenti_statici": [
+        {"id": "dataset_eusilc", "riferimento": "EU-SILC", "tipo": "INDAGINE", "ipotesi_iniziale": "KEEP", "stato": "APPROVED"}
+      ],
+      "riferimenti_da_conservare": ["microdati EU-SILC", "dettaglio NUTS 2 o NUTS 3", "finalità di ricerca"],
+      "indicazioni_risposta": "Spiegare soltanto che disponibilità, granularità e condizioni di accesso devono essere verificate nei canali ufficiali dedicati ai microdati. Non inventare procedure o autorizzazioni.",
+      "scenario_catalogo": "NUOVO-06",
+      "tipo_rispondente": "altro",
+      "codici_psn_ammessi": [],
+      "stato_associazione": "ipotesi_da_revisionare"
     }
   ]
 }

@@ -63,18 +63,26 @@ class MiratoTest(unittest.TestCase):
             s=r['scheda']; es=s['entita_previste']; target=s['copertura_mirata']
             slots=' '.join(e['segnaposto'] for e in es)
             riferimenti=' '.join(target['riferimenti_letterali'])
-            chat={'metadati':{**s['metadati_fissati'],'descrizione':'Richiesta di chiarimenti.'},'conversazione':[{'sender':'Utente','testo':'Chiedo: '+slots+' '+riferimenti},{'sender':'Agente','testo':'Si riferisce a '+slots+'?'}], 'trattamento_atteso':{'mascherare':[{k:e[k] for k in ('segnaposto','tipo','sostituzione')} for e in es],'conservare':[],'motivazione':'Prova locale.'}}
+            analisi=' '.join(x['riferimento'] for x in s['riferimenti_detection'])
+            chat={'metadati':{**s['metadati_fissati'],'descrizione':'Richiesta di chiarimenti.'},'conversazione':[
+                {'sender':'Utente','testo':'Chiedo: '+analisi+' '+riferimenti},
+                {'sender':'Agente','testo':'Quale problema ha riscontrato?'},
+                {'sender':'Utente','testo':'Il problema persiste.'},
+                {'sender':'Agente','testo':'Si riferisce a '+slots+'?'},
+                {'sender':'Utente','testo':'Sì, esatto.'},
+                {'sender':'Agente','testo':'La richiesta va verificata.'}]}
             result=prepara_chat(chat,s)
             self.assertEqual(result['stato'],'valido')
             if es:
-                chat['conversazione'][1]['testo']='Quale problema ha riscontrato?'
+                chat['conversazione'][3]['testo']='Quale problema ha riscontrato?'
                 result=prepara_chat(chat,s)
                 self.assertEqual(result['stato'],'da_verificare')
                 self.assertTrue(result['validazione']['segnali_copertura'])
-                self.assertTrue(result['chat']['trattamento_atteso']['mascherare'])
+                self.assertTrue(result['detection_attesa'])
             if riferimenti:
                 chat['conversazione'][0]['testo']='Chiedo: '+slots
-                self.assertTrue(prepara_chat(chat,s)['validazione']['segnali_copertura'])
+                with self.assertRaises(ValueError):
+                    prepara_chat(chat,s)
 
     def test_configurazione_ripetizione_sconosciuta(self):
         c=copy.deepcopy(self.catalogo);c['scenari'][0]['ripetere_agente']=['inesistente']

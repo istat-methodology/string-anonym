@@ -5,6 +5,7 @@ import json
 import re
 
 from annotazioni import sostituisci_con_span
+from detection import merge_detection
 
 def prepara_testo(testo, scheda):
     """Accetta JSON puro o un solo blocco Markdown, senza testo esterno."""
@@ -21,7 +22,10 @@ def prepara_testo(testo, scheda):
 
 def valida(chat, scheda):
     """Controlli strutturali e sui vincoli espliciti; non una revisione semantica."""
-    if not isinstance(chat, dict) or set(chat) != {"metadati", "conversazione", "trattamento_atteso"}:
+    nuova_analisi = scheda.get("schema_output") == "chat_v5"
+    campi_chat = {"metadati", "conversazione"} if nuova_analisi else {
+        "metadati", "conversazione", "trattamento_atteso"}
+    if not isinstance(chat, dict) or set(chat) != campi_chat:
         raise ValueError("Campi principali della risposta non validi")
     meta = chat["metadati"]
     campi = {"data_sintetica", "chiave_indagine", "descrizione"}
@@ -42,6 +46,8 @@ def valida(chat, scheda):
                 or msg["sender"] != ("Utente" if i % 2 == 0 else "Agente")
                 or not isinstance(msg["testo"], str) or not msg["testo"].strip()):
             raise ValueError("Messaggio o alternanza dei ruoli non validi")
+    if nuova_analisi and (len(messaggi) < 6 or messaggi[-1]["sender"] != "Agente"):
+        raise ValueError("La chat 5.0 richiede almeno 3 scambi completi e chiusura dell'Agente")
     entita = {e["segnaposto"]: e for e in scheda["entita_previste"]}
     if len(entita) != len(scheda["entita_previste"]):
         raise ValueError("Segnaposto duplicati nella scheda")
@@ -55,6 +61,15 @@ def valida(chat, scheda):
         raise ValueError("Segnaposto mancanti o non previsti")
     if any(e["valore_proposto"] in testo for e in entita.values()):
         raise ValueError("Il modello ha scritto un valore al posto del segnaposto")
+    if nuova_analisi:
+        riferimenti = scheda.get("riferimenti_detection")
+        if (not isinstance(riferimenti, list)
+                or any(not isinstance(r, dict)
+                       or set(r) != {"reference_id", "riferimento", "tipo"}
+                       or not isinstance(r["riferimento"], str)
+                       or r["riferimento"] not in dialogo for r in riferimenti)):
+            raise ValueError("Riferimenti di detection mancanti dal dialogo")
+        return
     trattamento = chat["trattamento_atteso"]
     if not isinstance(trattamento, dict) or set(trattamento) != {"mascherare", "conservare", "motivazione"}:
         raise ValueError("Trattamento atteso non valido")
@@ -80,8 +95,10 @@ def sostituisci(valore, mappa):
 
 def controlla_coerenza(chat):
     """Segnali lessicali da revisionare, non una verifica semantica generale."""
-    riepilogo = (chat["metadati"]["descrizione"] + " " +
-                 " ".join(chat["trattamento_atteso"]["conservare"])).casefold()
+    riepilogo = chat["metadati"]["descrizione"]
+    if "trattamento_atteso" in chat:
+        riepilogo += " " + " ".join(chat["trattamento_atteso"]["conservare"])
+    riepilogo = riepilogo.casefold()
     # Una domanda del chatbot con possibili stati non conferma lo stato reale.
     dichiarazioni = " ".join(m["testo"] for m in chat["conversazione"]
                              if m["sender"] == "Utente").casefold()
@@ -119,9 +136,10 @@ def controlla_identificativi_fuori_slot(chat):
         r"(?P<valore>[0-9][A-Za-z0-9/-]*)\b", re.IGNORECASE)
     campi = [(f"conversazione.{i}.testo", m["testo"]) for i, m in enumerate(chat["conversazione"])]
     campi.append(("metadati.descrizione", chat["metadati"]["descrizione"]))
-    campi.extend((f"trattamento_atteso.conservare.{i}", t)
-                 for i, t in enumerate(chat["trattamento_atteso"]["conservare"]))
-    campi.append(("trattamento_atteso.motivazione", chat["trattamento_atteso"]["motivazione"]))
+    if "trattamento_atteso" in chat:
+        campi.extend((f"trattamento_atteso.conservare.{i}", t)
+                     for i, t in enumerate(chat["trattamento_atteso"]["conservare"]))
+        campi.append(("trattamento_atteso.motivazione", chat["trattamento_atteso"]["motivazione"]))
     segnali = []
     for campo, testo in campi:
         # Un marcatore non numerico evita di collegare Prot.n. a cifre dopo uno slot.
@@ -136,6 +154,7 @@ def controlla_identificativi_fuori_slot(chat):
 def prepara_chat(chat, scheda):
     """Normalizza solo alias inequivocabili, poi applica tutti i controlli."""
     chat = copy.deepcopy(chat)
+    nuova_analisi = scheda.get("schema_output") == "chat_v5"
     correzioni = []
     if isinstance(chat, dict) and isinstance(chat.get("conversazione"), list):
         for i, msg in enumerate(chat["conversazione"]):
@@ -165,7 +184,37 @@ def prepara_chat(chat, scheda):
     if effettivi != scheda["numero_scambi"]:
         avvisi.append(f"Scambi desiderati: {scheda['numero_scambi']}; effettivi: {effettivi}")
     concreta = copy.deepcopy(chat)
-    if "canale" in scheda["metadati_fissati"]:
+    detection_attesa = None
+    if nuova_analisi:
+        raw = []
+        for indice, messaggio in enumerate(chat["conversazione"]):
+            campo = f"conversazione.{indice}.testo"
+            testo, occorrenze = sostituisci_con_span(
+                messaggio["testo"], scheda["entita_previste"], campo)
+            concreta["conversazione"][indice]["testo"] = testo
+            for span in occorrenze:
+                raw.append({"field": campo, "start": span["start"], "end": span["end"],
+                            "text": span["testo"], "type": span["tipo"],
+                            "sources": [{"detector": "synthetic_slot"}],
+                            "metadata": {"reference_id": span["id_entita"]}})
+        concreta["metadati"]["descrizione"] = sostituisci(
+            chat["metadati"]["descrizione"],
+            {e["segnaposto"]: e["valore_proposto"] for e in scheda["entita_previste"]})
+        fields = {f"conversazione.{i}.testo": m["testo"]
+                  for i, m in enumerate(concreta["conversazione"])}
+        slot_ids = {e["id_entita"] for e in scheda["entita_previste"]}
+        for ref in scheda["riferimenti_detection"]:
+            if ref["reference_id"] in slot_ids:
+                continue
+            needle = ref["riferimento"]
+            for field, text in fields.items():
+                for match in re.finditer(re.escape(needle), text):
+                    raw.append({"field": field, "start": match.start(), "end": match.end(),
+                                "text": needle, "type": ref["tipo"],
+                                "sources": [{"detector": "synthetic_reference"}],
+                                "metadata": {"reference_id": ref["reference_id"]}})
+        detection_attesa = merge_detection(raw, fields)
+    elif "canale" in scheda["metadati_fissati"]:
         mappa = {e["segnaposto"]: e["valore_proposto"] for e in scheda["entita_previste"]}
         for campo in ("metadati", "conversazione"):
             concreta[campo] = sostituisci(chat[campo], mappa)
@@ -188,7 +237,7 @@ def prepara_chat(chat, scheda):
         testo, extra = sostituisci_con_span(trattamento["motivazione"], scheda["entita_previste"], "trattamento_atteso.motivazione")
         trattamento["motivazione"] = testo
         spans.extend(extra)
-    return {
+    result = {
         "chat_template": chat, "chat": concreta,
         "stato": "da_verificare" if segnali or copertura or fuori_slot else "valido",
         "validazione": {"versione": "3.3", "ambito": "strutturale_con_segnali_di_coerenza",
@@ -200,3 +249,6 @@ def prepara_chat(chat, scheda):
                         "messaggi_totali": len(chat["conversazione"]),
                         "chiusura_utente": chat["conversazione"][-1]["sender"] == "Utente"},
     }
+    if detection_attesa is not None:
+        result["detection_attesa"] = detection_attesa
+    return result

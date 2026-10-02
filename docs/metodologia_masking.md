@@ -23,10 +23,10 @@ contestuali concordate, non un'esclusione generale basata sul solo valore.
 
 ## Input e output
 
-Unità operativa: messaggio corrente, ruolo e turni precedenti della stessa
-conversazione. Niente turni futuri nella valutazione del funzionamento online.
-Elaborare sia utente sia chatbot. Dichiarare e misurare l'eventuale limite di
-contesto; non troncare silenziosamente i messaggi.
+Il riconoscimento opera sul singolo messaggio originale, elaborando sia utente
+sia chatbot. La policy riceve invece la conversazione completa e le detection
+già combinate da `merge_detection`. Dichiarare e misurare l'eventuale limite di contesto della
+policy; non troncare silenziosamente i messaggi.
 
 Il componente di riconoscimento riceve solo testi e ruoli. Scheda di generazione, slot, valori
 campionati, trattamento atteso e riepilogo finale non sono input del modello.
@@ -51,8 +51,8 @@ filtro preliminare obbligatorio. I risultati vengono successivamente combinati.
 | Canale | Contributo previsto | Limite da valutare |
 |---|---|---|
 | Regex e regole contestuali | Formati riconoscibili: email, alcune forme di telefono e identificativi; indizi lessicali locali | Il formato non determina da solo la funzione personale o pubblica del valore; varianti non previste possono sfuggire |
-| Modello contestuale | Individuazione di span, inclusi nomi e indirizzi variabili, usando il messaggio e i turni precedenti | Richiede dati appropriati e valutazione; può omettere entità, sbagliare confini o mascherare riferimenti pubblici |
-| Combinazione | Integrare le predizioni e gestire accordi, disaccordi e sovrapposizioni | Nessuna priorità automatica universale delle regex sul modello: la politica va verificata sui dati di validazione |
+| Modello NER | Individuazione di span, inclusi nomi e indirizzi variabili, nel singolo messaggio | Richiede dati appropriati e valutazione; può omettere entità o sbagliare confini e tipi |
+| `merge_detection` | Integrare le detection e rendere espliciti accordi, disaccordi e sovrapposizioni | Nessuna priorità automatica universale delle regex sul modello: i conflitti restano osservabili |
 
 Le categorie non sono assegnate in modo esclusivo a un canale: il modello può
 riconoscere anche un telefono, e una regola può fornire un indizio su un indirizzo.
@@ -60,9 +60,10 @@ L'obiettivo degli esperimenti è misurare il contributo dei due canali, non
 presupporre che la loro combinazione sia sempre migliore.
 
 1. Regex e modello leggono il testo originale e producono span candidati.
-2. Una funzione combina i risultati e risolve sovrapposizioni con regole
-   documentate e verificabili. Non mascherare due volte lo stesso intervallo.
-3. La decisione contestuale distingue dati personali e riferimenti da conservare.
+2. `merge_detection` combina i risultati senza eliminare disaccordi o
+   sovrapposizioni semanticamente diversi.
+3. La policy, a livello di conversazione, distingue dati personali e riferimenti
+   da conservare o generalizzare e gestisce i conflitti.
    Non assumere che ogni numero lungo sia telefono o partita IVA, né ogni data
    sia personale. Non trattare lo score del modello come probabilità calibrata.
 4. La sostituzione deterministica applica gli span senza riscrivere altro testo.
@@ -90,10 +91,10 @@ Occorre inoltre distinguere la forma dell'espressione dalla sua funzione:
 | «Vorrei riceverlo a casa», seguito da «Via Garibaldi 12, Roma» | Usare il turno precedente per riconoscere il recapito personale nel messaggio corrente |
 | «Cerco dati sui residenti di via Garibaldi» | Conservare il riferimento stradale quando è chiaramente oggetto della ricerca, senza funzione identificativa personale |
 
-Nella prima soluzione modellistica si propone di addestrare il modello a
-predire direttamente gli span da mascherare nel contesto: il riconoscimento
-della forma e la decisione contestuale possono quindi essere appresi insieme.
-Non è necessario introdurre un secondo modello dedicato alla decisione.
+La revisione 5.0 non addestra il detector a predire direttamente gli span da
+mascherare. Detection e decisione contestuale hanno contratti e valutazioni
+separati. La policy potrà essere implementata con regole, un LLM o una soluzione
+ibrida senza cambiare il formato prodotto dai detector.
 
 Il dataset dovrà includere coppie contrastive e varianti di forma, non soltanto
 nuovi nomi di strade inseriti nella stessa frase. Lo stradario compatto oggi
@@ -111,34 +112,42 @@ candidati: può applicare regole, un modello o entrambi. Il termine «rilevatore
 Il **componente di decisione** stabilisce quali candidati mascherare nel contesto
 e risolve i conflitti. Il **componente di sostituzione** applica le etichette al
 testo. Il **valutatore** confronta le predizioni con le annotazioni revisionate.
-Sono responsabilità logiche, non necessariamente moduli o modelli separati:
-un modello può già incorporare la decisione contestuale nella predizione.
+Sono responsabilità logiche e interfacce separate. Un esperimento futuro potrà
+usare lo stesso modello internamente, ma dovrà continuare a esporre e valutare
+separatamente detection e decisioni.
 
 ## Workflow di elaborazione di una conversazione
 
 ```mermaid
 flowchart TD
-    A[Messaggio corrente e ruolo] --> B[Preparazione del contesto]
-    H[Turni precedenti della stessa conversazione] --> B
-    B --> C[Componente di riconoscimento: regole, modello o entrambi]
+    A[Singolo messaggio originale e ruolo] --> C[Detection: regex e NER indipendenti]
     C --> D[Span candidati sul testo originale]
-    D --> E[Decisione contestuale e risoluzione dei conflitti]
-    E --> F[Span da mascherare e associazione alle entità]
+    D --> M[merge_detection]
+    H[Intera conversazione] --> E[Policy di conversazione]
+    M --> E
+    E --> R[KEEP, MASK, GENERALIZE o REVIEW]
+    R --> F[Span da trasformare e associazione alle entità]
+    R -. futuro .-> V[Valutazione complessiva del rischio residuo]
     F --> G[Sostituzione deterministica]
     G --> O[Testo mascherato e annotazioni predette]
-    B -. errore tecnico .-> X[Esito di errore esplicito]
-    C -. errore tecnico .-> X
+    C -. errore tecnico .-> X[Esito di errore esplicito]
+    M -. errore tecnico .-> X
     E -. errore tecnico .-> X
     G -. errore tecnico .-> X
 ```
 
+Il ramo tratteggiato rappresenta lo step 3, non ancora implementato. La policy
+corrente usa la conversazione completa per decidere ciascuna detection, ma non
+restituisce un giudizio aggregato sul rischio residuo.
+
 1. Validare testo e ruolo, associando ID di conversazione e messaggio solo per
-   tracciabilità. Costruire il contesto senza includere turni futuri o gold.
-2. Riconoscere candidati nel messaggio corrente, usando il passato come contesto.
-   Regole e modello lavorano sullo stesso testo originale, non sul testo già
+   tracciabilità.
+2. Riconoscere candidati in ciascun messaggio indipendentemente.
+   Regex e NER lavorano sullo stesso testo originale, non sul testo già
    sostituito dall'altro componente.
-3. Decidere quali span mascherare. Risolvere sovrapposizioni e validare confini,
-   tipo e corrispondenza col testo. Le politiche di conflitto vanno versionate.
+3. Combinare le detection, quindi sottoporre conversazione e detection alla
+   policy versionata. Le detection sovrapposte o discordanti restano esplicite;
+   la policy può produrre KEEP, MASK, GENERALIZE o REVIEW.
 4. Associare le occorrenze alle entità della conversazione e assegnare etichette
    coerenti, per esempio PERSON_1 e PERSON_2. Inizialmente usare corrispondenze
    conservative; alias e coreferenze ambigue richiedono valutazione dedicata.
@@ -146,11 +155,10 @@ flowchart TD
    mascherato, annotazioni e stato dell'elaborazione. Aggiornare lo stato della
    conversazione soltanto dopo un'elaborazione riuscita.
 
-Nella ricerca il contesto è costituito dai turni originali precedenti, disponibili
-nell'ambiente di elaborazione; le annotazioni gold non fanno parte dello stato.
-L'eventuale uso del solo passato mascherato sarà un esperimento distinto, perché
-modifica le informazioni disponibili. Per ogni esperimento azzerare lo stato tra
-conversazioni e mantenerlo separato fra sistemi confrontati.
+Nella ricerca, la policy vede la conversazione originale completa e le detection;
+le ipotesi attese non fanno parte del suo input. Un futuro esperimento online a
+contesto incrementale dovrà avere un protocollo separato. Per ogni esperimento
+azzerare lo stato tra conversazioni e mantenerlo separato fra sistemi confrontati.
 
 Un esito riuscito con zero span è diverso da un errore tecnico. Nel secondo caso
 non presentare il testo come correttamente mascherato; registrare il fallimento
@@ -201,8 +209,8 @@ implementativo, **non l'architettura finale proposta né una promessa di copertu
 degli indirizzi**. La componente modellistica fa parte del percorso previsto.
 
 - R: baseline a regole, con formati e contesto locale espliciti.
-- M: encoder preaddestrato a pesi aperti, adattato al riconoscimento degli span
-  da mascherare. Confrontare messaggio isolato e contesto precedente.
+- M: encoder preaddestrato a pesi aperti, adattato al riconoscimento degli
+  elementi presenti nel testo indipendentemente dalla decisione di policy.
 - R+M: combinazione, sullo stesso test, per misurare il contributo delle regole.
 
 Il vecchio modello di Samantha è un eventuale riferimento storico, non un
@@ -267,3 +275,12 @@ e risolvere i disaccordi esplicitamente.
 
 Non avviare download, generazioni o training come effetto della sola lettura
 della configurazione. Credenziali fuori dai file versionati.
+
+## Perimetro della revisione 5.0
+
+Il livello messaggio esegue detection tecnica sul testo originale. Il livello
+conversazione assegna `KEEP`, `MASK`, `GENERALIZE` o `REVIEW` a ciascuna
+detection usando tutti i turni come contesto. Un terzo step, non ancora
+implementato, valuterà complessivamente il rischio residuo della conversazione
+dopo le decisioni puntuali. Dati sanitari e valutazione del rischio a livello
+dell'intero dataset restano fuori dal perimetro corrente e dalle metriche.

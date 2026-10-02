@@ -1,4 +1,4 @@
-# Convenzioni di mascheramento concordate
+# Casi ambigui per detection e policy
 
 Convenzioni approvate da Mauro il 27 settembre 2026 per il progetto.
 I valori sono esempi di simulazione. L’approvazione riguarda le decisioni
@@ -38,3 +38,18 @@ richiedono revisione.
   di `Prot.n.` dallo span.
 - I contatti istituzionali si conservano quando verificati su una fonte approvata;
   occorre ancora disporre dei recapiti da usare nei lotti.
+- Le organizzazioni coinvolte in acquisizioni, fusioni o cambi di ragione sociale
+  vengono rilevate, ma l'azione tra `MASK`, `GENERALIZE` e `REVIEW` resta `OPEN`
+  fino al confronto con il management. Nell'esperimento
+  `conversation-draft-2` il modello ha scelto `GENERALIZE` in una conversazione
+  e `MASK` nelle altre tre varianti dello stesso scenario: il risultato conferma
+  che non va fissata automaticamente una regola.
+- Le ipotesi non approvate non entrano nelle metriche come gold definitivo.
+
+## Separazione nei nuovi prompt
+
+Il generatore realizza il caso contrastivo ma non assegna decisioni. Gli span
+attesi sono costruiti localmente. Un prompt distinto valuta poi la conversazione
+completa: cambiare una convenzione non richiede di rigenerare automaticamente la chat.
+La valutazione complessiva del rischio residuo della conversazione resta un terzo
+step futuro e non fa parte del prompt di policy corrente.

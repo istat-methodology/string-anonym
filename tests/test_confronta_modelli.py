@@ -6,7 +6,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]/'src'))
-from confronta_modelli import ROOT, carica, converti_gliner2, esegui, normalizza, predici
+from confronta_modelli import ROOT, carica, converti_gliner2, detect_model, esegui, normalizza, predici
 
 
 class ConfrontoTest(unittest.TestCase):
@@ -60,6 +60,16 @@ class ConfrontoTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             normalizza([dict(label='UNKNOWN',start=0,end=1,score=1)],'x',m)
 
+    def test_detection_ner_conserva_sovrapposizioni(self):
+        m={**self.model, 'soglia':0.5}
+        raw=[dict(entity_group='GIVENNAME',start=2,end=12,score=0.99), *self.raw]
+        detections, ignored=detect_model(raw, self.record['conversazione'][0]['testo'], m,
+                                         'conversazione.0.testo')
+        self.assertEqual(len(detections), 3)
+        self.assertEqual(ignored, {'CITY':1})
+        self.assertEqual({d['sources'][0]['native_type'] for d in detections},
+                         {'GIVENNAME', 'SURNAME'})
+
     def test_errori_non_lasciano_predizioni_parziali(self):
         record=copy.deepcopy(self.record)
         record['conversazione'].append({'sender':'Agente','testo':'altro'})
@@ -97,6 +107,8 @@ class ConfrontoTest(unittest.TestCase):
             self.assertIsNone(results[1]['prestazioni']['picco_vram_riservata_byte'])
             self.assertGreaterEqual(results[1]['prestazioni']['secondi_inferenza'], 0)
             self.assertEqual(seen,['È Anna Rossi, Roma.'])
+            prediction=json.loads((root/'run/fake/predizioni.jsonl').read_text())
+            self.assertIn('detections', prediction)
             self.assertTrue((root/'run/fake/predizioni_native.jsonl').exists())
             with self.assertRaises(FileExistsError):esegui(cfg,inputs,attese,'cpu',loader)
 

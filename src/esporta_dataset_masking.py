@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 import re
 
+# Tipi ammessi dagli output storici di masking. La detection ha un elenco distinto.
 TIPI = {'PERSON', 'ADDRESS', 'EMAIL', 'PHONE', 'COD_UTENTE', 'PASSWORD', 'NUM_PRATICA'}
 
 

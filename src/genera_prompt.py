@@ -11,7 +11,7 @@ from genera_valori import carica_regole, genera_codice, REGOLE_DEFAULT
 
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSIONE_PROMPT = "4.4"
+VERSIONE_PROMPT = "5.0-draft4"
 MODALITA = ("senza_dati_personali", "con_dati_personali")
 ENTITA = {
     "persona_1": {"tipo": "PERSON", "segnaposto": "{{persona_1}}", "sostituzione": "[PERSON_1]"},
@@ -35,8 +35,8 @@ Evita spiegazioni sulle categorie di dati quando non risolvono un dubbio emerso.
 Segui lo sviluppo specifico della situazione: non imporre a ogni dialogo una
 presentazione completa, una distinzione fra codici e un riepilogo conclusivo.
 La natura sintetica dei dati è un'informazione per il generatore, non un fatto
-della conversazione: non chiamare i valori «fittizi» o «sintetici» nei messaggi,
-nella descrizione o nel trattamento atteso. Non menzionare il test del masking.
+della conversazione: non chiamare i valori «fittizi» o «sintetici» nei messaggi
+o nella descrizione. Non menzionare detection, masking, policy o anonimizzazione.
 In assenza di indicazioni esplicite, suggerisci di sottoporre il problema
 all'assistenza perché valuti la richiesta. Non anticipare verifiche d'identità,
 documenti necessari, aggiornamenti dell'account o esiti del recupero.
@@ -49,9 +49,11 @@ non trasformarli in frasi come «senza che questo comporti una modifica dell'acc
 Restituisci soltanto un oggetto JSON con:
 - metadati: data_sintetica (YYYY-MM-DD), chiave_indagine (stringa o null),
   descrizione (breve riepilogo fedele del dialogo);
-- conversazione: lista di oggetti con sender ('Utente' o 'Agente') e testo;
-- trattamento_atteso: oggetto con mascherare (lista di oggetti con segnaposto,
-  tipo e sostituzione), conservare (lista di spiegazioni), motivazione (stringa).
+- conversazione: lista di oggetti con sender ('Utente' o 'Agente') e testo.
+Non aggiungere annotazioni, trattamento atteso, decisioni o valutazioni. Questi
+elementi saranno costruiti in fasi separate senza essere affidati al generatore.
+Fai comparire naturalmente nel dialogo tutti i riferimenti_detection elencati
+nella scheda. Non trasformarli in un elenco artificiale.
 Non aggiungere classificazione del revisore, dipartimento, esiti, note operatore,
 indicatori di soddisfazione o conteggi. La sezione è contesto dello scenario,
 non un campo dei metadati. Copia i metadati fissati nella scheda; non modificare
@@ -60,19 +62,23 @@ Riassumi solo quanto emerge dai messaggi: distingui i fatti dichiarati dall'uten
 dalle ipotesi del chatbot e non attenuare nel riepilogo eventuali promesse o certezze
 espresse nel dialogo.
 
-Inizia con l'utente e alterna Utente e Agente. Una coppia Utente-Agente è uno scambio.
-Il numero di scambi è solo orientativo, non un obiettivo da raggiungere:
-usa anche meno scambi quando bastano a chiarire il bisogno e il passo successivo.
-Termina quando il bisogno è stato chiarito: può chiudere il chatbot oppure
-l’utente con una conferma. Non aggiungere una risposta di cortesia obbligatoria. Non aggiungere ringraziamenti,
-ricapitolazioni o riaperture del problema per raggiungere il numero di scambi.
-Se conclude l'utente, la lista termina con quel messaggio: non aggiungere un
-oggetto Agente vuoto o contenente soltanto spazi. Ogni messaggio deve avere testo.
+Inizia con l'utente, alterna sempre Utente e Agente e termina con l'Agente.
+Una coppia Utente-Agente è uno scambio. Genera almeno 3 scambi completi, quindi
+almeno 6 messaggi non vuoti, e usa numero_scambi come obiettivo. Distribuisci
+le informazioni dello scenario fra turni diversi: richiesta iniziale, almeno un
+chiarimento o nuovo dettaglio pertinente e risposta conclusiva. Ogni passaggio
+deve far avanzare il dialogo; non usare cortesia, ripetizioni o riepiloghi come
+riempitivo. Puoi fermarti prima di numero_scambi soltanto dopo almeno 3 scambi,
+quando continuare richiederebbe di inventare informazioni o procedure.
+Termina quando il bisogno è stato chiarito, con una risposta sostanziale
+dell'Agente all'ultimo messaggio dell'utente. Non aggiungere una risposta di
+sola cortesia, ringraziamenti, ricapitolazioni o riaperture del problema per
+raggiungere il numero di scambi. Ogni messaggio deve avere testo non vuoto.
 Non chiedere informazioni già fornite, neppure come conferma, salvo una reale
 contraddizione o ambiguità nei messaggi. Se l'utente ha già dichiarato il ruolo,
 non domandare nuovamente se sia responsabile o delegato.
-Dopo che l'utente accetta il passo successivo, chiudi senza ulteriori
-ricapitolazioni se non emergono nuove domande. Ogni turno deve aggiungere qualcosa.
+Se l'utente accetta il passo successivo, l'Agente chiude con una breve indicazione
+pertinente, non con un ringraziamento o un riepilogo. Ogni turno deve aggiungere qualcosa.
 Rispetta concretamente lo stile indicato: nello stile con refusi inserisci 1–2
 piccoli errori nei messaggi utente (es. "nn", "qual e", "questinario"), senza
 alterare segnaposto, codici o riferimenti statistici. Nello stile informale usa
@@ -100,15 +106,13 @@ contesto, ma nel testo scrivi il segnaposto. Il valore sarà inserito in seguito
 Se un'entità si ripete, riusa lo stesso segnaposto, anche nella descrizione.
 Non alterare i segnaposto con refusi e non inventarne altri. Inserisci tutte le
 entità richieste in modo naturale nel dialogo, anche in turni successivi.
-Per 'senza_dati_personali' non inserire alcuna entità personale e restituisci
-mascherare vuoto. Per 'con_dati_personali' inserisci le entità previste.
+Per 'senza_dati_personali' non inserire alcuna entità personale. Per
+'con_dati_personali' inserisci le entità previste.
 Quando uno slot non è previsto, menziona soltanto il concetto senza inventare
 valori: «la pratica precedente», non un numero dopo «Prot. n.». Questa regola
 vale anche nelle risposte del chatbot, nelle citazioni e nei riepiloghi.
 In entrambe le modalità conserva i riferimenti al servizio utili: non sono
 identificativi dell'utente. Non inserire entità personali non richieste.
-Il trattamento atteso deve essere coerente con ciò che compare effettivamente
-nel dialogo e nei metadati, non un elenco generico.
 Se è presente copertura_mirata, fai comparire gli slot in ripetere_agente
 prima nei messaggi utente e poi almeno una volta in un messaggio del chatbot.
 La ripetizione serve a una citazione o a un chiarimento pertinente: non implica
@@ -155,6 +159,14 @@ def carica_scenari(path):
             raise ValueError("Le ripetizioni mirate richiedono campionamento_entita=tutte")
         if not isinstance(scenario.get("riferimenti_da_conservare"), list):
             raise ValueError("Specificare i riferimenti da conservare")
+        statici = scenario.get("riferimenti_statici", [])
+        if (not isinstance(statici, list)
+                or any(not isinstance(r, dict)
+                       or set(r) != {"id", "riferimento", "tipo", "ipotesi_iniziale", "stato"}
+                       or r["ipotesi_iniziale"] not in {"KEEP", "MASK", "GENERALIZE", "REVIEW"}
+                       or r["stato"] not in {"APPROVED", "PROVISIONAL", "OPEN"}
+                       for r in statici)):
+            raise ValueError("Riferimenti statici non validi")
     return catalogo
 
 
@@ -214,7 +226,7 @@ def genera(catalogo, quantita, seed, data_inizio, giorni, dati, selezione=None, 
                     "indagine": indagine,
                     "scenario_catalogo": scenario["scenario_catalogo"],
                     "tipo_rispondente": scenario["tipo_rispondente"],
-                    "lingua": "it",
+                    "lingua": scenario.get("lingua", "it"),
                     "split": "pilota",
                     "modalita": modalita,
                     "numero_scambi": rng.choice([3, 4, 5]),
@@ -231,7 +243,37 @@ def genera(catalogo, quantita, seed, data_inizio, giorni, dati, selezione=None, 
                         "ripetere_agente": [ENTITA[e]["segnaposto"] for e in scenario.get("ripetere_agente", []) if e in richieste],
                         "riferimenti_letterali": riferimenti,
                     }
-                yield {
+                riferimenti_analisi = [{
+                    "reference_id": e["id_entita"],
+                    "riferimento": e["segnaposto"],
+                    "tipo": e["tipo"],
+                    "ipotesi_iniziale": "MASK",
+                    "stato": "APPROVED",
+                } for e in entita]
+                if indagine:
+                    riferimenti_analisi.extend([
+                        {"reference_id": "codice_indagine", "riferimento": indagine["codice_psn"],
+                         "tipo": "COD_INDAGINE", "ipotesi_iniziale": "KEEP", "stato": "APPROVED"},
+                        {"reference_id": "nome_indagine", "riferimento": indagine["nome_indagine"],
+                         "tipo": "INDAGINE", "ipotesi_iniziale": "KEEP", "stato": "APPROVED"},
+                    ])
+                if contesto:
+                    riferimenti_analisi.extend([
+                        {"reference_id": "comune_ricerca", "riferimento": contesto["comune"],
+                         "tipo": "LOCATION", "ipotesi_iniziale": "KEEP", "stato": "APPROVED"},
+                        {"reference_id": "periodo_ricerca", "riferimento": str(contesto["anno"]),
+                         "tipo": "DATE", "ipotesi_iniziale": "KEEP", "stato": "APPROVED"},
+                    ])
+                riferimenti_analisi.extend({
+                    "reference_id": r["id"], "riferimento": r["riferimento"],
+                    "tipo": r["tipo"], "ipotesi_iniziale": r["ipotesi_iniziale"],
+                    "stato": r["stato"],
+                } for r in scenario.get("riferimenti_statici", []))
+                scheda["schema_output"] = "chat_v5"
+                scheda["riferimenti_detection"] = [
+                    {k: r[k] for k in ("reference_id", "riferimento", "tipo")}
+                    for r in riferimenti_analisi]
+                record = {
                     "id": f"{scenario['id']}-{modalita}-{indice + 1:04d}",
                     "versione_prompt": VERSIONE_PROMPT,
                     "versione_catalogo": catalogo["versione"],
@@ -239,11 +281,13 @@ def genera(catalogo, quantita, seed, data_inizio, giorni, dati, selezione=None, 
                     "regole_generazione": regole,
                     "seed": seed,
                     "scheda": scheda,
+                    "ipotesi_policy": riferimenti_analisi,
                     "messages": [
                         {"role": "system", "content": ISTRUZIONI},
                         {"role": "user", "content": json.dumps(scheda, ensure_ascii=False, indent=2)},
                     ],
                 }
+                yield record
 
 
 def main():

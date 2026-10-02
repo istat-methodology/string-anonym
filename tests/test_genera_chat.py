@@ -74,4 +74,36 @@ class ValidazioneTest(unittest.TestCase):
         self.chat['conversazione'].append({'sender': 'Utente', 'testo': 'È in compilazione.'})
         self.assertEqual(prepara_chat(self.chat, self.scheda)['stato'], 'valido')
 
+    def test_schema_messaggio_conversazione(self):
+        self.entita['tipo'] = 'PERSON'
+        self.entita['sostituzione'] = '[PERSON_1]'
+        self.entita['id_entita'] = 'persona_1'
+        self.entita['id_forma'] = 'completa'
+        self.scheda['schema_output'] = 'chat_v5'
+        self.scheda['riferimenti_detection'] = [{
+            'reference_id':'persona_1', 'riferimento':'{{persona_1}}', 'tipo':'PERSONA'}]
+        self.chat.pop('trattamento_atteso')
+        self.chat['conversazione'].extend([
+            {'sender': 'Utente', 'testo': 'Il problema continua.'},
+            {'sender': 'Agente', 'testo': 'Che cosa accade?'},
+            {'sender': 'Utente', 'testo': 'Non riesco ad accedere.'},
+            {'sender': 'Agente', 'testo': 'La richiesta va verificata.'},
+        ])
+        result = prepara_chat(self.chat, self.scheda)
+        self.assertEqual(result['chat']['conversazione'][0]['testo'], 'Sono Anna Rossi')
+        self.assertEqual(result['detection_attesa'][0]['text'], 'Anna Rossi')
+
+    def test_chat_v5_richiede_almeno_tre_scambi(self):
+        self.entita['tipo'] = 'PERSON'
+        self.entita['sostituzione'] = '[PERSON_1]'
+        self.entita['id_entita'] = 'persona_1'
+        self.entita['id_forma'] = 'completa'
+        self.scheda['schema_output'] = 'chat_v5'
+        self.scheda['numero_scambi'] = 4
+        self.scheda['riferimenti_detection'] = [{
+            'reference_id':'persona_1', 'riferimento':'{{persona_1}}', 'tipo':'PERSON'}]
+        self.chat.pop('trattamento_atteso')
+        with self.assertRaisesRegex(ValueError, 'almeno 3 scambi'):
+            prepara_chat(self.chat, self.scheda)
+
 if __name__ == '__main__': unittest.main()

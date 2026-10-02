@@ -1,5 +1,9 @@
 # Step 2: valutatore del masking
 
+Questo documento descrive il valutatore legacy 1.0. Le sue annotazioni sono span
+finali non sovrapposti e le metriche sono una proxy end-to-end. Non è il nuovo
+valutatore di detection e non valuta ancora la policy 5.0.
+
 `src/valuta_masking.py` non utilizza modelli né API. Riceve input, annotazioni
 attese e predizioni in tre file JSONL separati. I primi due sono prodotti dallo
 step 1. Le predizioni saranno prodotte dal componente di riconoscimento.
