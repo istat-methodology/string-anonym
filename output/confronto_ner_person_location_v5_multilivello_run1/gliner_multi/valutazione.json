@@ -1,0 +1,693 @@
+{
+  "versione": "1.1",
+  "conversazioni_totali": 46,
+  "conversazioni_valutate": 46,
+  "fallimenti_tecnici": [],
+  "nota": "Metriche sui soli esiti ok; fallimenti e predizioni mancanti esclusi e riportati separatamente. Annotazioni attese non necessariamente revisionate.",
+  "span_esatti_micro": {
+    "tp": 29,
+    "fp": 74,
+    "fn": 6,
+    "precision": 0.2815533980582524,
+    "recall": 0.8285714285714286,
+    "f1": 0.42028985507246375
+  },
+  "focus": {
+    "categorie": [
+      "LOCATION",
+      "PERSON"
+    ],
+    "span_esatti_micro": {
+      "tp": 29,
+      "fp": 74,
+      "fn": 6,
+      "precision": 0.2815533980582524,
+      "recall": 0.8285714285714286,
+      "f1": 0.42028985507246375
+    }
+  },
+  "per_tipo": {
+    "LOCATION": {
+      "tp": 13,
+      "fp": 10,
+      "fn": 2,
+      "precision": 0.5652173913043478,
+      "recall": 0.8666666666666667,
+      "f1": 0.6842105263157895
+    },
+    "PERSON": {
+      "tp": 16,
+      "fp": 64,
+      "fn": 4,
+      "precision": 0.2,
+      "recall": 0.8,
+      "f1": 0.32
+    }
+  },
+  "per_ruolo": {
+    "Utente": {
+      "tp": 23,
+      "fp": 35,
+      "fn": 3,
+      "precision": 0.39655172413793105,
+      "recall": 0.8846153846153846,
+      "f1": 0.5476190476190477
+    },
+    "Agente": {
+      "tp": 6,
+      "fp": 39,
+      "fn": 3,
+      "precision": 0.13333333333333333,
+      "recall": 0.6666666666666666,
+      "f1": 0.2222222222222222
+    }
+  },
+  "caratteri": {
+    "sensibili_attesi": 480,
+    "sensibili_coperti": 459,
+    "sensibili_scoperti": 21,
+    "non_sensibili_mascherati": 758,
+    "non_sensibili_totali": 43945,
+    "recall_copertura": 0.95625
+  },
+  "conversazioni_con_omissioni_caratteri": 2,
+  "conversazioni_con_dati_attesi_valutate": 16,
+  "negative_valutate": 30,
+  "negative_con_falsi_positivi": 13,
+  "errori_span": [
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:recupero_accesso-senza_dati_personali-0002",
+      "fp": [
+        [
+          1,
+          0,
+          3,
+          "PERSON"
+        ],
+        [
+          2,
+          5,
+          13,
+          "PERSON"
+        ],
+        [
+          6,
+          24,
+          32,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:recupero_accesso-con_dati_personali-0002",
+      "fp": [
+        [
+          2,
+          86,
+          93,
+          "PERSON"
+        ],
+        [
+          3,
+          82,
+          89,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:ricerca_questionario-con_dati_personali-0001",
+      "fp": [
+        [
+          4,
+          41,
+          52,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:assistenza_compilazione-senza_dati_personali-0001",
+      "fp": [
+        [
+          0,
+          133,
+          145,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:assistenza_compilazione-senza_dati_personali-0002",
+      "fp": [
+        [
+          0,
+          133,
+          145,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:comunicazione_altra_persona-senza_dati_personali-0001",
+      "fp": [
+        [
+          0,
+          59,
+          68,
+          "PERSON"
+        ],
+        [
+          0,
+          141,
+          150,
+          "PERSON"
+        ],
+        [
+          2,
+          8,
+          20,
+          "PERSON"
+        ],
+        [
+          2,
+          86,
+          106,
+          "PERSON"
+        ],
+        [
+          3,
+          137,
+          146,
+          "PERSON"
+        ],
+        [
+          5,
+          143,
+          152,
+          "PERSON"
+        ],
+        [
+          6,
+          25,
+          48,
+          "PERSON"
+        ],
+        [
+          7,
+          59,
+          68,
+          "PERSON"
+        ],
+        [
+          7,
+          118,
+          127,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:comunicazione_altra_persona-senza_dati_personali-0002",
+      "fp": [
+        [
+          0,
+          59,
+          68,
+          "PERSON"
+        ],
+        [
+          0,
+          141,
+          150,
+          "PERSON"
+        ],
+        [
+          2,
+          104,
+          124,
+          "PERSON"
+        ],
+        [
+          3,
+          114,
+          123,
+          "PERSON"
+        ],
+        [
+          5,
+          85,
+          94,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:comunicazione_altra_persona-con_dati_personali-0001",
+      "fp": [
+        [
+          0,
+          59,
+          68,
+          "PERSON"
+        ],
+        [
+          0,
+          152,
+          161,
+          "PERSON"
+        ],
+        [
+          2,
+          56,
+          76,
+          "PERSON"
+        ],
+        [
+          3,
+          111,
+          120,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:comunicazione_altra_persona-con_dati_personali-0002",
+      "fp": [
+        [
+          0,
+          69,
+          89,
+          "PERSON"
+        ],
+        [
+          1,
+          79,
+          99,
+          "PERSON"
+        ],
+        [
+          2,
+          93,
+          113,
+          "PERSON"
+        ],
+        [
+          3,
+          51,
+          60,
+          "PERSON"
+        ],
+        [
+          3,
+          120,
+          129,
+          "PERSON"
+        ],
+        [
+          4,
+          27,
+          47,
+          "PERSON"
+        ],
+        [
+          5,
+          157,
+          177,
+          "PERSON"
+        ],
+        [
+          6,
+          53,
+          73,
+          "PERSON"
+        ]
+      ],
+      "fn": [
+        [
+          0,
+          69,
+          93,
+          "PERSON"
+        ],
+        [
+          2,
+          93,
+          117,
+          "PERSON"
+        ],
+        [
+          4,
+          27,
+          51,
+          "PERSON"
+        ],
+        [
+          5,
+          157,
+          181,
+          "PERSON"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:cambio_residenza-con_dati_personali-0002",
+      "fp": [
+        [
+          5,
+          0,
+          14,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:ricerca_dati_territoriali-senza_dati_personali-0001",
+      "fp": [
+        [
+          1,
+          18,
+          20,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:ricerca_dati_territoriali-senza_dati_personali-0002",
+      "fp": [
+        [
+          3,
+          71,
+          77,
+          "LOCATION"
+        ],
+        [
+          5,
+          69,
+          74,
+          "PERSON"
+        ]
+      ],
+      "fn": [
+        [
+          3,
+          106,
+          111,
+          "LOCATION"
+        ],
+        [
+          5,
+          69,
+          74,
+          "LOCATION"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:ricerca_dati_territoriali-con_dati_personali-0001",
+      "fp": [
+        [
+          3,
+          77,
+          83,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:ricerca_dati_territoriali-con_dati_personali-0002",
+      "fp": [
+        [
+          4,
+          27,
+          33,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:impresa_acquisita-senza_dati_personali-0001",
+      "fp": [
+        [
+          2,
+          15,
+          33,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:referente_irreperibile-senza_dati_personali-0001",
+      "fp": [
+        [
+          0,
+          0,
+          23,
+          "PERSON"
+        ],
+        [
+          1,
+          31,
+          40,
+          "PERSON"
+        ],
+        [
+          1,
+          168,
+          177,
+          "PERSON"
+        ],
+        [
+          3,
+          210,
+          219,
+          "PERSON"
+        ],
+        [
+          4,
+          23,
+          43,
+          "PERSON"
+        ],
+        [
+          5,
+          30,
+          39,
+          "PERSON"
+        ],
+        [
+          7,
+          49,
+          58,
+          "PERSON"
+        ],
+        [
+          7,
+          215,
+          224,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:referente_irreperibile-senza_dati_personali-0002",
+      "fp": [
+        [
+          0,
+          0,
+          23,
+          "PERSON"
+        ],
+        [
+          0,
+          76,
+          85,
+          "PERSON"
+        ],
+        [
+          1,
+          150,
+          170,
+          "PERSON"
+        ],
+        [
+          3,
+          155,
+          164,
+          "PERSON"
+        ],
+        [
+          4,
+          28,
+          48,
+          "PERSON"
+        ],
+        [
+          5,
+          79,
+          88,
+          "PERSON"
+        ],
+        [
+          5,
+          232,
+          241,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:referente_irreperibile-con_dati_personali-0001",
+      "fp": [
+        [
+          0,
+          0,
+          23,
+          "PERSON"
+        ],
+        [
+          1,
+          42,
+          51,
+          "PERSON"
+        ],
+        [
+          1,
+          185,
+          194,
+          "PERSON"
+        ],
+        [
+          2,
+          67,
+          73,
+          "PERSON"
+        ],
+        [
+          2,
+          74,
+          82,
+          "PERSON"
+        ],
+        [
+          5,
+          102,
+          111,
+          "PERSON"
+        ],
+        [
+          5,
+          232,
+          241,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:referente_irreperibile-con_dati_personali-0002",
+      "fp": [
+        [
+          1,
+          42,
+          51,
+          "PERSON"
+        ],
+        [
+          1,
+          191,
+          200,
+          "PERSON"
+        ],
+        [
+          5,
+          52,
+          61,
+          "PERSON"
+        ],
+        [
+          7,
+          69,
+          89,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:ricevuta_sollecito_conflitto-con_dati_personali-0002",
+      "fp": [
+        [
+          2,
+          20,
+          26,
+          "LOCATION"
+        ],
+        [
+          2,
+          27,
+          34,
+          "PERSON"
+        ],
+        [
+          3,
+          145,
+          151,
+          "LOCATION"
+        ],
+        [
+          3,
+          152,
+          159,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:accesso_microdati-senza_dati_personali-0001",
+      "fp": [
+        [
+          7,
+          0,
+          14,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:accesso_microdati-senza_dati_personali-0002",
+      "fp": [
+        [
+          2,
+          47,
+          53,
+          "LOCATION"
+        ],
+        [
+          2,
+          88,
+          94,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    }
+  ]
+}

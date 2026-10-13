@@ -1,0 +1,146 @@
+[
+  {
+    "modello": "gliner_multi",
+    "stato": "completato",
+    "valutate": 46,
+    "totali": 46,
+    "fallimenti": 0,
+    "metriche": {
+      "tp": 29,
+      "fp": 74,
+      "fn": 6,
+      "precision": 0.2815533980582524,
+      "recall": 0.8285714285714286,
+      "f1": 0.42028985507246375
+    },
+    "metriche_focus_ner": {
+      "categorie": [
+        "LOCATION",
+        "PERSON"
+      ],
+      "span_esatti_micro": {
+        "tp": 29,
+        "fp": 74,
+        "fn": 6,
+        "precision": 0.2815533980582524,
+        "recall": 0.8285714285714286,
+        "f1": 0.42028985507246375
+      }
+    },
+    "prestazioni": {
+      "secondi_caricamento": 8.912213933999737,
+      "secondi_inferenza": 6.1771118420001585,
+      "secondi_totali": 15.091143816000113,
+      "picco_vram_allocata_byte": 1189973504,
+      "picco_vram_riservata_byte": 1247805440
+    }
+  },
+  {
+    "modello": "gliner_pii",
+    "stato": "completato",
+    "valutate": 46,
+    "totali": 46,
+    "fallimenti": 0,
+    "metriche": {
+      "tp": 29,
+      "fp": 114,
+      "fn": 6,
+      "precision": 0.20279720279720279,
+      "recall": 0.8285714285714286,
+      "f1": 0.3258426966292135
+    },
+    "metriche_focus_ner": {
+      "categorie": [
+        "LOCATION",
+        "PERSON"
+      ],
+      "span_esatti_micro": {
+        "tp": 29,
+        "fp": 114,
+        "fn": 6,
+        "precision": 0.20279720279720279,
+        "recall": 0.8285714285714286,
+        "f1": 0.3258426966292135
+      }
+    },
+    "prestazioni": {
+      "secondi_caricamento": 5.649854317000063,
+      "secondi_inferenza": 5.101246211000216,
+      "secondi_totali": 10.753531491999638,
+      "picco_vram_allocata_byte": 1190743552,
+      "picco_vram_riservata_byte": 1247805440
+    }
+  },
+  {
+    "modello": "wikineural",
+    "stato": "completato",
+    "valutate": 46,
+    "totali": 46,
+    "fallimenti": 0,
+    "metriche": {
+      "tp": 31,
+      "fp": 7,
+      "fn": 4,
+      "precision": 0.8157894736842105,
+      "recall": 0.8857142857142857,
+      "f1": 0.8493150684931506
+    },
+    "metriche_focus_ner": {
+      "categorie": [
+        "LOCATION",
+        "PERSON"
+      ],
+      "span_esatti_micro": {
+        "tp": 31,
+        "fp": 7,
+        "fn": 4,
+        "precision": 0.8157894736842105,
+        "recall": 0.8857142857142857,
+        "f1": 0.8493150684931506
+      }
+    },
+    "prestazioni": {
+      "secondi_caricamento": 0.5929329040000084,
+      "secondi_inferenza": 2.452762062000147,
+      "secondi_totali": 3.0469458329998815,
+      "picco_vram_allocata_byte": 721843200,
+      "picco_vram_riservata_byte": 773849088
+    }
+  },
+  {
+    "modello": "piiranha",
+    "stato": "completato",
+    "valutate": 46,
+    "totali": 46,
+    "fallimenti": 0,
+    "metriche": {
+      "tp": 31,
+      "fp": 2,
+      "fn": 4,
+      "precision": 0.9393939393939394,
+      "recall": 0.8857142857142857,
+      "f1": 0.9117647058823529
+    },
+    "metriche_focus_ner": {
+      "categorie": [
+        "LOCATION",
+        "PERSON"
+      ],
+      "span_esatti_micro": {
+        "tp": 31,
+        "fp": 2,
+        "fn": 4,
+        "precision": 0.9393939393939394,
+        "recall": 0.8857142857142857,
+        "f1": 0.9117647058823529
+      }
+    },
+    "prestazioni": {
+      "secondi_caricamento": 0.7556063340002765,
+      "secondi_inferenza": 5.261449053999968,
+      "secondi_totali": 6.018287932000021,
+      "picco_vram_allocata_byte": 1139058176,
+      "picco_vram_riservata_byte": 1180696576
+    }
+  }
+]

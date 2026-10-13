@@ -1,0 +1,134 @@
+{
+  "versione": "1.1",
+  "conversazioni_totali": 46,
+  "conversazioni_valutate": 46,
+  "fallimenti_tecnici": [],
+  "nota": "Metriche sui soli esiti ok; fallimenti e predizioni mancanti esclusi e riportati separatamente. Annotazioni attese non necessariamente revisionate.",
+  "span_esatti_micro": {
+    "tp": 31,
+    "fp": 2,
+    "fn": 4,
+    "precision": 0.9393939393939394,
+    "recall": 0.8857142857142857,
+    "f1": 0.9117647058823529
+  },
+  "focus": {
+    "categorie": [
+      "LOCATION",
+      "PERSON"
+    ],
+    "span_esatti_micro": {
+      "tp": 31,
+      "fp": 2,
+      "fn": 4,
+      "precision": 0.9393939393939394,
+      "recall": 0.8857142857142857,
+      "f1": 0.9117647058823529
+    }
+  },
+  "per_tipo": {
+    "LOCATION": {
+      "tp": 11,
+      "fp": 0,
+      "fn": 4,
+      "precision": 1.0,
+      "recall": 0.7333333333333333,
+      "f1": 0.8461538461538461
+    },
+    "PERSON": {
+      "tp": 20,
+      "fp": 2,
+      "fn": 0,
+      "precision": 0.9090909090909091,
+      "recall": 1.0,
+      "f1": 0.9523809523809523
+    }
+  },
+  "per_ruolo": {
+    "Utente": {
+      "tp": 24,
+      "fp": 0,
+      "fn": 2,
+      "precision": 1.0,
+      "recall": 0.9230769230769231,
+      "f1": 0.96
+    },
+    "Agente": {
+      "tp": 7,
+      "fp": 2,
+      "fn": 2,
+      "precision": 0.7777777777777778,
+      "recall": 0.7777777777777778,
+      "f1": 0.7777777777777778
+    }
+  },
+  "caratteri": {
+    "sensibili_attesi": 480,
+    "sensibili_coperti": 444,
+    "sensibili_scoperti": 36,
+    "non_sensibili_mascherati": 2,
+    "non_sensibili_totali": 43945,
+    "recall_copertura": 0.925
+  },
+  "conversazioni_con_omissioni_caratteri": 2,
+  "conversazioni_con_dati_attesi_valutate": 16,
+  "negative_valutate": 30,
+  "negative_con_falsi_positivi": 0,
+  "errori_span": [
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:assistenza_compilazione-con_dati_personali-0001",
+      "fp": [],
+      "fn": [
+        [
+          0,
+          156,
+          175,
+          "LOCATION"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:cambio_residenza-con_dati_personali-0002",
+      "fp": [],
+      "fn": [
+        [
+          0,
+          32,
+          49,
+          "LOCATION"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:ricerca_dati_territoriali-senza_dati_personali-0002",
+      "fp": [
+        [
+          3,
+          106,
+          113,
+          "PERSON"
+        ],
+        [
+          5,
+          69,
+          74,
+          "PERSON"
+        ]
+      ],
+      "fn": [
+        [
+          3,
+          106,
+          111,
+          "LOCATION"
+        ],
+        [
+          5,
+          69,
+          74,
+          "LOCATION"
+        ]
+      ]
+    }
+  ]
+}
