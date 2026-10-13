@@ -1,0 +1,1715 @@
+{
+  "versione": "1.0",
+  "conversazioni_totali": 46,
+  "conversazioni_valutate": 46,
+  "fallimenti_tecnici": [],
+  "nota": "Metriche sui soli esiti ok; fallimenti e predizioni mancanti esclusi e riportati separatamente. Annotazioni attese non necessariamente revisionate.",
+  "span_esatti_micro": {
+    "tp": 35,
+    "fp": 50,
+    "fn": 167,
+    "precision": 0.4117647058823529,
+    "recall": 0.17326732673267325,
+    "f1": 0.24390243902439024
+  },
+  "per_tipo": {
+    "ADDRESS": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 2,
+      "precision": null,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "COD_INDAGINE": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 37,
+      "precision": null,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "COD_UTENTE": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 10,
+      "precision": null,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "DATE": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 10,
+      "precision": null,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "EMAIL": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 19,
+      "precision": null,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "INDAGINE": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 37,
+      "precision": null,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "LOCATION": {
+      "tp": 11,
+      "fp": 6,
+      "fn": 0,
+      "precision": 0.6470588235294118,
+      "recall": 1.0,
+      "f1": 0.7857142857142857
+    },
+    "NUM_PRATICA": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 11,
+      "precision": null,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "ORGANIZATION": {
+      "tp": 6,
+      "fp": 41,
+      "fn": 20,
+      "precision": 0.1276595744680851,
+      "recall": 0.23076923076923078,
+      "f1": 0.1643835616438356
+    },
+    "PASSWORD": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 1,
+      "precision": null,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "PERSON": {
+      "tp": 18,
+      "fp": 3,
+      "fn": 2,
+      "precision": 0.8571428571428571,
+      "recall": 0.9,
+      "f1": 0.8780487804878049
+    },
+    "PHONE": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 2,
+      "precision": null,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "ROLE": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 16,
+      "precision": null,
+      "recall": 0.0,
+      "f1": 0.0
+    }
+  },
+  "per_ruolo": {
+    "Utente": {
+      "tp": 21,
+      "fp": 34,
+      "fn": 102,
+      "precision": 0.38181818181818183,
+      "recall": 0.17073170731707318,
+      "f1": 0.23595505617977527
+    },
+    "Agente": {
+      "tp": 14,
+      "fp": 16,
+      "fn": 65,
+      "precision": 0.4666666666666667,
+      "recall": 0.17721518987341772,
+      "f1": 0.25688073394495414
+    }
+  },
+  "caratteri": {
+    "sensibili_attesi": 4784,
+    "sensibili_coperti": 1062,
+    "sensibili_scoperti": 3722,
+    "non_sensibili_mascherati": 64,
+    "non_sensibili_totali": 39641,
+    "recall_copertura": 0.22198996655518394
+  },
+  "conversazioni_con_omissioni_caratteri": 39,
+  "conversazioni_con_dati_attesi_valutate": 40,
+  "negative_valutate": 6,
+  "negative_con_falsi_positivi": 1,
+  "errori_span": [
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:recupero_accesso-senza_dati_personali-0001",
+      "fp": [],
+      "fn": [
+        [
+          0,
+          21,
+          103,
+          "INDAGINE"
+        ],
+        [
+          0,
+          116,
+          125,
+          "COD_INDAGINE"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:recupero_accesso-senza_dati_personali-0002",
+      "fp": [
+        [
+          1,
+          0,
+          3,
+          "PERSON"
+        ]
+      ],
+      "fn": [
+        [
+          0,
+          41,
+          123,
+          "INDAGINE"
+        ],
+        [
+          0,
+          136,
+          145,
+          "COD_INDAGINE"
+        ],
+        [
+          7,
+          58,
+          140,
+          "INDAGINE"
+        ],
+        [
+          7,
+          153,
+          162,
+          "COD_INDAGINE"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:recupero_accesso-con_dati_personali-0001",
+      "fp": [
+        [
+          0,
+          26,
+          123,
+          "ORGANIZATION"
+        ]
+      ],
+      "fn": [
+        [
+          0,
+          41,
+          123,
+          "INDAGINE"
+        ],
+        [
+          0,
+          136,
+          145,
+          "COD_INDAGINE"
+        ],
+        [
+          2,
+          36,
+          46,
+          "COD_UTENTE"
+        ],
+        [
+          2,
+          120,
+          146,
+          "EMAIL"
+        ],
+        [
+          3,
+          184,
+          194,
+          "COD_UTENTE"
+        ],
+        [
+          7,
+          69,
+          78,
+          "COD_INDAGINE"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:recupero_accesso-con_dati_personali-0002",
+      "fp": [
+        [
+          0,
+          31,
+          32,
+          "ORGANIZATION"
+        ]
+      ],
+      "fn": [
+        [
+          0,
+          31,
+          113,
+          "INDAGINE"
+        ],
+        [
+          0,
+          126,
+          135,
+          "COD_INDAGINE"
+        ],
+        [
+          0,
+          190,
+          216,
+          "EMAIL"
+        ],
+        [
+          0,
+          231,
+          241,
+          "PASSWORD"
+        ],
+        [
+          2,
+          79,
+          105,
+          "EMAIL"
+        ],
+        [
+          3,
+          75,
+          101,
+          "EMAIL"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:ricerca_questionario-senza_dati_personali-0001",
+      "fp": [],
+      "fn": [
+        [
+          2,
+          5,
+          87,
+          "INDAGINE"
+        ],
+        [
+          2,
+          100,
+          109,
+          "COD_INDAGINE"
+        ],
+        [
+          3,
+          7,
+          89,
+          "INDAGINE"
+        ],
+        [
+          3,
+          102,
+          111,
+          "COD_INDAGINE"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:ricerca_questionario-senza_dati_personali-0002",
+      "fp": [],
+      "fn": [
+        [
+          2,
+          5,
+          87,
+          "INDAGINE"
+        ],
+        [
+          2,
+          100,
+          109,
+          "COD_INDAGINE"
+        ],
+        [
+          3,
+          7,
+          89,
+          "INDAGINE"
+        ],
+        [
+          3,
+          102,
+          111,
+          "COD_INDAGINE"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:ricerca_questionario-con_dati_personali-0001",
+      "fp": [],
+      "fn": [
+        [
+          2,
+          7,
+          89,
+          "INDAGINE"
+        ],
+        [
+          2,
+          102,
+          111,
+          "COD_INDAGINE"
+        ],
+        [
+          3,
+          56,
+          138,
+          "INDAGINE"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:ricerca_questionario-con_dati_personali-0002",
+      "fp": [
+        [
+          2,
+          57,
+          60,
+          "ORGANIZATION"
+        ],
+        [
+          2,
+          61,
+          64,
+          "ORGANIZATION"
+        ]
+      ],
+      "fn": [
+        [
+          0,
+          32,
+          60,
+          "EMAIL"
+        ],
+        [
+          2,
+          7,
+          65,
+          "INDAGINE"
+        ],
+        [
+          2,
+          78,
+          87,
+          "COD_INDAGINE"
+        ],
+        [
+          3,
+          68,
+          77,
+          "COD_INDAGINE"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:assistenza_compilazione-senza_dati_personali-0001",
+      "fp": [
+        [
+          0,
+          75,
+          82,
+          "ORGANIZATION"
+        ]
+      ],
+      "fn": [
+        [
+          0,
+          25,
+          83,
+          "INDAGINE"
+        ],
+        [
+          0,
+          96,
+          105,
+          "COD_INDAGINE"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:assistenza_compilazione-senza_dati_personali-0002",
+      "fp": [
+        [
+          0,
+          75,
+          82,
+          "ORGANIZATION"
+        ]
+      ],
+      "fn": [
+        [
+          0,
+          25,
+          83,
+          "INDAGINE"
+        ],
+        [
+          0,
+          96,
+          105,
+          "COD_INDAGINE"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:assistenza_compilazione-con_dati_personali-0001",
+      "fp": [
+        [
+          0,
+          93,
+          96,
+          "ORGANIZATION"
+        ],
+        [
+          0,
+          156,
+          172,
+          "LOCATION"
+        ],
+        [
+          0,
+          177,
+          184,
+          "LOCATION"
+        ]
+      ],
+      "fn": [
+        [
+          0,
+          43,
+          101,
+          "INDAGINE"
+        ],
+        [
+          0,
+          103,
+          112,
+          "COD_INDAGINE"
+        ],
+        [
+          0,
+          156,
+          184,
+          "ADDRESS"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:assistenza_compilazione-con_dati_personali-0002",
+      "fp": [
+        [
+          0,
+          93,
+          96,
+          "ORGANIZATION"
+        ]
+      ],
+      "fn": [
+        [
+          0,
+          43,
+          101,
+          "INDAGINE"
+        ],
+        [
+          0,
+          114,
+          123,
+          "COD_INDAGINE"
+        ],
+        [
+          0,
+          216,
+          226,
+          "NUM_PRATICA"
+        ],
+        [
+          5,
+          225,
+          235,
+          "NUM_PRATICA"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:comunicazione_altra_persona-con_dati_personali-0001",
+      "fp": [],
+      "fn": [
+        [
+          2,
+          137,
+          164,
+          "EMAIL"
+        ],
+        [
+          4,
+          41,
+          68,
+          "EMAIL"
+        ],
+        [
+          5,
+          105,
+          132,
+          "EMAIL"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:comunicazione_altra_persona-con_dati_personali-0002",
+      "fp": [
+        [
+          2,
+          93,
+          117,
+          "LOCATION"
+        ],
+        [
+          4,
+          27,
+          50,
+          "PERSON"
+        ],
+        [
+          7,
+          51,
+          58,
+          "ORGANIZATION"
+        ]
+      ],
+      "fn": [
+        [
+          2,
+          93,
+          117,
+          "PERSON"
+        ],
+        [
+          4,
+          27,
+          51,
+          "PERSON"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:cambio_residenza-senza_dati_personali-0001",
+      "fp": [
+        [
+          6,
+          0,
+          3,
+          "LOCATION"
+        ],
+        [
+          6,
+          3,
+          7,
+          "PERSON"
+        ],
+        [
+          7,
+          2,
+          9,
+          "ORGANIZATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:cambio_residenza-con_dati_personali-0002",
+      "fp": [
+        [
+          0,
+          32,
+          46,
+          "LOCATION"
+        ],
+        [
+          0,
+          51,
+          56,
+          "LOCATION"
+        ]
+      ],
+      "fn": [
+        [
+          0,
+          32,
+          56,
+          "ADDRESS"
+        ],
+        [
+          2,
+          141,
+          157,
+          "PHONE"
+        ],
+        [
+          3,
+          155,
+          171,
+          "PHONE"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:ricerca_dati_territoriali-senza_dati_personali-0001",
+      "fp": [],
+      "fn": [
+        [
+          2,
+          18,
+          22,
+          "DATE"
+        ],
+        [
+          5,
+          93,
+          97,
+          "DATE"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:ricerca_dati_territoriali-senza_dati_personali-0002",
+      "fp": [],
+      "fn": [
+        [
+          0,
+          47,
+          51,
+          "DATE"
+        ],
+        [
+          3,
+          125,
+          129,
+          "DATE"
+        ],
+        [
+          5,
+          79,
+          83,
+          "DATE"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:ricerca_dati_territoriali-con_dati_personali-0001",
+      "fp": [],
+      "fn": [
+        [
+          2,
+          16,
+          20,
+          "DATE"
+        ],
+        [
+          4,
+          121,
+          151,
+          "EMAIL"
+        ],
+        [
+          5,
+          47,
+          51,
+          "DATE"
+        ],
+        [
+          9,
+          63,
+          67,
+          "DATE"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:ricerca_dati_territoriali-con_dati_personali-0002",
+      "fp": [],
+      "fn": [
+        [
+          0,
+          47,
+          51,
+          "DATE"
+        ],
+        [
+          3,
+          121,
+          125,
+          "DATE"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:impresa_acquisita-senza_dati_personali-0001",
+      "fp": [
+        [
+          0,
+          0,
+          20,
+          "ORGANIZATION"
+        ],
+        [
+          1,
+          141,
+          161,
+          "ORGANIZATION"
+        ],
+        [
+          2,
+          15,
+          32,
+          "ORGANIZATION"
+        ],
+        [
+          3,
+          145,
+          165,
+          "ORGANIZATION"
+        ],
+        [
+          4,
+          45,
+          62,
+          "ORGANIZATION"
+        ],
+        [
+          4,
+          70,
+          81,
+          "ORGANIZATION"
+        ]
+      ],
+      "fn": [
+        [
+          0,
+          0,
+          22,
+          "ORGANIZATION"
+        ],
+        [
+          1,
+          141,
+          163,
+          "ORGANIZATION"
+        ],
+        [
+          2,
+          15,
+          33,
+          "ORGANIZATION"
+        ],
+        [
+          2,
+          59,
+          141,
+          "INDAGINE"
+        ],
+        [
+          2,
+          150,
+          159,
+          "COD_INDAGINE"
+        ],
+        [
+          3,
+          7,
+          89,
+          "INDAGINE"
+        ],
+        [
+          3,
+          91,
+          100,
+          "COD_INDAGINE"
+        ],
+        [
+          3,
+          145,
+          167,
+          "ORGANIZATION"
+        ],
+        [
+          4,
+          45,
+          67,
+          "ORGANIZATION"
+        ],
+        [
+          4,
+          70,
+          88,
+          "ORGANIZATION"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:impresa_acquisita-senza_dati_personali-0002",
+      "fp": [
+        [
+          0,
+          164,
+          179,
+          "ORGANIZATION"
+        ],
+        [
+          1,
+          16,
+          37,
+          "ORGANIZATION"
+        ],
+        [
+          3,
+          73,
+          94,
+          "ORGANIZATION"
+        ],
+        [
+          3,
+          101,
+          118,
+          "ORGANIZATION"
+        ],
+        [
+          4,
+          46,
+          67,
+          "ORGANIZATION"
+        ]
+      ],
+      "fn": [
+        [
+          0,
+          7,
+          89,
+          "INDAGINE"
+        ],
+        [
+          0,
+          98,
+          107,
+          "COD_INDAGINE"
+        ],
+        [
+          0,
+          164,
+          186,
+          "ORGANIZATION"
+        ],
+        [
+          1,
+          16,
+          38,
+          "ORGANIZATION"
+        ],
+        [
+          3,
+          73,
+          95,
+          "ORGANIZATION"
+        ],
+        [
+          3,
+          101,
+          119,
+          "ORGANIZATION"
+        ],
+        [
+          4,
+          46,
+          68,
+          "ORGANIZATION"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:impresa_acquisita-con_dati_personali-0001",
+      "fp": [
+        [
+          0,
+          163,
+          182,
+          "ORGANIZATION"
+        ],
+        [
+          1,
+          179,
+          200,
+          "ORGANIZATION"
+        ],
+        [
+          2,
+          48,
+          65,
+          "ORGANIZATION"
+        ],
+        [
+          2,
+          114,
+          133,
+          "ORGANIZATION"
+        ],
+        [
+          5,
+          106,
+          123,
+          "ORGANIZATION"
+        ],
+        [
+          5,
+          124,
+          125,
+          "ORGANIZATION"
+        ],
+        [
+          5,
+          140,
+          157,
+          "ORGANIZATION"
+        ]
+      ],
+      "fn": [
+        [
+          0,
+          7,
+          89,
+          "INDAGINE"
+        ],
+        [
+          0,
+          98,
+          107,
+          "COD_INDAGINE"
+        ],
+        [
+          0,
+          163,
+          185,
+          "ORGANIZATION"
+        ],
+        [
+          1,
+          179,
+          201,
+          "ORGANIZATION"
+        ],
+        [
+          2,
+          48,
+          66,
+          "ORGANIZATION"
+        ],
+        [
+          2,
+          114,
+          136,
+          "ORGANIZATION"
+        ],
+        [
+          4,
+          65,
+          94,
+          "EMAIL"
+        ],
+        [
+          5,
+          106,
+          128,
+          "ORGANIZATION"
+        ],
+        [
+          5,
+          140,
+          158,
+          "ORGANIZATION"
+        ],
+        [
+          5,
+          315,
+          344,
+          "EMAIL"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:impresa_acquisita-con_dati_personali-0002",
+      "fp": [
+        [
+          0,
+          4,
+          19,
+          "ORGANIZATION"
+        ],
+        [
+          1,
+          60,
+          81,
+          "ORGANIZATION"
+        ],
+        [
+          2,
+          13,
+          30,
+          "ORGANIZATION"
+        ]
+      ],
+      "fn": [
+        [
+          0,
+          4,
+          26,
+          "ORGANIZATION"
+        ],
+        [
+          0,
+          84,
+          166,
+          "INDAGINE"
+        ],
+        [
+          0,
+          175,
+          184,
+          "COD_INDAGINE"
+        ],
+        [
+          1,
+          60,
+          82,
+          "ORGANIZATION"
+        ],
+        [
+          2,
+          13,
+          31,
+          "ORGANIZATION"
+        ],
+        [
+          4,
+          59,
+          88,
+          "EMAIL"
+        ],
+        [
+          5,
+          188,
+          217,
+          "EMAIL"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:referente_irreperibile-senza_dati_personali-0001",
+      "fp": [],
+      "fn": [
+        [
+          0,
+          3,
+          23,
+          "ROLE"
+        ],
+        [
+          4,
+          23,
+          43,
+          "ROLE"
+        ],
+        [
+          7,
+          38,
+          58,
+          "ROLE"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:referente_irreperibile-senza_dati_personali-0002",
+      "fp": [
+        [
+          4,
+          49,
+          51,
+          "ORGANIZATION"
+        ]
+      ],
+      "fn": [
+        [
+          0,
+          3,
+          23,
+          "ROLE"
+        ],
+        [
+          1,
+          150,
+          170,
+          "ROLE"
+        ],
+        [
+          4,
+          28,
+          48,
+          "ROLE"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:referente_irreperibile-con_dati_personali-0001",
+      "fp": [],
+      "fn": [
+        [
+          0,
+          3,
+          23,
+          "ROLE"
+        ],
+        [
+          1,
+          31,
+          51,
+          "ROLE"
+        ],
+        [
+          2,
+          28,
+          37,
+          "COD_UTENTE"
+        ],
+        [
+          2,
+          67,
+          94,
+          "EMAIL"
+        ],
+        [
+          2,
+          114,
+          134,
+          "ROLE"
+        ],
+        [
+          3,
+          17,
+          26,
+          "COD_UTENTE"
+        ],
+        [
+          3,
+          41,
+          68,
+          "EMAIL"
+        ],
+        [
+          3,
+          185,
+          205,
+          "ROLE"
+        ],
+        [
+          5,
+          221,
+          241,
+          "ROLE"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:referente_irreperibile-con_dati_personali-0002",
+      "fp": [],
+      "fn": [
+        [
+          0,
+          3,
+          23,
+          "ROLE"
+        ],
+        [
+          0,
+          100,
+          110,
+          "COD_UTENTE"
+        ],
+        [
+          1,
+          31,
+          51,
+          "ROLE"
+        ],
+        [
+          2,
+          33,
+          59,
+          "EMAIL"
+        ],
+        [
+          3,
+          86,
+          112,
+          "EMAIL"
+        ],
+        [
+          3,
+          167,
+          177,
+          "COD_UTENTE"
+        ],
+        [
+          4,
+          21,
+          41,
+          "ROLE"
+        ],
+        [
+          6,
+          47,
+          67,
+          "ROLE"
+        ],
+        [
+          7,
+          69,
+          89,
+          "ROLE"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:ricevuta_sollecito_conflitto-senza_dati_personali-0001",
+      "fp": [],
+      "fn": [
+        [
+          0,
+          6,
+          66,
+          "INDAGINE"
+        ],
+        [
+          2,
+          35,
+          44,
+          "COD_INDAGINE"
+        ],
+        [
+          3,
+          56,
+          65,
+          "COD_INDAGINE"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:ricevuta_sollecito_conflitto-senza_dati_personali-0002",
+      "fp": [
+        [
+          0,
+          219,
+          221,
+          "ORGANIZATION"
+        ],
+        [
+          1,
+          147,
+          148,
+          "ORGANIZATION"
+        ]
+      ],
+      "fn": [
+        [
+          0,
+          7,
+          89,
+          "INDAGINE"
+        ],
+        [
+          0,
+          98,
+          107,
+          "COD_INDAGINE"
+        ],
+        [
+          3,
+          153,
+          162,
+          "COD_INDAGINE"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:ricevuta_sollecito_conflitto-con_dati_personali-0001",
+      "fp": [
+        [
+          0,
+          220,
+          222,
+          "ORGANIZATION"
+        ],
+        [
+          1,
+          98,
+          101,
+          "ORGANIZATION"
+        ]
+      ],
+      "fn": [
+        [
+          0,
+          7,
+          89,
+          "INDAGINE"
+        ],
+        [
+          0,
+          98,
+          107,
+          "COD_INDAGINE"
+        ],
+        [
+          2,
+          22,
+          32,
+          "NUM_PRATICA"
+        ],
+        [
+          3,
+          119,
+          129,
+          "NUM_PRATICA"
+        ],
+        [
+          9,
+          44,
+          54,
+          "NUM_PRATICA"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:ricevuta_sollecito_conflitto-con_dati_personali-0002",
+      "fp": [
+        [
+          0,
+          219,
+          221,
+          "ORGANIZATION"
+        ],
+        [
+          2,
+          3,
+          6,
+          "ORGANIZATION"
+        ],
+        [
+          3,
+          128,
+          131,
+          "ORGANIZATION"
+        ]
+      ],
+      "fn": [
+        [
+          0,
+          7,
+          89,
+          "INDAGINE"
+        ],
+        [
+          0,
+          98,
+          107,
+          "COD_INDAGINE"
+        ],
+        [
+          2,
+          20,
+          46,
+          "EMAIL"
+        ],
+        [
+          3,
+          145,
+          171,
+          "EMAIL"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:obbligo_sanzione-senza_dati_personali-0001",
+      "fp": [],
+      "fn": [
+        [
+          0,
+          6,
+          66,
+          "INDAGINE"
+        ],
+        [
+          2,
+          26,
+          35,
+          "COD_INDAGINE"
+        ],
+        [
+          3,
+          4,
+          13,
+          "COD_INDAGINE"
+        ],
+        [
+          5,
+          72,
+          132,
+          "INDAGINE"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:obbligo_sanzione-senza_dati_personali-0002",
+      "fp": [
+        [
+          2,
+          10,
+          12,
+          "ORGANIZATION"
+        ]
+      ],
+      "fn": [
+        [
+          0,
+          6,
+          66,
+          "INDAGINE"
+        ],
+        [
+          2,
+          16,
+          25,
+          "COD_INDAGINE"
+        ],
+        [
+          3,
+          15,
+          24,
+          "COD_INDAGINE"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:obbligo_sanzione-con_dati_personali-0001",
+      "fp": [],
+      "fn": [
+        [
+          0,
+          6,
+          66,
+          "INDAGINE"
+        ],
+        [
+          2,
+          16,
+          25,
+          "COD_INDAGINE"
+        ],
+        [
+          2,
+          54,
+          64,
+          "COD_UTENTE"
+        ],
+        [
+          3,
+          30,
+          39,
+          "COD_INDAGINE"
+        ],
+        [
+          5,
+          156,
+          216,
+          "INDAGINE"
+        ],
+        [
+          5,
+          264,
+          274,
+          "COD_UTENTE"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:obbligo_sanzione-con_dati_personali-0002",
+      "fp": [],
+      "fn": [
+        [
+          0,
+          6,
+          66,
+          "INDAGINE"
+        ],
+        [
+          2,
+          16,
+          25,
+          "COD_INDAGINE"
+        ],
+        [
+          2,
+          53,
+          62,
+          "COD_UTENTE"
+        ],
+        [
+          3,
+          17,
+          26,
+          "COD_UTENTE"
+        ],
+        [
+          3,
+          89,
+          98,
+          "COD_INDAGINE"
+        ],
+        [
+          7,
+          99,
+          108,
+          "COD_INDAGINE"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:tracciamento_richiesta_documento-con_dati_personali-0001",
+      "fp": [],
+      "fn": [
+        [
+          0,
+          41,
+          51,
+          "NUM_PRATICA"
+        ],
+        [
+          1,
+          50,
+          60,
+          "NUM_PRATICA"
+        ],
+        [
+          4,
+          22,
+          32,
+          "NUM_PRATICA"
+        ],
+        [
+          5,
+          82,
+          92,
+          "NUM_PRATICA"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:tracciamento_richiesta_documento-con_dati_personali-0002",
+      "fp": [],
+      "fn": [
+        [
+          0,
+          64,
+          74,
+          "NUM_PRATICA"
+        ],
+        [
+          1,
+          175,
+          185,
+          "NUM_PRATICA"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:accesso_microdati-senza_dati_personali-0001",
+      "fp": [],
+      "fn": [
+        [
+          0,
+          45,
+          52,
+          "INDAGINE"
+        ],
+        [
+          1,
+          31,
+          38,
+          "INDAGINE"
+        ],
+        [
+          7,
+          68,
+          75,
+          "INDAGINE"
+        ]
+      ]
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:accesso_microdati-senza_dati_personali-0002",
+      "fp": [
+        [
+          6,
+          16,
+          21,
+          "ORGANIZATION"
+        ]
+      ],
+      "fn": [
+        [
+          0,
+          59,
+          66,
+          "INDAGINE"
+        ],
+        [
+          1,
+          31,
+          38,
+          "INDAGINE"
+        ],
+        [
+          7,
+          137,
+          144,
+          "INDAGINE"
+        ]
+      ]
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+[
+  {
+    "modello": "gliner_multi",
+    "stato": "completato",
+    "valutate": 46,
+    "totali": 46,
+    "fallimenti": 0,
+    "metriche": {
+      "tp": 73,
+      "fp": 237,
+      "fn": 129,
+      "precision": 0.23548387096774193,
+      "recall": 0.3613861386138614,
+      "f1": 0.28515625
+    },
+    "prestazioni": {
+      "secondi_caricamento": 31.892965468,
+      "secondi_inferenza": 8.695087580000006,
+      "secondi_totali": 40.592824568000026,
+      "picco_vram_allocata_byte": 1191498240,
+      "picco_vram_riservata_byte": 1249902592
+    }
+  },
+  {
+    "modello": "gliner_pii",
+    "stato": "completato",
+    "valutate": 46,
+    "totali": 46,
+    "fallimenti": 0,
+    "metriche": {
+      "tp": 111,
+      "fp": 336,
+      "fn": 91,
+      "precision": 0.2483221476510067,
+      "recall": 0.5495049504950495,
+      "f1": 0.3420647149460709
+    },
+    "prestazioni": {
+      "secondi_caricamento": 12.086519763000013,
+      "secondi_inferenza": 5.207027074999985,
+      "secondi_totali": 17.30044916999998,
+      "picco_vram_allocata_byte": 1192284672,
+      "picco_vram_riservata_byte": 1249902592
+    }
+  },
+  {
+    "modello": "wikineural",
+    "stato": "completato",
+    "valutate": 46,
+    "totali": 46,
+    "fallimenti": 0,
+    "metriche": {
+      "tp": 35,
+      "fp": 50,
+      "fn": 167,
+      "precision": 0.4117647058823529,
+      "recall": 0.17326732673267325,
+      "f1": 0.24390243902439024
+    },
+    "prestazioni": {
+      "secondi_caricamento": 6.271181404999993,
+      "secondi_inferenza": 2.5475221780000084,
+      "secondi_totali": 8.822032766999996,
+      "picco_vram_allocata_byte": 721843200,
+      "picco_vram_riservata_byte": 773849088
+    }
+  },
+  {
+    "modello": "piiranha",
+    "stato": "parziale",
+    "valutate": 44,
+    "totali": 46,
+    "fallimenti": 2,
+    "metriche": {
+      "tp": 29,
+      "fp": 24,
+      "fn": 154,
+      "precision": 0.5471698113207547,
+      "recall": 0.15846994535519127,
+      "f1": 0.2457627118644068
+    },
+    "prestazioni": {
+      "secondi_caricamento": 9.49989735400004,
+      "secondi_inferenza": 5.114050933999977,
+      "secondi_totali": 14.616900707000013,
+      "picco_vram_allocata_byte": 1137204224,
+      "picco_vram_riservata_byte": 1178599424
+    }
+  }
+]

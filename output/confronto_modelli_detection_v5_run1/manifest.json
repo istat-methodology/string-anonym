@@ -1,0 +1,21 @@
+{
+  "contesto": "messaggio_isolato",
+  "device": "cuda:0",
+  "librerie": {
+    "torch": "2.6.0+cu118",
+    "transformers": "4.57.6",
+    "gliner": "0.2.21",
+    "gliner2": "2.0.0",
+    "huggingface-hub": "0.36.2"
+  },
+  "fonti": {
+    "input": {
+      "path": "/home/azureuser/projects/string-anonym/output/dataset_detection_v5_draft4/input.jsonl",
+      "sha256": "e323d412f4eb5e418b2b1056d7fe0093865bcc856c2f80dd1a4dbf7c4a83c34f"
+    },
+    "attese": {
+      "path": "/home/azureuser/projects/string-anonym/output/dataset_detection_v5_draft4/annotazioni_attese.jsonl",
+      "sha256": "34d7a867f1774a1958dd67ba552a2fd2e814dcdc3faae10b8a80f68c81e27c90"
+    }
+  }
+}

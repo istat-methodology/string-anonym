@@ -1,0 +1,31 @@
+{
+  "modello": {
+    "nome": "wikineural",
+    "repository": "Babelscape/wikineural-multilingual-ner",
+    "revision": "main",
+    "backend": "transformers",
+    "soglia": 0.0,
+    "max_tokens": 512,
+    "etichette": {
+      "PER": "PERSON",
+      "LOC": "LOCATION",
+      "ORG": "ORGANIZATION",
+      "MISC": null
+    },
+    "unisci_adiacenti": [],
+    "licenza": "cc-by-nc-sa-4.0"
+  },
+  "categorie_mappate": [
+    "LOCATION",
+    "ORGANIZATION",
+    "PERSON"
+  ],
+  "revision_risolta": "bed6ee7a45d2827b6c90a4fd7983f0241ae0a5c1",
+  "prestazioni": {
+    "secondi_caricamento": 6.271181404999993,
+    "secondi_inferenza": 2.5475221780000084,
+    "secondi_totali": 8.822032766999996,
+    "picco_vram_allocata_byte": 721843200,
+    "picco_vram_riservata_byte": 773849088
+  }
+}
