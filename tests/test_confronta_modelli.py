@@ -32,10 +32,11 @@ class ConfrontoTest(unittest.TestCase):
         self.assertEqual(ignored, {})
         self.assertEqual(spans, [dict(start=1, end=5, tipo='PERSON', score=0.9, testo='Anna')])
 
-    def test_rifiuta_span_di_soli_spazi(self):
+    def test_ignora_span_di_soli_spazi(self):
         raw = [dict(label='GIVENNAME', start=0, end=2, score=0.9)]
-        with self.assertRaisesRegex(ValueError, 'Span vuoto'):
-            normalizza(raw, '  ', self.model)
+        spans, ignored = normalizza(raw, '  ', self.model)
+        self.assertEqual(spans, [])
+        self.assertEqual(ignored, {'GIVENNAME:span_vuoto': 1})
 
     def test_conversione_output_gliner2(self):
         result = {'entities': {'person': [
@@ -125,6 +126,14 @@ class ConfrontoTest(unittest.TestCase):
         self.assertEqual(len(inputs), 46)
         self.assertEqual(sum(len(r['annotazioni']) for r in gold), 202)
         self.assertIn('INDAGINE', cfg['tipi_valutati'])
+
+    def test_config_ner_v5_dichiara_il_focus(self):
+        path = ROOT/'config/esperimento_ner_person_location_v5.json'
+        cfg, inputs, gold = carica(path)
+        self.assertEqual(set(cfg['tipi_focus_ner']), {'PERSON', 'LOCATION'})
+        gliner = next(m for m in cfg['modelli'] if m['nome'] == 'gliner_multi')
+        self.assertEqual(set(gliner['etichette'].values()), {'PERSON', 'LOCATION'})
+        self.assertEqual(len(inputs), 46)
 
     def test_config_puo_limitare_le_categorie_valutate(self):
         with tempfile.TemporaryDirectory() as directory:

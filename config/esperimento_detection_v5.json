@@ -9,6 +9,7 @@
     "ADDRESS", "COD_INDAGINE", "COD_UTENTE", "DATE", "EMAIL", "INDAGINE",
     "LOCATION", "NUM_PRATICA", "ORGANIZATION", "PASSWORD", "PERSON", "PHONE", "ROLE"
   ],
+  "tipi_focus_ner": ["PERSON", "LOCATION"],
   "modelli": [
     {
       "nome": "gliner_multi",

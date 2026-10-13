@@ -78,9 +78,13 @@ Il controllo offline del nuovo confronto è:
 
 ```sh
 .venv/bin/python src/confronta_modelli.py \
-  --config config/esperimento_detection_v5.json \
+  --config config/esperimento_ner_person_location_v5.json \
   --solo-controllo
 ```
+
+La configurazione primaria valuta il ramo NER su `PERSON` e `LOCATION` e
+conserva le metriche globali soltanto come diagnostica. Le metriche end-to-end
+saranno calcolate dopo l'unione con il ramo regex.
 
 Disegno sperimentale, limiti e criteri di interpretazione sono descritti nel
 [protocollo detection 5.0](protocollo_esperimento_detection_v5.md).

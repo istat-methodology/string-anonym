@@ -26,6 +26,10 @@ def tipi_valutati_config(cfg):
     return set(cfg.get('tipi_valutati', tipi_config(cfg)))
 
 
+def tipi_focus_config(cfg):
+    return set(cfg.get('tipi_focus_ner', []))
+
+
 def salva(path, value):
     with path.open('x', encoding='utf-8') as f:
         json.dump(value, f, ensure_ascii=False, indent=2)
@@ -43,6 +47,8 @@ def carica(path):
     tipi_valutati = tipi_valutati_config(cfg)
     if not tipi_valutati or tipi_valutati - tipi_ammessi:
         raise ValueError('Categorie da valutare non valide')
+    if tipi_focus_config(cfg) - tipi_valutati:
+        raise ValueError('Categorie focus NER non comprese nella valutazione')
     for m in cfg['modelli']:
         if not re.fullmatch(r'[a-z0-9_]+', m['nome']) or m['nome'] in names:
             raise ValueError('Nome modello duplicato o non valido')
@@ -84,7 +90,8 @@ def normalizza(raw, testo, m):
         while end > start and testo[end-1].isspace():
             end -= 1
         if start == end:
-            raise ValueError('Span vuoto dopo la normalizzazione degli spazi')
+            ignorate[f'{label}:span_vuoto'] += 1
+            continue
         if tipo is None:
             ignorate[label] += 1
             continue
@@ -126,7 +133,8 @@ def detect_model(raw, testo, m, campo):
         while end > start and testo[end-1].isspace():
             end -= 1
         if start == end:
-            raise ValueError('Span vuoto dopo la normalizzazione degli spazi')
+            ignorate[f'{label}:span_vuoto'] += 1
+            continue
         if tipo is None:
             ignorate[label] += 1
             continue
@@ -293,7 +301,8 @@ def esegui(cfg, inputs, gold, device, loader=backend):
             if usa_cuda:
                 torch.cuda.synchronize(device)
             inference_seconds = time.perf_counter() - inference_start
-            report = valuta(inputs, gold, predictions, tipi_ammessi)
+            report = valuta(inputs, gold, predictions, tipi_ammessi,
+                            tipi_focus_config(cfg))
             salva(directory/'valutazione.json', report)
             performance = {
                 'secondi_caricamento': load_seconds,
@@ -306,6 +315,7 @@ def esegui(cfg, inputs, gold, device, loader=backend):
             summary.append({'modello':m['nome'], 'stato':'completato' if not report['fallimenti_tecnici'] else 'parziale',
                             'valutate':report['conversazioni_valutate'], 'totali':len(inputs),
                             'fallimenti':len(report['fallimenti_tecnici']), 'metriche':report['span_esatti_micro'],
+                            'metriche_focus_ner': report['focus'],
                             'prestazioni':performance})
         except Exception as error:
             metadata['errore'] = f'{type(error).__name__}: {error}'
@@ -336,6 +346,8 @@ def main():
         if args.solo_controllo:
             tipi = sorted(tipi_valutati_config(cfg))
             print(f'Conversazioni: {len(inputs)}; modelli: {len(cfg["modelli"])}; contesto: {cfg["contesto"]}; categorie valutate: {tipi}')
+            if tipi_focus_config(cfg):
+                print(f'Focus primario NER: {sorted(tipi_focus_config(cfg))}')
             for m in cfg['modelli']:
                 print(f"{m['nome']}: {m['repository']} — categorie mappate: {sorted(set(m['etichette'].values())-{None})}")
             print('Nessun download o inferenza. Licenze e limiti: docs/confronto_modelli.md')

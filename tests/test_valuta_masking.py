@@ -25,6 +25,14 @@ class ValutatoreTest(unittest.TestCase):
         self.assertEqual(r['negative_valutate'],1)
         self.assertIsNone(r['per_tipo']['PHONE']['recall'])
 
+    def test_focus_aggrega_solo_le_categorie_dichiarate(self):
+        self.gold[0]['annotazioni'].append(span(0, 1, 'PHONE'))
+        self.pred[0]['annotazioni'].append(span(0, 1, 'PHONE'))
+        r = valuta(self.inputs, self.gold, self.pred, tipi_focus={'PERSON'})
+        self.assertEqual(r['span_esatti_micro']['tp'], 2)
+        self.assertEqual(r['focus']['categorie'], ['PERSON'])
+        self.assertEqual(r['focus']['span_esatti_micro']['tp'], 1)
+
     def test_confini_parziali_e_falso_positivo(self):
         self.pred[0]['annotazioni']=[span(2,5)]
         self.pred[1]['annotazioni']=[span(0,4,'ADDRESS')]

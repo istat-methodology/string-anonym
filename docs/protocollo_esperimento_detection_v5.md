@@ -7,9 +7,11 @@ span e categorie in ciascun messaggio, senza applicare decisioni di policy. Ogni
 messaggio è elaborato indipendentemente; la conversazione è soltanto il contenitore
 del dataset. Non si misurano masking finale, rischio residuo o anonimizzazione.
 
-La domanda sperimentale preliminare è: quanto bene modelli generalisti e modelli
-orientati alle PII riconoscono le categorie richieste dalle conversazioni
-istituzionali sintetiche, a parità di input e senza fine-tuning?
+La domanda sperimentale primaria è: quanto bene modelli generalisti e modelli
+orientati alle PII riconoscono `PERSON` e `LOCATION` nelle conversazioni
+istituzionali sintetiche, a parità di input e senza fine-tuning? Le altre
+categorie appartengono principalmente al ramo regex e non devono abbassare la
+misura del componente NER.
 
 ## Corpus e riferimento atteso
 
@@ -59,17 +61,33 @@ Gli output nativi, le conversioni di categoria, le revisioni dei pesi, i tempi e
 la memoria GPU sono conservati. La soglia iniziale di GLiNER è 0,5; non viene
 ottimizzata sul corpus prima del primo run.
 
-WikiNEuRal e Piiranha non coprono l'intero schema. I loro risultati globali
-misurano quindi anche la copertura dello schema, non soltanto la qualità entro le
-categorie native. Le metriche per categoria sono necessarie per interpretarli.
+La run esplorativa iniziale chiedeva a GLiNER tutte le categorie e conserva una
+metrica globale diagnostica. Le run NER successive chiedono ai modelli soltanto
+`PERSON` e `LOCATION`. WikiNEuRal e Piiranha vengono mappati allo stesso focus.
+
+L'assegnazione metodologica corrente è:
+
+| Componente | Categorie di responsabilità primaria |
+|---|---|
+| NER | `PERSON`, `LOCATION` |
+| Regex o lookup controllato | `PHONE`, `COD_INDAGINE`, `INDAGINE`, `ROLE`, `NUM_PRATICA` e altri identificativi strutturati |
+| `merge_detection` | unione delle detection coincidenti e conservazione esplicita di conflitti e sovrapposizioni |
+
+La copertura regex delle categorie dichiarate deve essere implementata e
+verificata: l'assegnazione non equivale ancora a una prestazione del 100%.
 
 ## Metriche e analisi
 
-La misura primaria è F1 micro su corrispondenza esatta di confini e categoria.
-Si riportano anche precisione e recall, risultati per categoria e ruolo,
+La misura primaria del NER è F1 micro su `PERSON` e `LOCATION`, con
+corrispondenza esatta di confini e categoria. Si riportano anche precisione e
+recall, risultati per categoria e ruolo,
 copertura dei caratteri attesi, falsi positivi nelle conversazioni negative,
 fallimenti tecnici, tempi e picchi di memoria. Gli errori saranno ispezionati per
 distinguere confini errati, tipo errato e omissione.
+
+La metrica globale su tutte le categorie resta una diagnostica secondaria della
+run solo NER. Diventerà una metrica end-to-end soltanto quando le predizioni NER
+saranno unite alle predizioni regex e valutate dopo `merge_detection`.
 
 Non è previsto un test di significatività nel primo run: il campione è piccolo,
 sintetico e fortemente sbilanciato. Le categorie con una o due occorrenze vanno
@@ -81,7 +99,7 @@ Controllo locale, senza download:
 
 ```sh
 .venv/bin/python src/confronta_modelli.py \
-  --config config/esperimento_detection_v5.json \
+  --config config/esperimento_ner_person_location_v5.json \
   --solo-controllo
 ```
 
@@ -89,7 +107,7 @@ Esecuzione sulla GPU:
 
 ```sh
 python src/confronta_modelli.py \
-  --config config/esperimento_detection_v5.json \
+  --config config/esperimento_ner_person_location_v5.json \
   --device cuda:0
 ```
 

@@ -53,10 +53,13 @@ def metriche(tp, fp, fn):
             'f1': 2 * tp / (2 * tp + fp + fn) if 2 * tp + fp + fn else None}
 
 
-def valuta(inputs, attese, predizioni, tipi_ammessi=TIPI):
+def valuta(inputs, attese, predizioni, tipi_ammessi=TIPI, tipi_focus=None):
     tipi_ammessi = set(tipi_ammessi)
     if not tipi_ammessi:
         raise ValueError('Insieme delle categorie vuoto')
+    tipi_focus = set(tipi_focus or [])
+    if tipi_focus - tipi_ammessi:
+        raise ValueError('Categorie focus non comprese nelle categorie ammesse')
     inputs, attese, predizioni = map(indicizza, (inputs, attese, predizioni))
     if not inputs or inputs.keys() != attese.keys():
         raise ValueError('Input e annotazioni attese devono avere gli stessi ID e non essere vuoti')
@@ -102,10 +105,16 @@ def valuta(inputs, attese, predizioni, tipi_ammessi=TIPI):
             dettagli.append({'id': id_, 'fp': sorted(fp), 'fn': sorted(fn)})
     def riassumi(c):
         return metriche(c['tp'], c['fp'], c['fn'])
-    return {'versione': '1.0', 'conversazioni_totali': len(inputs),
+    focus_counts = Counter()
+    for tipo in tipi_focus:
+        focus_counts.update(tipi[tipo])
+    return {'versione': '1.1', 'conversazioni_totali': len(inputs),
             'conversazioni_valutate': conteggi['valutate'], 'fallimenti_tecnici': tecnici,
             'nota': 'Metriche sui soli esiti ok; fallimenti e predizioni mancanti esclusi e riportati separatamente. Annotazioni attese non necessariamente revisionate.',
             'span_esatti_micro': riassumi(conteggi),
+            'focus': ({'categorie': sorted(tipi_focus),
+                       'span_esatti_micro': riassumi(focus_counts)}
+                      if tipi_focus else None),
             'per_tipo': {k: riassumi(v) for k, v in tipi.items()},
             'per_ruolo': {k: riassumi(v) for k, v in ruoli.items()},
             'caratteri': {**char_counts,

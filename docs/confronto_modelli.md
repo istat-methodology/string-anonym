@@ -15,6 +15,12 @@ sul singolo messaggio. Non misura la policy contestuale, la futura valutazione
 complessiva della conversazione o l'anonimizzazione finale. Questa separazione
 evita di attribuire al NER errori o meriti che dipendono dalle decisioni di policy.
 
+Nel protocollo 5.0 il focus primario del NER è limitato a `PERSON` e `LOCATION`.
+Il report conserva anche la metrica globale come diagnostica, ma le categorie
+strutturate sono responsabilità del ramo regex o di lookup controllato. La metrica
+globale diventa interpretabile come prestazione di sistema soltanto dopo la loro
+unione tramite `merge_detection`.
+
 ## Modelli e conversione delle categorie
 
 | Modello | Funzione nel confronto | Licenza dichiarata dei pesi |
@@ -76,8 +82,10 @@ Primo controllo, senza rete, pesi o dipendenze ML:
 Verifica configurazione e dataset. Non crea output. Il lotto corrente di 24
 conversazioni serve come prova di funzionamento, non come test finale del paper.
 
-Per il corpus 5.0 usare invece `config/esperimento_detection_v5.json`: contiene
-46 conversazioni e tredici categorie effettivamente presenti. Il runner conserva
+Per il corpus 5.0 la run esplorativa completa usa
+`config/esperimento_detection_v5.json`; la run coerente con il focus NER usa
+`config/esperimento_ner_person_location_v5.json`. Il corpus contiene 46
+conversazioni e tredici categorie effettivamente presenti. Il runner conserva
 la compatibilità con le configurazioni legacy, ma con `formato: detection-5.0`
 valida tutte le categorie del contratto di detection. Il relativo disegno è nel
 [protocollo preliminare](protocollo_esperimento_detection_v5.md).
