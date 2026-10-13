@@ -135,6 +135,13 @@ class ConfrontoTest(unittest.TestCase):
         self.assertEqual(set(gliner['etichette'].values()), {'PERSON', 'LOCATION'})
         self.assertEqual(len(inputs), 46)
 
+    def test_config_ner_multilivello_usa_solo_gold_focus(self):
+        path = ROOT/'config/esperimento_ner_person_location_v5_multilivello.json'
+        cfg, inputs, gold = carica(path)
+        self.assertEqual(set(cfg['tipi_valutati']), {'PERSON', 'LOCATION'})
+        self.assertEqual(sum(len(r['annotazioni']) for r in gold), 35)
+        self.assertEqual(len(inputs), 46)
+
     def test_config_puo_limitare_le_categorie_valutate(self):
         with tempfile.TemporaryDirectory() as directory:
             root=Path(directory)

@@ -56,7 +56,26 @@ di ampliare il benchmark e di eseguire analisi ripetute senza un carico elevato.
 
 1. Conservare immutati gli output della run 1.
 2. Aggiungere ai report `tipi_focus_ner: [PERSON, LOCATION]`.
-3. Eseguire la configurazione `esperimento_ner_person_location_v5.json`, nella
-   quale anche le etichette richieste a GLiNER sono limitate al focus.
+3. Eseguire la configurazione `esperimento_ner_person_location_v5_multilivello.json`,
+   nella quale le etichette richieste a GLiNER sono limitate al focus e il gold
+   rappresenta le componenti annidate degli indirizzi.
 4. Implementare e verificare il ramo regex sulle categorie assegnate.
 5. Valutare separatamente componente NER e pipeline riconciliata.
+
+## Controllo retrospettivo con il gold multilivello
+
+Prima di una nuova inferenza, le predizioni già salvate sono state rivalutate
+contro il gold 5.1. Questo controllo non sostituisce la nuova run, ma verifica
+l'effetto della sola revisione delle annotazioni:
+
+| Modello | Precision | Recall | F1 |
+|---|---:|---:|---:|
+| GLiNER multilingual | 28,2% | 82,9% | 42,0% |
+| GLiNER multilingual PII | 20,3% | 82,9% | 32,6% |
+| WikiNEuRal | 81,6% | 88,6% | 84,9% |
+| Piiranha | 93,9% | 88,6% | 91,2% |
+
+GLiNER multilingual recupera quattro veri positivi, perché aveva riconosciuto
+separatamente strada+civico e comune nei due indirizzi. Piiranha e WikiNEuRal
+recuperano i due comuni. Restano falsi positivi reali di GLiNER, fra cui
+`unità locale`, `in questa sede` e parti di indirizzi email.

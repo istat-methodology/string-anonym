@@ -6,7 +6,7 @@ import tempfile
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-from esporta_dataset_detection import converti, esporta
+from esporta_dataset_detection import converti, esporta, espandi_address
 from esporta_dataset_masking import leggi
 
 
@@ -39,16 +39,31 @@ class DetectionExportTest(unittest.TestCase):
         self.assertEqual([a["tipo"] for a in adapter["annotazioni"]], ["PERSON", "LOCATION"])
         self.assertEqual(self.record, original)
 
-    def test_rifiuta_offset_overlap_id_e_stato(self):
-        for modifica in ("offset", "overlap", "id", "stato"):
+    def test_rifiuta_offset_id_e_stato(self):
+        for modifica in ("offset", "id", "stato"):
             record = copy.deepcopy(self.record)
             if modifica == "offset": record["detection_attesa"][0]["end"] = 3
-            if modifica == "overlap":
-                record["detection_attesa"][1].update(start=2, end=6, text="na c")
             if modifica == "id": record["detection_attesa"][1]["detection_id"] = "det_1"
             if modifica == "stato": record["stato"] = "da_verificare"
             with self.subTest(modifica=modifica), self.assertRaises(ValueError):
                 converti(record, "id")
+
+    def test_gold_canonico_ammette_overlap_ed_espande_address(self):
+        record = copy.deepcopy(self.record)
+        record["chat"]["conversazione"][0]["testo"] = "Scrivo da Via Roma 12, Alfa"
+        record["detection_attesa"] = [{
+            "detection_id": "det_address", "field": "conversazione.0.testo",
+            "start": 10, "end": 27, "text": "Via Roma 12, Alfa", "type": "ADDRESS",
+            "sources": [{"detector": "synthetic_slot"}],
+        }]
+        _, gold, legacy = converti(record, "id", {"Alfa"})
+        self.assertEqual([(d["type"], d["text"]) for d in gold["detections"]], [
+            ("LOCATION", "Via Roma 12"),
+            ("ADDRESS", "Via Roma 12, Alfa"),
+            ("LOCATION", "Alfa"),
+        ])
+        self.assertEqual([(a["tipo"], a["testo"]) for a in legacy["annotazioni"]],
+                         [("ADDRESS", "Via Roma 12, Alfa")])
 
     def test_manifest_e_nessuna_sovrascrittura(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -60,6 +75,7 @@ class DetectionExportTest(unittest.TestCase):
             self.assertEqual(manifest["categorie"], {"LOCATION": 1, "PERSON": 1})
             self.assertEqual(len(leggi(root / "out/input.jsonl")), 1)
             self.assertEqual(len(leggi(root / "out/detections_attese.jsonl")), 1)
+            self.assertEqual(len(leggi(root / "out/annotazioni_ner_attese.jsonl")), 1)
             with self.assertRaises(ValueError):
                 esporta([source], root / "out")
 

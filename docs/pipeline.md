@@ -78,7 +78,7 @@ Il controllo offline del nuovo confronto è:
 
 ```sh
 .venv/bin/python src/confronta_modelli.py \
-  --config config/esperimento_ner_person_location_v5.json \
+  --config config/esperimento_ner_person_location_v5_multilivello.json \
   --solo-controllo
 ```
 
@@ -88,6 +88,20 @@ saranno calcolate dopo l'unione con il ramo regex.
 
 Disegno sperimentale, limiti e criteri di interpretazione sono descritti nel
 [protocollo detection 5.0](protocollo_esperimento_detection_v5.md).
+
+Per rigenerare il gold multilivello senza modificare l'esportazione precedente:
+
+```sh
+.venv/bin/python src/esporta_dataset_detection.py \
+  --input output/chat_v5_draft4_finale.jsonl \
+  --output output/dataset_detection_v5_draft4_multilivello \
+  --comuni data/codici_comuni.csv
+```
+
+Il file `detections_attese.jsonl` ammette gli overlap e conserva `ADDRESS` più
+le componenti annidate. `annotazioni_ner_attese.jsonl` contiene la vista
+valutabile `PERSON`–`LOCATION`. L'adattatore `annotazioni_attese.jsonl` resta
+piatto e non include le nuove componenti, per compatibilità storica.
 
 ```mermaid
 flowchart LR

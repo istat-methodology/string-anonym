@@ -84,7 +84,9 @@ conversazioni serve come prova di funzionamento, non come test finale del paper.
 
 Per il corpus 5.0 la run esplorativa completa usa
 `config/esperimento_detection_v5.json`; la run coerente con il focus NER usa
-`config/esperimento_ner_person_location_v5.json`. Il corpus contiene 46
+`config/esperimento_ner_person_location_v5_multilivello.json`. La precedente
+`config/esperimento_ner_person_location_v5.json` resta riproducibile come run
+pilota con gold piatto. Il corpus contiene 46
 conversazioni e tredici categorie effettivamente presenti. Il runner conserva
 la compatibilità con le configurazioni legacy, ma con `formato: detection-5.0`
 valida tutte le categorie del contratto di detection. Il relativo disegno è nel

@@ -45,6 +45,8 @@ resta fuori dal perimetro corrente.
 - Configurazione offline del primo confronto NER sul corpus 5.0.
 - Focus NER dichiarato su `PERSON` e `LOCATION`; categorie strutturate assegnate
   al ramo regex e metrica globale rinviata al risultato riconciliato.
+- Gold detection 5.1 multilivello: `ADDRESS` completo con strada+civico e comune
+  annotati anche come `LOCATION`, mantenendo le sovrapposizioni canoniche.
 - Policy contestuale `conversation-draft-2` eseguita su 46 conversazioni.
 - Output legacy conservati per riproducibilità.
 

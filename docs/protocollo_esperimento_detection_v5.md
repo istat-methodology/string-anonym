@@ -89,6 +89,24 @@ La metrica globale su tutte le categorie resta una diagnostica secondaria della
 run solo NER. Diventerà una metrica end-to-end soltanto quando le predizioni NER
 saranno unite alle predizioni regex e valutate dopo `merge_detection`.
 
+### Gold multilivello degli indirizzi
+
+La run pilota ha mostrato un limite dell'adattatore legacy: un indirizzo completo
+era annotato soltanto come `ADDRESS`, rendendo falsi positivi la strada e il
+comune correttamente estratti come `LOCATION`. Dalla versione
+`detection-5.1-multilivello` vale una regola definita indipendentemente dai
+modelli:
+
+- l'intero indirizzo resta `ADDRESS`;
+- strada e civico sono anche `LOCATION`;
+- il comune è anche `LOCATION`;
+- le detection canoniche possono essere annidate e sovrapposte.
+
+La scomposizione avviene soltanto quando il suffisso dell'indirizzo coincide con
+un comune del catalogo locale. `annotazioni_ner_attese.jsonl` espone la vista
+`PERSON`–`LOCATION`; il gold canonico conserva anche `ADDRESS`. Il dataset e le
+run precedenti restano immutati per documentare l'evoluzione metodologica.
+
 Non è previsto un test di significatività nel primo run: il campione è piccolo,
 sintetico e fortemente sbilanciato. Le categorie con una o due occorrenze vanno
 descritte come casi esplorativi, non confrontate mediante percentuali stabili.
@@ -99,7 +117,7 @@ Controllo locale, senza download:
 
 ```sh
 .venv/bin/python src/confronta_modelli.py \
-  --config config/esperimento_ner_person_location_v5.json \
+  --config config/esperimento_ner_person_location_v5_multilivello.json \
   --solo-controllo
 ```
 
@@ -107,7 +125,7 @@ Esecuzione sulla GPU:
 
 ```sh
 python src/confronta_modelli.py \
-  --config config/esperimento_ner_person_location_v5.json \
+  --config config/esperimento_ner_person_location_v5_multilivello.json \
   --device cuda:0
 ```
 
