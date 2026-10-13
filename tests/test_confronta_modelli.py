@@ -113,34 +113,13 @@ class ConfrontoTest(unittest.TestCase):
             self.assertTrue((root/'run/fake/predizioni_native.jsonl').exists())
             with self.assertRaises(FileExistsError):esegui(cfg,inputs,attese,'cpu',loader)
 
-    def test_config_reale_senza_import_modelli(self):
-        cfg=json.loads((ROOT/'config/esperimento_modelli.json').read_text())
-        self.assertEqual(len(cfg['modelli']),4)
-        wiki=next(m for m in cfg['modelli'] if m['nome']=='wikineural')
-        self.assertIsNone(wiki['etichette']['LOC'])
-
-    def test_config_detection_v5_accetta_le_nuove_categorie(self):
-        path = ROOT/'config/esperimento_detection_v5.json'
-        cfg, inputs, gold = carica(path)
-        self.assertEqual(cfg['formato'], 'detection-5.0')
-        self.assertEqual(len(inputs), 46)
-        self.assertEqual(sum(len(r['annotazioni']) for r in gold), 202)
-        self.assertIn('INDAGINE', cfg['tipi_valutati'])
-
-    def test_config_ner_v5_dichiara_il_focus(self):
-        path = ROOT/'config/esperimento_ner_person_location_v5.json'
-        cfg, inputs, gold = carica(path)
-        self.assertEqual(set(cfg['tipi_focus_ner']), {'PERSON', 'LOCATION'})
-        gliner = next(m for m in cfg['modelli'] if m['nome'] == 'gliner_multi')
-        self.assertEqual(set(gliner['etichette'].values()), {'PERSON', 'LOCATION'})
-        self.assertEqual(len(inputs), 46)
-
-    def test_config_ner_multilivello_usa_solo_gold_focus(self):
+    def test_config_corrente_usa_solo_gold_focus(self):
         path = ROOT/'config/esperimento_ner_person_location_v5_multilivello.json'
         cfg, inputs, gold = carica(path)
         self.assertEqual(set(cfg['tipi_valutati']), {'PERSON', 'LOCATION'})
         self.assertEqual(sum(len(r['annotazioni']) for r in gold), 35)
         self.assertEqual(len(inputs), 46)
+        self.assertEqual(len(cfg['modelli']), 4)
 
     def test_config_puo_limitare_le_categorie_valutate(self):
         with tempfile.TemporaryDirectory() as directory:

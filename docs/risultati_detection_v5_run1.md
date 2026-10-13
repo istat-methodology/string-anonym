@@ -1,81 +1,70 @@
-# Risultati esplorativi detection 5.0 — run 1
+# Baseline NER multilivello — run 1
 
-## Ruolo della run
+## Perimetro
 
-Questa è una run pilota su 46 conversazioni sintetiche e 202 detection attese.
-Serve a verificare runner, mapping e fattibilità computazionale. Non è il
-benchmark finale e non va usata per ottimizzare e poi dichiarare prestazioni
-indipendenti sullo stesso corpus.
+La baseline usa 46 conversazioni sintetiche e un gold di 35 annotazioni NER:
+20 `PERSON` e 15 `LOCATION`. Tutti i modelli hanno completato 46 conversazioni
+su 46, senza fallimenti tecnici. La soglia di GLiNER è 0,5.
 
-La configurazione iniziale chiedeva a GLiNER tredici categorie. L'architettura
-chiarita dopo la run assegna invece al NER la responsabilità primaria di
-`PERSON` e `LOCATION`; le categorie strutturate sono affidate al ramo regex o a
-lookup controllati. Di conseguenza la metrica globale della run è diagnostica.
-
-## Metrica primaria ricalcolata: PERSON + LOCATION
+## Risultati exact match
 
 | Modello | TP | FP | FN | Precision | Recall | F1 |
 |---|---:|---:|---:|---:|---:|---:|
-| GLiNER multilingual | 17 | 90 | 14 | 15,9% | 54,8% | 24,6% |
-| GLiNER multilingual PII | 24 | 116 | 7 | 17,1% | 77,4% | 28,1% |
-| WikiNEuRal | 29 | 9 | 2 | 76,3% | 93,5% | 84,1% |
-| Piiranha | 26 | 4 | 2 | 86,7% | 92,9% | 89,7% |
+| GLiNER multilingual | 29 | 74 | 6 | 28,2% | 82,9% | 42,0% |
+| GLiNER multilingual PII | 29 | 114 | 6 | 20,3% | 82,9% | 32,6% |
+| WikiNEuRal | 31 | 7 | 4 | 81,6% | 88,6% | 84,9% |
+| Piiranha | 31 | 2 | 4 | 93,9% | 88,6% | 91,2% |
 
-Piiranha ha completato 44 conversazioni su 46; le sue metriche escludono due
-fallimenti tecnici e non hanno quindi lo stesso denominatore degli altri modelli.
-Il runner successivo ignora e registra gli span composti soltanto da spazi,
-invece di scartare l'intera conversazione.
+Piiranha e WikiNEuRal sono le baseline più precise a soglia/configurazione
+corrente. GLiNER mostra recall alto ma molti falsi positivi; non va descritto
+semplicemente come modello inadeguato senza considerare soglia ed errori.
 
-WikiNEuRal e Piiranha mostrano prestazioni elevate nel focus previsto. I valori
-GLiNER non sono ancora una misura pulita del task `PERSON`–`LOCATION`, perché la
-run gli chiedeva contemporaneamente undici ulteriori categorie e ha prodotto
-molti falsi positivi. La configurazione successiva interroga tutti i modelli
-soltanto sulle due categorie assegnate al NER.
+## Analisi di GLiNER multilingual
 
-## Metrica globale diagnostica
+Dei 74 falsi positivi a soglia 0,5, 64 sono `PERSON` e 10 `LOCATION`. La classe
+dominante è costituita da ruoli e riferimenti generici, soprattutto “referente”;
+compaiono inoltre confini parziali di nomi, frammenti di email e locuzioni come
+“unità locale” o “in questa sede”.
 
-| Modello | Precision | Recall | F1 | Conversazioni valutate |
-|---|---:|---:|---:|---:|
-| GLiNER multilingual | 23,5% | 36,1% | 28,5% | 46/46 |
-| GLiNER multilingual PII | 24,8% | 55,0% | 34,2% | 46/46 |
-| WikiNEuRal | 41,2% | 17,3% | 24,4% | 46/46 |
-| Piiranha | 54,7% | 15,8% | 24,6% | 44/46 |
+Una sweep retrospettiva sugli score salvati mostra che la soglia influisce molto:
 
-Questi valori penalizzano i modelli per categorie che non costituiscono il loro
-compito architetturale. Non rappresentano la prestazione futura della pipeline
-riconciliata. La metrica globale di sistema sarà calcolata sulle detection unite
-di regex e NER dopo `merge_detection`.
+| Soglia | F1 |
+|---:|---:|
+| 0,50 | 42,0% |
+| 0,60 | 47,5% |
+| 0,70 | 62,4% |
+| 0,80 | 69,2% |
+| 0,90 | 76,2% |
+| 0,95 | 60,4% |
+
+A 0,90 GLiNER multilingual raggiunge precision 85,7% e recall 68,6%. Questa è
+un'analisi post hoc sul corpus di sviluppo, non una soglia validata: una futura
+ottimizzazione richiede un development set separato dal test.
+
+## Indirizzi e gold multilivello
+
+Il gold iniziale rappresentava ogni indirizzo soltanto come `ADDRESS`, mentre
+GLiNER separava correttamente strada+civico e comune. La versione multilivello
+applica una regola definita indipendentemente dai modelli:
+
+- l'indirizzo completo resta `ADDRESS` nel gold canonico;
+- strada+civico è anche `LOCATION`;
+- il comune è una seconda `LOCATION`.
+
+Esempi correttamente rappresentati sono “Via Angelo Lauri 96” + “Nettuno” e
+“Via Della Ruta 19” + “Anzio”. La revisione evita di premiare accidentalmente
+un modello solo perché riproduceva la granularità del vecchio gold.
 
 ## Prestazioni computazionali
 
-I tempi di inferenza sulle 46 conversazioni variano da circa 2,5 a 8,7 secondi.
-Il picco di VRAM osservato varia da circa 0,72 a 1,19 GB. Il costo consente quindi
-di ampliare il benchmark e di eseguire analisi ripetute senza un carico elevato.
+L'inferenza sulle 46 conversazioni ha richiesto circa 2,5–6,2 secondi per
+modello; il picco VRAM osservato è stato circa 0,72–1,19 GB. Il costo rende
+praticabile un benchmark sintetico più ampio.
 
-## Decisioni successive alla run
+## Validità e passi successivi
 
-1. Conservare immutati gli output della run 1.
-2. Aggiungere ai report `tipi_focus_ner: [PERSON, LOCATION]`.
-3. Eseguire la configurazione `esperimento_ner_person_location_v5_multilivello.json`,
-   nella quale le etichette richieste a GLiNER sono limitate al focus e il gold
-   rappresenta le componenti annidate degli indirizzi.
-4. Implementare e verificare il ramo regex sulle categorie assegnate.
-5. Valutare separatamente componente NER e pipeline riconciliata.
-
-## Controllo retrospettivo con il gold multilivello
-
-Prima di una nuova inferenza, le predizioni già salvate sono state rivalutate
-contro il gold 5.1. Questo controllo non sostituisce la nuova run, ma verifica
-l'effetto della sola revisione delle annotazioni:
-
-| Modello | Precision | Recall | F1 |
-|---|---:|---:|---:|
-| GLiNER multilingual | 28,2% | 82,9% | 42,0% |
-| GLiNER multilingual PII | 20,3% | 82,9% | 32,6% |
-| WikiNEuRal | 81,6% | 88,6% | 84,9% |
-| Piiranha | 93,9% | 88,6% | 91,2% |
-
-GLiNER multilingual recupera quattro veri positivi, perché aveva riconosciuto
-separatamente strada+civico e comune nei due indirizzi. Piiranha e WikiNEuRal
-recuperano i due comuni. Restano falsi positivi reali di GLiNER, fra cui
-`unità locale`, `in questa sede` e parti di indirizzi email.
+Il campione è sintetico, piccolo e utilizzato durante lo sviluppo. I risultati
+sono sufficienti come prova di fattibilità, non come stima definitiva della
+generalizzazione. Il prossimo esperimento dovrà congelare un corpus più grande,
+separare eventuale tuning e test, misurare esplicitamente la copertura degli
+indirizzi e integrare il ramo regex prima di riportare metriche di pipeline.

@@ -1,45 +1,26 @@
-# Step 3: baseline a regole
+# Ramo regex della detection
 
-`src/predici_regex.py` legge soltanto input.jsonl. Non legge annotazioni attese,
-schede o generatori di valori; non usa modelli né API. Produce una nuova cartella
-con predizioni.jsonl (compatibile col valutatore) e manifest.json con hash delle
-fonti e versione delle regole. Gli originali non vengono modificati.
+Il ramo regex riconosce identificativi strutturati sul testo originale del
+messaggio. Le regole operative sono in `config/regole_masking.json`; sono
+distinte dalle regole usate per generare valori sintetici.
 
-Le regex sono modificabili in config/regole_masking.json. Ogni regola specifica
-nome, tipo, priorità e pattern con gruppo `valore`: solo quel gruppo diventa span.
-I conflitti privilegiano priorità maggiore, poi span più lungo, posizione e nome.
-Sono decisioni iniziali da misurare, non priorità valide per ogni contesto.
+Il perimetro previsto comprende telefono, codice indagine, nome indagine, ruolo,
+numero pratica e altri identificativi dalla forma controllabile. `PERSON` e
+`LOCATION` restano responsabilità primaria del ramo NER.
 
-Copertura iniziale: email, cellulari italiani di dieci cifre con eventuale +39,
-spazi o punti, protocolli/pratiche numerici introdotti da parole esplicite,
-codici P0/QOL e codici numerici introdotti come codice utente; password esplicite
-di almeno sei caratteri con lettere e almeno una cifra o un simbolo supportato.
-La password non richiede due punti. PASSWORD non copre ogni forma possibile:
-valori solo alfabetici, solo numerici o simboli non previsti possono sfuggire.
-
-Limiti dichiarati:
-- Nessun riconoscimento di PERSON e ADDRESS.
-- Nessuna propagazione fra turni: si elaborano entrambi i ruoli, ma ogni messaggio
-  è indipendente. Ripetizioni senza indizi locali possono sfuggire.
-- Telefoni fissi/internazionali e codici in formati diversi non sono coperti.
-- Email e formati telefonici sono mascherati senza distinguere contatti pubblici:
-  servono negativi difficili per misurare questi falsi positivi.
-- Un numero statistico simile a un cellulare può generare un falso positivo.
-- Non è ancora il sistema contestuale né il componente di sostituzione.
-
-Le regole sono state definite sulla conoscenza dei formati di sviluppo, prima
-della misurazione. Le prestazioni sui lotti già usati per progettare il sistema
-non sono una stima indipendente di generalizzazione.
-
-Primo comando (nessuna GPU o API):
+Esecuzione su un dataset esportato:
 
 ```sh
 .venv/bin/python src/predici_regex.py \
-  --input output/dataset_masking_v4_4/input.jsonl \
-  --output output/predizioni_regex_v1_v4_4
+  --input output/dataset_detection_v5_draft4_multilivello/input.jsonl \
+  --output output/predizioni_regex_NOME_RUN
 ```
 
-Successivamente si passa predizioni.jsonl al valutatore dello step 2. Un esito
-`ok` indica esecuzione riuscita, non riconoscimento corretto. Gli errori per
-conversazione sono salvati esplicitamente e producono un codice di uscita non
-zero; nessuna predizione parziale viene presentata come riuscita.
+L'output deve essere nuovo. Le predizioni regex e NER dovranno poi essere unite
+da `merge_detection`, che combina solo detection con campo, offset e tipo
+identici e conserva fonti, overlap e conflitti.
+
+La copertura delle regole non è ancora validata sul benchmark corrente. Non si
+assume quindi una precisione o recall del 100%: prima dello short paper occorre
+definire il mapping delle categorie, produrre le predizioni e misurare sia il
+ramo regex sia il risultato riconciliato.

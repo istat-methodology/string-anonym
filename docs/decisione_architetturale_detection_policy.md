@@ -12,8 +12,9 @@ La pipeline separa tre step analitici:
 3. la **valutazione complessiva della conversazione** stima il rischio residuo
    dopo le decisioni puntuali.
 
-I primi due step sono implementati nel prototipo. Il terzo non è ancora
-implementato e avrà prompt, contratto e valutazione separati. La sostituzione di
+Il primo step è il workflow sperimentale corrente. La policy è stata esplorata
+in una bozza, ma non è inclusa nella baseline ripulita; il terzo step non è
+implementato. Entrambi avranno prompt, contratto e valutazione separati. La sostituzione di
 `MASK` e `GENERALIZE` è un'operazione tecnica successiva, non uno step analitico.
 
 Regex e NER ricevono lo stesso testo originale. Nessun detector riceve il testo
@@ -38,13 +39,11 @@ al messaggio prima del merge.
 L'elenco dei tipi supportati è operativo e versionabile. Non pretende di essere
 una classificazione generale del dominio.
 
-## Compatibilità transitoria
+## Compatibilità tecnica
 
-Gli output e i valutatori esistenti rappresentano span finali di masking e
-richiedono intervalli non sovrapposti. Durante la migrazione gli script possono
-produrre sia `detections`, nel nuovo formato, sia `annotazioni`, come adattatore
-legacy. I risultati sperimentali esistenti restano invariati e sono descritti
-come proxy end-to-end del masking.
+Il gold canonico `detections` ammette intervalli annidati. Il valutatore corrente
+riceve una vista piatta `annotazioni`; per il benchmark NER viene prodotta anche
+la vista esplicita `annotazioni_ner_attese.jsonl` su `PERSON` e `LOCATION`.
 
 ## Prompt e annotazioni 5.0
 
@@ -53,14 +52,12 @@ decisioni o motivazioni. Il codice sostituisce gli slot e costruisce gli offset
 attesi; anche i riferimenti pubblici controllati possono quindi entrare nel gold
 di detection con un'ipotesi `KEEP` separata.
 
-Il prompt policy riceve conversazione completa e detection, ma non le decisioni
-attese. Produce una decisione contestuale per ogni detection. Le ipotesi sono
-conservate fuori dai messaggi con stato `APPROVED`, `PROVISIONAL` o `OPEN`; i
-casi `OPEN` non costituiscono gold definitivo. Una valutazione aggregata del
-rischio residuo della conversazione è rinviata a un esperimento separato.
+Il futuro prompt policy riceverà conversazione completa e detection, ma non le
+decisioni attese. Le ipotesi dovranno essere conservate fuori dai messaggi con
+stato esplicito; i casi non approvati non costituiranno gold definitivo. Una
+valutazione aggregata del rischio residuo è rinviata a un esperimento separato.
 
-I nuovi esperimenti useranno output distinti e non sovrascriveranno quelli storici.
-La policy corrente non restituisce un giudizio aggregato sulla conversazione.
+I nuovi esperimenti usano output distinti e non sovrascrivono la baseline.
 
 ## Perimetro rinviato
 

@@ -335,14 +335,16 @@ def esegui(cfg, inputs, gold, device, loader=backend):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--config', type=Path, default=ROOT/'config/esperimento_modelli.json')
+    parser.add_argument(
+        '--config',
+        type=Path,
+        default=ROOT/'config/esperimento_ner_person_location_v5_multilivello.json',
+    )
     parser.add_argument('--solo-controllo', action='store_true')
     parser.add_argument('--device', default='cpu', help='cpu oppure cuda:0 sulla macchina GPU')
     args = parser.parse_args()
     try:
         cfg, inputs, gold = carica(args.config)
-        if (ROOT/cfg['output']).exists():
-            raise ValueError('Cartella output già esistente; scegliere un nuovo esperimento')
         if args.solo_controllo:
             tipi = sorted(tipi_valutati_config(cfg))
             print(f'Conversazioni: {len(inputs)}; modelli: {len(cfg["modelli"])}; contesto: {cfg["contesto"]}; categorie valutate: {tipi}')
@@ -352,6 +354,8 @@ def main():
                 print(f"{m['nome']}: {m['repository']} — categorie mappate: {sorted(set(m['etichette'].values())-{None})}")
             print('Nessun download o inferenza. Licenze e limiti: docs/confronto_modelli.md')
             return
+        if (ROOT/cfg['output']).exists():
+            raise ValueError('Cartella output già esistente; scegliere un nuovo esperimento')
         summary = esegui(cfg, inputs, gold, args.device)
     except (ValueError, OSError, KeyError, TypeError) as error:
         parser.error(str(error))

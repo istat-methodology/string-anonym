@@ -13,7 +13,7 @@ class ConfigLottoTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             prompts = Path(directory) / 'prompts.jsonl'
             prompts.write_text('\n'.join(json.dumps({'seed': 100}) for _ in range(2)))
-            config = dict(catalogo='config/scenari_mirati_v4_3.json', totale=2,
+            config = dict(catalogo='config/scenari.json', totale=2,
                           seed=100, prompts=str(prompts), output=directory+'/risposte',
                           deployment='gpt-5.6-terra')
             self.assertIn('--totale', comando(config, 'prepara'))

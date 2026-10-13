@@ -1,92 +1,93 @@
-# Masking contestuale delle conversazioni Istat
+# Query anonymization per le conversazioni Istat
 
-Questo progetto studia come mascherare le informazioni identificative nelle
-conversazioni del punto unico di contatto Istat, conservando il contenuto utile
-alla richiesta statistica. Comprende la costruzione di un dataset sintetico
-annotato e una pipeline di ricerca per confrontare regole e modelli.
+Il progetto costruisce conversazioni sintetiche e valuta una pipeline di
+riconoscimento degli elementi identificativi. L'obiettivo corrente è misurare
+in modo riproducibile la **detection a livello di messaggio**, separandola dalle
+decisioni contestuali di masking.
 
-## Il problema
+## Architettura
 
-Riconoscere un nome, un indirizzo o un codice non basta per decidere se
-mascherarlo. Un indirizzo di residenza identifica l’utente; un territorio citato
-per richiedere dati statistici deve invece rimanere leggibile. Anche i riferimenti
-pubblici alle indagini vanno distinti dalle credenziali e dai numeri di pratica.
-Le informazioni possono emergere in più turni ed essere ripetute dal chatbot.
+La pipeline è divisa in tre step:
 
-Il compito è individuare le porzioni di testo da mascherare, valutarne i confini
-e preservare il resto della conversazione. Il masking di queste porzioni non
-costituisce, da solo, una garanzia di anonimizzazione complessiva.
+1. **Detection del messaggio**: regex e NER leggono indipendentemente il testo
+   originale; `merge_detection` conserva provenienza, overlap e disaccordi.
+2. **Policy di conversazione**: userà l'intera chat per decidere se una detection
+   debba essere mantenuta, mascherata o generalizzata. Non è nel workflow
+   sperimentale corrente.
+3. **Valutazione complessiva**: stimerà il rischio residuo della conversazione.
+   Non è implementata. La valutazione a livello di intero dataset resta fuori
+   dal perimetro corrente.
 
-## Approccio di ricerca
+Il benchmark NER assegna ai modelli `PERSON` e `LOCATION`. Identificativi
+strutturati come telefono, codice indagine, ruolo e numero pratica appartengono
+al ramo regex o a lookup controllati. Le metriche end-to-end avranno senso dopo
+la riconciliazione dei due rami.
 
-La generazione sintetica separa la costruzione del dialogo dall’inserimento dei
-valori identificativi. Il modello genera conversazioni con slot; il codice
-inserisce i valori campionati localmente e costruisce le annotazioni con posizioni
-esatte. Questo rende tracciabile il riferimento atteso, ma non sostituisce la
-revisione dei contenuti o la ricerca di dati introdotti fuori dagli slot.
+## Baseline corrente
 
-La nuova architettura distingue tre step analitici. La detection opera sul
-singolo messaggio: regex e NER leggono il testo originale e `merge_detection`
-ne combina i risultati. La policy usa poi l'intera conversazione come contesto
-e assegna a ogni detection `KEEP`, `MASK`, `GENERALIZE` o `REVIEW`. Una futura
-valutazione complessiva dovrà stimare il rischio residuo della conversazione dopo
-queste decisioni, ma non è ancora implementata. La valutazione sull'intero dataset
-resta fuori dal perimetro corrente.
+Il corpus di sviluppo comprende 46 conversazioni sintetiche. Il gold NER
+multilivello contiene 35 span: 20 `PERSON` e 15 `LOCATION`. Per gli indirizzi
+conserva sia l'intero `ADDRESS` nel gold canonico, sia strada+civico e comune
+come `LOCATION` nella vista NER.
 
-## Stato attuale
+| Modello | Precision | Recall | F1 |
+|---|---:|---:|---:|
+| GLiNER multilingual | 28,2% | 82,9% | 42,0% |
+| GLiNER multilingual PII | 20,3% | 82,9% | 32,6% |
+| WikiNEuRal | 81,6% | 88,6% | 84,9% |
+| Piiranha | 93,9% | 88,6% | 91,2% |
 
-- Generazione e validazione di conversazioni sintetiche, con provenienza e versioni.
-- Esportazione separata di input, annotazioni attese e informazioni di revisione.
-- Baseline regex e valutatore indipendente dal modello, entrambi locali.
-- Runner configurabile per confrontare quattro modelli NER (da verificare sulla GPU).
-- Prompt chat 5.0 separato dal prompt sperimentale di policy.
-- Gold di detection costruito localmente da slot e riferimenti controllati.
-- Esportatore detection 5.0 verificato: 46 conversazioni, 202 span, 13 categorie.
-- Configurazione offline del primo confronto NER sul corpus 5.0.
-- Focus NER dichiarato su `PERSON` e `LOCATION`; categorie strutturate assegnate
-  al ramo regex e metrica globale rinviata al risultato riconciliato.
-- Gold detection 5.1 multilivello: `ADDRESS` completo con strada+civico e comune
-  annotati anche come `LOCATION`, mantenendo le sovrapposizioni canoniche.
-- Policy contestuale `conversation-draft-2` eseguita su 46 conversazioni.
-- Output legacy conservati per riproducibilità.
+Sono risultati esplorativi su un campione piccolo, sintetico e usato durante lo
+sviluppo. Non misurano la generalizzazione su chat reali. Gli indirizzi sono un
+requisito operativo prioritario: oltre all'exact match, il prossimo esperimento
+dovrà misurarne anche la copertura completa dei caratteri.
 
-Il confronto sperimentale, il fine-tuning e la sostituzione coerente delle predizioni
-lungo la conversazione sono ancora da implementare. I lotti esistenti sono
-materiale di sviluppo: non costituiscono un test finale indipendente.
+## Esecuzione
 
-La prima baseline, su 24 conversazioni sintetiche con 46 occorrenze attese nei
-dialoghi, riconosce 27 span esatti, con 19 omissioni e nessun falso positivo nel
-campione: precisione 100%, recall 58,7%, F1 74,0%. Nomi e indirizzi non sono coperti
-dalle regole attuali. Sono risultati preliminari rispetto ad annotazioni non
-ancora approvate come gold, non una stima delle prestazioni sul traffico reale.
+Controllo locale senza scaricare modelli:
+
+```sh
+.venv/bin/python src/confronta_modelli.py --solo-controllo
+```
+
+Esecuzione su GPU:
+
+```sh
+python src/confronta_modelli.py --device cuda:0
+```
+
+La configurazione predefinita è
+`config/esperimento_ner_person_location_v5_multilivello.json`. Prima di una
+nuova run occorre assegnare nel file una nuova cartella `output`, perché il
+runner rifiuta le sovrascritture.
+
+Test locali:
+
+```sh
+.venv/bin/python -m unittest discover -s tests -v
+```
+
+## Struttura essenziale
+
+- `config/`: scenari, regole e unica configurazione sperimentale corrente;
+- `data/`: cataloghi locali, inclusi i codici PSN reali;
+- `src/`: generazione, esportazione, detection, merge e valutazione;
+- `output/chat_v5_draft4_finale.jsonl`: corpus sintetico sorgente;
+- `output/dataset_detection_v5_draft4_multilivello/`: input e gold corrente;
+- `output/confronto_ner_person_location_v5_multilivello_run1/`: baseline salvata;
+- `docs/`: decisioni, protocollo, risultati e istruzioni operative;
+- `paper/`: materiale per la pubblicazione.
+
+Gli esperimenti rimossi durante la pulizia restano recuperabili dalla cronologia
+Git. Pesi dei modelli e credenziali non sono versionati.
 
 ## Documentazione
 
-| Documento | Scopo |
-|---|---|
-| [Decisione detection/policy](docs/decisione_architetturale_detection_policy.md) | Confini dei componenti e migrazione |
-| [Prompt chat e policy](docs/prompt_policy.md) | Formati 5.0, stati delle ipotesi e limiti |
-| [Esperimento policy contestuale](docs/esperimento_policy_conversation_draft2.md) | Risultati del lotto e decisioni ancora aperte |
-| [Metodologia del masking](docs/metodologia_masking.md) | Obiettivi, workflow, disegno sperimentale, dati e metriche |
-| [Pipeline operativa](docs/pipeline.md) | Comandi, input/output, verifiche e istruzioni di generazione |
-| [Convenzioni di masking](docs/casi_ambigui_masking.md) | Decisioni sui casi ambigui e riferimenti da conservare |
-| [Specifica della generazione](specifica_pipeline_conversazioni_sintetiche.md) | Requisiti della pipeline sintetica |
-| [Baseline regex](docs/baseline_regex.md) | Regole implementate e limiti |
-| [Confronto modelli](docs/confronto_modelli.md) | Configurazione, esecuzione sequenziale e limiti del confronto |
-| [Protocollo detection 5.0](docs/protocollo_esperimento_detection_v5.md) | Disegno del primo esperimento NER e limiti per lo short paper |
-| [Risultati detection v5 run 1](docs/risultati_detection_v5_run1.md) | Risultati esplorativi, focus PERSON/LOCATION e decisioni metodologiche |
-| [Setup Azure A100](docs/setup_azure.md) | Ambiente GPU, verifica CUDA, avvio e recupero dello spazio su disco |
-| [Valutatore](docs/valutatore_masking.md) | Formati delle predizioni e interpretazione dei risultati |
-
-## Organizzazione
-
-`src/` contiene il codice, `config/` le configurazioni, `tests/` le verifiche,
-`data/` le sorgenti locali e `docs/` la documentazione. `src/original/` conserva
-il prototipo storico. `output/` contiene dataset sintetici e risultati degli esperimenti, versionati
-in Git per trasferirli anche sulla VM Azure. I pesi dei modelli restano nella
-cache di Hugging Face, fuori dal repository. Le credenziali restano in `.env`,
-non versionato; `.env.example` documenta la configurazione.
-
-Il lavoro procede per step verificabili. L’esecuzione delle generazioni e degli
-esperimenti resta a cura dell’utente. La ricerca utilizzerà modelli a pesi aperti;
-l’obiettivo successivo è verificarne l’esecuzione sull’infrastruttura Istat.
+- [Pipeline operativa](docs/pipeline.md)
+- [Decisione detection/policy](docs/decisione_architetturale_detection_policy.md)
+- [Protocollo sperimentale](docs/protocollo_esperimento_detection_v5.md)
+- [Risultati della baseline](docs/risultati_detection_v5_run1.md)
+- [Confronto dei modelli](docs/confronto_modelli.md)
+- [Setup Azure](docs/setup_azure.md)
+- [Classificazione PSN](docs/classificazione_psn.md)
+- [Regole regex](docs/baseline_regex.md)

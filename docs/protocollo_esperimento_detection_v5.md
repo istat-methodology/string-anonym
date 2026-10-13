@@ -15,9 +15,10 @@ misura del componente NER.
 
 ## Corpus e riferimento atteso
 
-Il corpus `chat_v5_draft4_finale.jsonl` contiene 46 conversazioni sintetiche. Il
-nuovo esportatore produce 46 input, 202 detection attese e 6 conversazioni senza
-detection. Le categorie presenti sono tredici:
+Il corpus `chat_v5_draft4_finale.jsonl` contiene 46 conversazioni sintetiche.
+L'esportatore multilivello produce 46 input e 206 detection canoniche. La vista
+NER usata nel confronto contiene 35 span: 20 `PERSON` e 15 `LOCATION`.
+Le categorie presenti nel gold canonico sono tredici:
 
 | Categoria | Occorrenze |
 |---|---:|
@@ -27,7 +28,7 @@ detection. Le categorie presenti sono tredici:
 | DATE | 10 |
 | EMAIL | 19 |
 | INDAGINE | 37 |
-| LOCATION | 11 |
+| LOCATION | 15 |
 | NUM_PRATICA | 11 |
 | ORGANIZATION | 26 |
 | PASSWORD | 1 |
@@ -55,15 +56,13 @@ sono passati come testo al modello.
 
 ## Modelli e procedura
 
-La prima esecuzione confronta GLiNER multilingual, GLiNER multilingual PII,
+La baseline corrente confronta GLiNER multilingual, GLiNER multilingual PII,
 WikiNEuRal e Piiranha. I modelli sono eseguiti in sequenza sullo stesso hardware.
 Gli output nativi, le conversioni di categoria, le revisioni dei pesi, i tempi e
 la memoria GPU sono conservati. La soglia iniziale di GLiNER è 0,5; non viene
 ottimizzata sul corpus prima del primo run.
 
-La run esplorativa iniziale chiedeva a GLiNER tutte le categorie e conserva una
-metrica globale diagnostica. Le run NER successive chiedono ai modelli soltanto
-`PERSON` e `LOCATION`. WikiNEuRal e Piiranha vengono mappati allo stesso focus.
+Tutti i modelli sono interrogati o mappati soltanto su `PERSON` e `LOCATION`.
 
 L'assegnazione metodologica corrente è:
 
