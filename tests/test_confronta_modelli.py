@@ -118,6 +118,14 @@ class ConfrontoTest(unittest.TestCase):
         wiki=next(m for m in cfg['modelli'] if m['nome']=='wikineural')
         self.assertIsNone(wiki['etichette']['LOC'])
 
+    def test_config_detection_v5_accetta_le_nuove_categorie(self):
+        path = ROOT/'config/esperimento_detection_v5.json'
+        cfg, inputs, gold = carica(path)
+        self.assertEqual(cfg['formato'], 'detection-5.0')
+        self.assertEqual(len(inputs), 46)
+        self.assertEqual(sum(len(r['annotazioni']) for r in gold), 202)
+        self.assertIn('INDAGINE', cfg['tipi_valutati'])
+
     def test_config_puo_limitare_le_categorie_valutate(self):
         with tempfile.TemporaryDirectory() as directory:
             root=Path(directory)

@@ -1,0 +1,38 @@
+{
+  "versione": "detection-5.0",
+  "uso": "sviluppo sintetico; non test finale indipendente né gold revisionato umano",
+  "step": "1-detection-messaggio",
+  "fonti": [
+    {
+      "path": "/Users/mauro/Projects/string-anonym/output/chat_v5_draft4_finale.jsonl",
+      "sha256": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08"
+    }
+  ],
+  "record_letti": 46,
+  "esportati": 46,
+  "esclusi": 0,
+  "conversazioni_negative": 6,
+  "detection_attese": 202,
+  "categorie": {
+    "ADDRESS": 2,
+    "COD_INDAGINE": 37,
+    "COD_UTENTE": 10,
+    "DATE": 10,
+    "EMAIL": 19,
+    "INDAGINE": 37,
+    "LOCATION": 11,
+    "NUM_PRATICA": 11,
+    "ORGANIZATION": 26,
+    "PASSWORD": 1,
+    "PERSON": 20,
+    "PHONE": 2,
+    "ROLE": 16
+  },
+  "detection_per_ruolo": {
+    "Agente": 79,
+    "Utente": 123
+  },
+  "input_modello": "Solo conversazione con testi e ruoli; nessuna policy, scheda o annotazione attesa.",
+  "gold": "Offset sintetici da slot e riferimenti controllati; da revisionare prima di una valutazione finale.",
+  "adattatore": "annotazioni_attese.jsonl mantiene il formato del runner legacy; detections_attese.jsonl è canonico."
+}

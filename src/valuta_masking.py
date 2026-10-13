@@ -18,13 +18,13 @@ def indicizza(records):
     return result
 
 
-def span_validi(annotazioni, conversazione):
+def span_validi(annotazioni, conversazione, tipi_ammessi=TIPI):
     if not isinstance(annotazioni, list):
         raise ValueError('annotazioni deve essere una lista')
     result = set()
     for a in annotazioni:
         match = re.fullmatch(r'conversazione\.(\d+)\.testo', a['campo'])
-        if not match or a['tipo'] not in TIPI:
+        if not match or a['tipo'] not in tipi_ammessi:
             raise ValueError('Campo o tipo non supportato')
         i = int(match[1])
         start, end = a['start'], a['end']
@@ -53,20 +53,23 @@ def metriche(tp, fp, fn):
             'f1': 2 * tp / (2 * tp + fp + fn) if 2 * tp + fp + fn else None}
 
 
-def valuta(inputs, attese, predizioni):
+def valuta(inputs, attese, predizioni, tipi_ammessi=TIPI):
+    tipi_ammessi = set(tipi_ammessi)
+    if not tipi_ammessi:
+        raise ValueError('Insieme delle categorie vuoto')
     inputs, attese, predizioni = map(indicizza, (inputs, attese, predizioni))
     if not inputs or inputs.keys() != attese.keys():
         raise ValueError('Input e annotazioni attese devono avere gli stessi ID e non essere vuoti')
     if predizioni.keys() - inputs.keys():
         raise ValueError('Predizioni con ID estranei al dataset')
-    conteggi = Counter(); tipi = {t: Counter() for t in sorted(TIPI)}
+    conteggi = Counter(); tipi = {t: Counter() for t in sorted(tipi_ammessi)}
     ruoli = {r: Counter() for r in ('Utente', 'Agente')}
     dettagli = []; tecnici = []; char_counts = Counter()
     for id_, inp in inputs.items():
         conv = inp['conversazione']
         if not conv or any(m['sender'] not in ruoli or not isinstance(m['testo'], str) for m in conv):
             raise ValueError('Input conversazione non valido')
-        gold = span_validi(attese[id_]['annotazioni'], conv)
+        gold = span_validi(attese[id_]['annotazioni'], conv, tipi_ammessi)
         pred = predizioni.get(id_)
         if pred is None:
             tecnici.append({'id': id_, 'stato': 'mancante'})
@@ -78,7 +81,7 @@ def valuta(inputs, attese, predizioni):
             continue
         if pred.get('stato') != 'ok':
             raise ValueError('Ogni predizione deve dichiarare stato ok oppure errore')
-        spans = span_validi(pred['annotazioni'], conv)
+        spans = span_validi(pred['annotazioni'], conv, tipi_ammessi)
         tp, fp, fn = gold & spans, spans - gold, gold - spans
         for nome, insieme in [('tp', tp), ('fp', fp), ('fn', fn)]:
             conteggi[nome] += len(insieme)

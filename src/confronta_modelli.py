@@ -17,6 +17,15 @@ from valuta_masking import span_validi, valuta
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def tipi_config(cfg):
+    """Categorie ammesse dal protocollo, mantenendo compatibilita con il legacy."""
+    return set(DETECTION_TYPES if cfg.get('formato') == 'detection-5.0' else TIPI)
+
+
+def tipi_valutati_config(cfg):
+    return set(cfg.get('tipi_valutati', tipi_config(cfg)))
+
+
 def salva(path, value):
     with path.open('x', encoding='utf-8') as f:
         json.dump(value, f, ensure_ascii=False, indent=2)
@@ -30,8 +39,9 @@ def carica(path):
     names = set()
     if not cfg['modelli']:
         raise ValueError('Lista modelli vuota')
-    tipi_valutati = set(cfg.get('tipi_valutati', TIPI))
-    if not tipi_valutati or tipi_valutati - TIPI:
+    tipi_ammessi = tipi_config(cfg)
+    tipi_valutati = tipi_valutati_config(cfg)
+    if not tipi_valutati or tipi_valutati - tipi_ammessi:
         raise ValueError('Categorie da valutare non valide')
     for m in cfg['modelli']:
         if not re.fullmatch(r'[a-z0-9_]+', m['nome']) or m['nome'] in names:
@@ -45,13 +55,13 @@ def carica(path):
             raise ValueError('Repository, revisione ed etichette obbligatori')
         if any(t is not None and t not in DETECTION_TYPES for t in m['etichette'].values()):
             raise ValueError('Mappatura etichette non valida')
-        if set(m['unisci_adiacenti']) - TIPI:
+        if set(m['unisci_adiacenti']) - tipi_ammessi:
             raise ValueError('Categorie di aggregazione non valide')
     inputs = leggi(ROOT / cfg['input'])
     gold = leggi(ROOT / cfg['attese'])
     # Valida i riferimenti prima di scaricare pesi o creare cartelle.
-    valuta(inputs, gold, [])
-    if tipi_valutati != TIPI:
+    valuta(inputs, gold, [], tipi_ammessi)
+    if tipi_valutati != tipi_ammessi:
         gold = [{**r, 'annotazioni':[a for a in r['annotazioni'] if a['tipo'] in tipi_valutati]}
                 for r in gold]
     return cfg, inputs, gold
@@ -138,7 +148,7 @@ def detect_model(raw, testo, m, campo):
     return detections, dict(ignorate)
 
 
-def predici(record, m, infer):
+def predici(record, m, infer, tipi_ammessi=TIPI):
     spans = []; raw_messages = []; ignorate = Counter(); raw_detections = []; fields = {}
     start = time.perf_counter()
     try:
@@ -152,8 +162,8 @@ def predici(record, m, infer):
             raw_detections.extend(detections)
             ignorate.update(ignored)
             normalized, _ = normalizza(raw, testo, m)
-            spans.extend({'campo': campo, **a} for a in normalized if a['tipo'] in TIPI)
-        span_validi(spans, record['conversazione'])
+            spans.extend({'campo': campo, **a} for a in normalized if a['tipo'] in tipi_ammessi)
+        span_validi(spans, record['conversazione'], tipi_ammessi)
         detections = merge_detection(raw_detections, fields, record['id'])
         return {'id': record['id'], 'stato': 'ok', 'detections': detections, 'annotazioni': spans,
                 'etichette_ignorate': dict(ignorate), 'secondi': time.perf_counter()-start}, raw_messages
@@ -241,6 +251,7 @@ def backend(m, device, metadata):
 
 
 def esegui(cfg, inputs, gold, device, loader=backend):
+    tipi_ammessi = tipi_valutati_config(cfg)
     out = ROOT / cfg['output']
     out.mkdir(parents=True, exist_ok=False)
     salva(out/'config.json', cfg)
@@ -275,14 +286,14 @@ def esegui(cfg, inputs, gold, device, loader=backend):
             predictions = []
             with (directory/'predizioni.jsonl').open('x', encoding='utf-8') as pf, (directory/'predizioni_native.jsonl').open('x', encoding='utf-8') as rf:
                 for r in inputs:
-                    prediction, raw = predici(r, m, infer)
+                    prediction, raw = predici(r, m, infer, tipi_ammessi)
                     predictions.append(prediction)
                     pf.write(json.dumps(prediction, ensure_ascii=False)+'\n'); pf.flush()
                     rf.write(json.dumps({'id':r['id'], 'messaggi':raw}, ensure_ascii=False)+'\n'); rf.flush()
             if usa_cuda:
                 torch.cuda.synchronize(device)
             inference_seconds = time.perf_counter() - inference_start
-            report = valuta(inputs, gold, predictions)
+            report = valuta(inputs, gold, predictions, tipi_ammessi)
             salva(directory/'valutazione.json', report)
             performance = {
                 'secondi_caricamento': load_seconds,
@@ -323,7 +334,7 @@ def main():
         if (ROOT/cfg['output']).exists():
             raise ValueError('Cartella output già esistente; scegliere un nuovo esperimento')
         if args.solo_controllo:
-            tipi = sorted(cfg.get('tipi_valutati', TIPI))
+            tipi = sorted(tipi_valutati_config(cfg))
             print(f'Conversazioni: {len(inputs)}; modelli: {len(cfg["modelli"])}; contesto: {cfg["contesto"]}; categorie valutate: {tipi}')
             for m in cfg['modelli']:
                 print(f"{m['nome']}: {m['repository']} — categorie mappate: {sorted(set(m['etichette'].values())-{None})}")

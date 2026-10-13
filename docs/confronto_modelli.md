@@ -1,6 +1,6 @@
 # Confronto dei modelli NER
 
-Lo script `src/confronta_modelli.py` legge `config/esperimento_modelli.json`,
+Lo script `src/confronta_modelli.py` legge una configurazione esplicita,
 esegue i modelli in sequenza sullo stesso input e applica il valutatore esistente.
 Questo primo esperimento usa messaggi isolati: ciascun modello riceve soltanto
 il testo del messaggio corrente, senza annotazioni attese, riepiloghi o turni
@@ -75,6 +75,12 @@ Primo controllo, senza rete, pesi o dipendenze ML:
 
 Verifica configurazione e dataset. Non crea output. Il lotto corrente di 24
 conversazioni serve come prova di funzionamento, non come test finale del paper.
+
+Per il corpus 5.0 usare invece `config/esperimento_detection_v5.json`: contiene
+46 conversazioni e tredici categorie effettivamente presenti. Il runner conserva
+la compatibilità con le configurazioni legacy, ma con `formato: detection-5.0`
+valida tutte le categorie del contratto di detection. Il relativo disegno è nel
+[protocollo preliminare](protocollo_esperimento_detection_v5.md).
 
 Sulla macchina di ricerca con GPU, predisporre un ambiente Python dedicato e
 PyTorch compatibile con il CUDA disponibile. Il file `requirements-azure.txt` include le dipendenze di generazione e quelle

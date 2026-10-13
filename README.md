@@ -41,6 +41,8 @@ resta fuori dal perimetro corrente.
 - Runner configurabile per confrontare quattro modelli NER (da verificare sulla GPU).
 - Prompt chat 5.0 separato dal prompt sperimentale di policy.
 - Gold di detection costruito localmente da slot e riferimenti controllati.
+- Esportatore detection 5.0 verificato: 46 conversazioni, 202 span, 13 categorie.
+- Configurazione offline del primo confronto NER sul corpus 5.0.
 - Policy contestuale `conversation-draft-2` eseguita su 46 conversazioni.
 - Output legacy conservati per riproducibilità.
 
@@ -67,6 +69,7 @@ ancora approvate come gold, non una stima delle prestazioni sul traffico reale.
 | [Specifica della generazione](specifica_pipeline_conversazioni_sintetiche.md) | Requisiti della pipeline sintetica |
 | [Baseline regex](docs/baseline_regex.md) | Regole implementate e limiti |
 | [Confronto modelli](docs/confronto_modelli.md) | Configurazione, esecuzione sequenziale e limiti del confronto |
+| [Protocollo detection 5.0](docs/protocollo_esperimento_detection_v5.md) | Disegno del primo esperimento NER e limiti per lo short paper |
 | [Setup Azure A100](docs/setup_azure.md) | Ambiente GPU, verifica CUDA, avvio e recupero dello spazio su disco |
 | [Valutatore](docs/valutatore_masking.md) | Formati delle predizioni e interpretazione dei risultati |
 

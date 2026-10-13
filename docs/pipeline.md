@@ -59,6 +59,32 @@ Il runner remoto è disponibile; valutatore quantitativo della policy e
 sostituzione finale non sono ancora implementati. Anche la valutazione
 complessiva della conversazione è rinviata.
 
+### Esportare il corpus detection 5.0
+
+```sh
+.venv/bin/python src/esporta_dataset_detection.py \
+  --input output/chat_v5_draft4_finale.jsonl \
+  --output output/dataset_detection_v5_draft4
+```
+
+L'esportatore rifiuta sovrascritture, record non validi, offset incoerenti, ID
+duplicati e gold sovrapposti non rappresentabili dal valutatore corrente. Produce
+un gold canonico in `detections_attese.jsonl` e, separatamente, l'adattatore
+`annotazioni_attese.jsonl`. Soltanto `input.jsonl`, contenente testi e ruoli,
+deve essere letto dai modelli. Il corpus corrente contiene 46 conversazioni,
+202 detection attese in tredici categorie e 6 conversazioni negative.
+
+Il controllo offline del nuovo confronto è:
+
+```sh
+.venv/bin/python src/confronta_modelli.py \
+  --config config/esperimento_detection_v5.json \
+  --solo-controllo
+```
+
+Disegno sperimentale, limiti e criteri di interpretazione sono descritti nel
+[protocollo detection 5.0](protocollo_esperimento_detection_v5.md).
+
 ```mermaid
 flowchart LR
     A[Lotto sintetico annotato] --> B[Esportatore]

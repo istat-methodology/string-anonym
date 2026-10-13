@@ -1,8 +1,14 @@
 # Step 2: valutatore del masking
 
-Questo documento descrive il valutatore legacy 1.0. Le sue annotazioni sono span
+Questo documento descrive il formato storico del valutatore 1.0. Le sue annotazioni sono span
 finali non sovrapposti e le metriche sono una proxy end-to-end. Non è il nuovo
 valutatore di detection e non valuta ancora la policy 5.0.
+
+Il runner 5.0 riusa temporaneamente le stesse metriche tramite un adattatore e
+abilita le categorie del contratto detection. Il gold canonico rimane
+`detections_attese.jsonl`; l'adattatore non deve essere confuso con il formato
+architetturale definitivo. I gold sovrapposti sono esclusi da questa prima
+valutazione perché il valutatore storico richiede span non sovrapposti.
 
 `src/valuta_masking.py` non utilizza modelli né API. Riceve input, annotazioni
 attese e predizioni in tre file JSONL separati. I primi due sono prodotti dallo
