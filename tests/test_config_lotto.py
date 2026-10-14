@@ -27,3 +27,8 @@ class ConfigLottoTest(unittest.TestCase):
                 comando({**config, 'totale': 3}, 'prepara')
             with self.assertRaises(ValueError):
                 comando({**config, 'api_key': 'non-ammesso'}, 'prepara')
+
+            planned = {**config, 'piano': 'config/piano_dataset_paper_300.json'}
+            prepared = comando(planned, 'prepara')
+            self.assertIn('--piano', prepared)
+            self.assertNotIn('--totale', prepared)

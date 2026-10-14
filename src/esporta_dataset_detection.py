@@ -39,8 +39,31 @@ def _detection_component(parent, component, start, end, text):
     }
 
 
+def _componenti_metadata(parent):
+    metadata = parent.get("metadata", {})
+    components = metadata.get("address_components")
+    if components is None:
+        return None
+    allowed = {"street_type", "street_name", "house_number", "house_extension",
+               "internal", "municipality"}
+    if (not isinstance(components, dict) or not components
+            or set(components) - allowed or "street_name" not in components):
+        raise ValueError("Componenti ADDRESS non valide")
+    for name, component in components.items():
+        if not isinstance(component, dict) or set(component) != {"start", "end", "text"}:
+            raise ValueError(f"Componente ADDRESS non valida: {name}")
+        start, end = component["start"], component["end"]
+        if (type(start) is not int or type(end) is not int
+                or not parent["start"] <= start < end <= parent["end"]):
+            raise ValueError(f"Offset componente ADDRESS non validi: {name}")
+        local_start, local_end = start - parent["start"], end - parent["start"]
+        if parent["text"][local_start:local_end] != component["text"]:
+            raise ValueError(f"Testo componente ADDRESS incoerente: {name}")
+    return components
+
+
 def espandi_address(detections, comuni):
-    """Aggiunge strada+civico e comune come LOCATION annidate nell'ADDRESS."""
+    """Aggiunge viste LOCATION annidate usando metadata, con fallback legacy."""
     if comuni is None:
         return list(detections), 0, 0
     result = list(detections)
@@ -48,6 +71,24 @@ def espandi_address(detections, comuni):
     added = unresolved = 0
     for parent in list(detections):
         if parent["type"] != "ADDRESS":
+            continue
+        components = _componenti_metadata(parent)
+        if components is not None:
+            street_parts = [components[name] for name in (
+                "street_type", "street_name", "house_number", "house_extension", "internal"
+            ) if name in components]
+            street_start = min(part["start"] for part in street_parts)
+            street_end = max(part["end"] for part in street_parts)
+            nested = [("street_address", street_start, street_end,
+                       parent["text"][street_start-parent["start"]:street_end-parent["start"]])]
+            if "municipality" in components:
+                city = components["municipality"]
+                nested.append(("municipality", city["start"], city["end"], city["text"]))
+            for component, start, end, value in nested:
+                detection = _detection_component(parent, component, start, end, value)
+                key = (detection["field"], start, end, "LOCATION")
+                if key not in known:
+                    result.append(detection); known.add(key); added += 1
             continue
         address = parent["text"]
         if "," not in address:
@@ -113,7 +154,7 @@ def converti(record, identificativo, comuni=None):
         if indice >= len(conversazione):
             raise ValueError("Indice del messaggio fuori intervallo")
         start, end = detection["start"], detection["end"]
-        canoniche.append({
+        canonical = {
             "detection_id": detection_id,
             "field": detection["field"],
             "start": start,
@@ -121,7 +162,10 @@ def converti(record, identificativo, comuni=None):
             "text": detection["text"],
             "type": detection["type"],
             "sources": [dict(source) for source in detection["sources"]],
-        })
+        }
+        if "metadata" in detection:
+            canonical["metadata"] = json.loads(json.dumps(detection["metadata"], ensure_ascii=False))
+        canoniche.append(canonical)
 
     canoniche, _, _ = espandi_address(canoniche, comuni)
     canoniche.sort(key=lambda d: (d["field"], d["start"], d["end"], d["type"]))
@@ -184,7 +228,7 @@ def esporta(fonti, destinazione, comuni=None):
     if not inputs:
         raise ValueError("Nessun record esportabile")
     manifest = {
-        "versione": "detection-5.1-multilivello" if comuni is not None else "detection-5.0",
+        "versione": "detection-5.2-address-components" if comuni is not None else "detection-5.0",
         "uso": "sviluppo sintetico; non test finale indipendente né gold revisionato umano",
         "step": "1-detection-messaggio",
         "fonti": source_manifest,
@@ -199,7 +243,7 @@ def esporta(fonti, destinazione, comuni=None):
         "gold": "Offset sintetici da slot e riferimenti controllati; da revisionare prima di una valutazione finale.",
         "adattatore": "annotazioni_attese.jsonl mantiene il formato del runner legacy; detections_attese.jsonl è canonico.",
         "gold_ner": "annotazioni_ner_attese.jsonl contiene PERSON e LOCATION, incluse le componenti LOCATION degli ADDRESS.",
-        "regola_address": ("ADDRESS completo; strada+civico e comune come LOCATION annidate, solo con comune verificato."
+        "regola_address": ("ADDRESS completo; parte stradale e comune, quando presente, come LOCATION annidate. Componenti strutturate preferite; fallback con comune verificato."
                             if comuni is not None else "Nessuna espansione multilivello."),
     }
     destinazione.mkdir(parents=True, exist_ok=False)

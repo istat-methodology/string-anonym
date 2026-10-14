@@ -1,0 +1,39 @@
+{
+  "versione": "paper-300-address-1.0",
+  "totale": 300,
+  "batch": [
+    {
+      "id": "general_core",
+      "per_scenario_modalita": 10,
+      "scenari": "all",
+      "modalita": ["senza_dati_personali", "con_dati_personali"]
+    },
+    {
+      "id": "general_extra",
+      "per_scenario_modalita": 1,
+      "scenari": [
+        "recupero_accesso",
+        "assistenza_compilazione",
+        "comunicazione_altra_persona",
+        "cambio_residenza",
+        "ricerca_dati_territoriali"
+      ],
+      "modalita": ["senza_dati_personali", "con_dati_personali"]
+    },
+    {
+      "id": "address_focus",
+      "per_scenario_modalita": 30,
+      "scenari": ["assistenza_compilazione", "cambio_residenza"],
+      "modalita": ["con_dati_personali"],
+      "entita_obbligatorie": ["indirizzo_1"],
+      "varianti_indirizzo": [
+        "complete_standard",
+        "without_street_type",
+        "without_house_number",
+        "without_municipality",
+        "complex_house_number",
+        "with_internal"
+      ]
+    }
+  ]
+}

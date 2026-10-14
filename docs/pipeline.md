@@ -21,6 +21,16 @@ Per preparare un lotto più grande si usano `src/genera_prompt.py`,
 e un output distinti dalla baseline; prompt, modello, seed e configurazione
 devono essere conservati per la riproducibilità.
 
+Il lotto dello short paper è già configurato e i 300 prompt sono stati generati:
+
+```sh
+.venv/bin/python src/lotto.py controlla --config config/lotto_paper_300.json
+.venv/bin/python src/lotto.py genera --config config/lotto_paper_300.json
+```
+
+Il disegno, le quote address e la procedura successiva sono documentati nel
+[piano del dataset paper](piano_dataset_paper_300.md).
+
 ## 2. Esportazione del gold multilivello
 
 ```sh
@@ -73,6 +83,19 @@ indipendente sul traffico reale.
 Per gli indirizzi l'exact match non basta a descrivere il rischio operativo. Il
 prossimo benchmark deve aggiungere una misura di copertura dei caratteri
 dell'indirizzo e un'analisi esplicita dei frammenti lasciati visibili.
+
+Il secondo livello si esegue, dopo il NER classico, per ciascun modello:
+
+```sh
+.venv/bin/python src/valuta_indirizzi.py \
+  --input output/dataset_detection_v5_draft4_multilivello/input.jsonl \
+  --gold output/dataset_detection_v5_draft4_multilivello/detections_attese.jsonl \
+  --predictions output/confronto_ner_person_location_v5_multilivello_run1/MODELLO/predizioni.jsonl \
+  --output output/confronto_ner_person_location_v5_multilivello_run1/MODELLO/valutazione_indirizzi.json
+```
+
+Definizioni, esiti e limiti sono nella
+[valutazione operativa degli indirizzi](valutazione_indirizzi.md).
 
 ## 5. Sviluppi successivi
 

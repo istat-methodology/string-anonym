@@ -69,7 +69,7 @@ Test locali:
 
 ## Struttura essenziale
 
-- `config/`: scenari, regole e unica configurazione sperimentale corrente;
+- `config/`: scenari, regole, configurazione NER e piano del lotto paper;
 - `data/`: cataloghi locali, inclusi i codici PSN reali;
 - `src/`: generazione, esportazione, detection, merge e valutazione;
 - `output/chat_v5_draft4_finale.jsonl`: corpus sintetico sorgente;
@@ -87,6 +87,8 @@ Git. Pesi dei modelli e credenziali non sono versionati.
 - [Decisione detection/policy](docs/decisione_architetturale_detection_policy.md)
 - [Protocollo sperimentale](docs/protocollo_esperimento_detection_v5.md)
 - [Risultati della baseline](docs/risultati_detection_v5_run1.md)
+- [Valutazione operativa degli indirizzi](docs/valutazione_indirizzi.md)
+- [Piano del dataset paper da 300 conversazioni](docs/piano_dataset_paper_300.md)
 - [Confronto dei modelli](docs/confronto_modelli.md)
 - [Setup Azure](docs/setup_azure.md)
 - [Classificazione PSN](docs/classificazione_psn.md)

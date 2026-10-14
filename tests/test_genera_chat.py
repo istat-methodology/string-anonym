@@ -106,4 +106,45 @@ class ValidazioneTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'almeno 3 scambi'):
             prepara_chat(self.chat, self.scheda)
 
+    def test_address_conserva_componenti_con_offset_assoluti(self):
+        value = 'Via Angelo Lauri 96, interno 4, Anzio'
+        entity = {
+            'segnaposto': '{{indirizzo_1}}', 'tipo': 'ADDRESS',
+            'sostituzione': '[ADDRESS_1]', 'valore_proposto': value,
+            'id_entita': 'indirizzo_1', 'id_forma': 'completa',
+            'address_variant': 'with_internal',
+            'address_components': {
+                'street_type': {'start': 0, 'end': 3, 'text': 'Via'},
+                'street_name': {'start': 4, 'end': 16, 'text': 'Angelo Lauri'},
+                'house_number': {'start': 17, 'end': 19, 'text': '96'},
+                'internal': {'start': 21, 'end': 30, 'text': 'interno 4'},
+                'municipality': {'start': 32, 'end': 37, 'text': 'Anzio'},
+            },
+        }
+        scheda = {
+            'metadati_fissati': {'data_sintetica': '2026-04-01', 'chiave_indagine': None},
+            'numero_scambi': 3, 'entita_previste': [entity], 'schema_output': 'chat_v5',
+            'riferimenti_detection': [{
+                'reference_id': 'indirizzo_1', 'riferimento': '{{indirizzo_1}}', 'tipo': 'ADDRESS'}],
+        }
+        chat = {'metadati': {**scheda['metadati_fissati'], 'descrizione': 'Cambio sede'},
+                'conversazione': [
+                    {'sender': 'Utente', 'testo': 'La sede è {{indirizzo_1}}.'},
+                    {'sender': 'Agente', 'testo': 'Che problema riscontra?'},
+                    {'sender': 'Utente', 'testo': 'Non riesco ad aggiornarla.'},
+                    {'sender': 'Agente', 'testo': 'Da quando accade?'},
+                    {'sender': 'Utente', 'testo': 'Da oggi.'},
+                    {'sender': 'Agente', 'testo': 'La richiesta va verificata.'},
+                ]}
+        result = prepara_chat(chat, scheda)
+        detection = result['detection_attesa'][0]
+        start = result['chat']['conversazione'][0]['testo'].index(value)
+        self.assertEqual(detection['metadata']['address_variant'], 'with_internal')
+        for name, component in entity['address_components'].items():
+            absolute = detection['metadata']['address_components'][name]
+            self.assertEqual((absolute['start'], absolute['end']),
+                             (start + component['start'], start + component['end']))
+            self.assertEqual(result['chat']['conversazione'][0]['testo'][
+                absolute['start']:absolute['end']], component['text'])
+
 if __name__ == '__main__': unittest.main()

@@ -1,0 +1,112 @@
+{
+  "version": "address-eval-1.0",
+  "scope": "Post-hoc complement to exact-match PERSON/LOCATION metrics; predictions unchanged.",
+  "addresses_evaluated": 2,
+  "technical_failures": [],
+  "full_address": {
+    "complete": 0,
+    "total": 2,
+    "complete_rate": 0.0,
+    "character_coverage": 0.0,
+    "residual_exposure_rate": 1.0
+  },
+  "components": {
+    "street": {
+      "complete": 0,
+      "total": 2,
+      "complete_rate": 0.0,
+      "character_coverage": 0.0
+    },
+    "house_number": {
+      "complete": 0,
+      "total": 2,
+      "complete_rate": 0.0,
+      "character_coverage": 0.0
+    },
+    "municipality": {
+      "complete": 0,
+      "total": 2,
+      "complete_rate": 0.0,
+      "character_coverage": 0.0
+    }
+  },
+  "outcomes": {
+    "uncovered": 2
+  },
+  "details": [
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:assistenza_compilazione-con_dati_personali-0001",
+      "address_id": "det_e7d0d41e16880b18",
+      "field": "conversazione.0.testo",
+      "text": "Via Angelo Lauri 96, Nettuno",
+      "coverage": 0.0,
+      "complete": false,
+      "outcome": "uncovered",
+      "components": {
+        "street": {
+          "expected_characters": 14,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 2,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 7,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        }
+      },
+      "residual_text": "ViaAngeloLauri96Nettuno"
+    },
+    {
+      "id": "2163536d3c239c5c71d4b6947662647d6c19749ccff61012d7fdec131c01ba08:cambio_residenza-con_dati_personali-0002",
+      "address_id": "det_fa922b29cc169c7d",
+      "field": "conversazione.0.testo",
+      "text": "Via Della Ruta 19, Anzio",
+      "coverage": 0.0,
+      "complete": false,
+      "outcome": "uncovered",
+      "components": {
+        "street": {
+          "expected_characters": 12,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 2,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 5,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        }
+      },
+      "residual_text": "ViaDellaRuta19Anzio"
+    }
+  ],
+  "sources": {
+    "input": {
+      "path": "/Users/mauro/Projects/string-anonym/output/dataset_detection_v5_draft4_multilivello/input.jsonl",
+      "sha256": "e323d412f4eb5e418b2b1056d7fe0093865bcc856c2f80dd1a4dbf7c4a83c34f"
+    },
+    "gold": {
+      "path": "/Users/mauro/Projects/string-anonym/output/dataset_detection_v5_draft4_multilivello/detections_attese.jsonl",
+      "sha256": "7c10c355dc735101a1dde6bbbb39379ab89414dfca1bfefc7d48d1723a4986c4"
+    },
+    "predictions": {
+      "path": "/Users/mauro/Projects/string-anonym/output/confronto_ner_person_location_v5_multilivello_run1/gliner_pii/predizioni.jsonl",
+      "sha256": "9d021e02ced6988c27f23f043cc3ac6b359896d6939942d48846abf1b3fbeca7"
+    }
+  }
+}

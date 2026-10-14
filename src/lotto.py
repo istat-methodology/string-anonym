@@ -11,7 +11,8 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def comando(config, fase):
     richiesti = {'catalogo', 'totale', 'seed', 'prompts', 'output', 'deployment'}
-    if set(config) != richiesti:
+    opzionali = {'piano'}
+    if not richiesti <= set(config) or set(config) - richiesti - opzionali:
         raise ValueError('Campi richiesti: ' + ', '.join(sorted(richiesti)))
     if type(config['totale']) is not int or config['totale'] < 2 or config['totale'] % 2:
         raise ValueError('totale deve essere un intero positivo pari')
@@ -20,12 +21,19 @@ def comando(config, fase):
     for campo in richiesti - {'totale', 'seed'}:
         if not isinstance(config[campo], str) or not config[campo].strip():
             raise ValueError(f'{campo} deve essere una stringa non vuota')
+    if 'piano' in config and (not isinstance(config['piano'], str) or not config['piano'].strip()):
+        raise ValueError('piano deve essere una stringa non vuota')
     def percorso(campo):
         return str(ROOT / config[campo])
     if fase == 'prepara':
-        return [sys.executable, str(ROOT / 'src/genera_prompt.py'),
-                '--catalogo', percorso('catalogo'), '--totale', str(config['totale']),
-                '--seed', str(config['seed']), '--output', percorso('prompts')]
+        cmd = [sys.executable, str(ROOT / 'src/genera_prompt.py'),
+               '--catalogo', percorso('catalogo'), '--seed', str(config['seed']),
+               '--output', percorso('prompts')]
+        if 'piano' in config:
+            cmd.extend(['--piano', percorso('piano')])
+        else:
+            cmd.extend(['--totale', str(config['totale'])])
+        return cmd
     if fase not in {'controlla', 'genera'}:
         raise ValueError('Fase sconosciuta')
     # Verifica il lotto prima di qualsiasi chiamata: non basta il nome del file.

@@ -6,12 +6,13 @@ import json
 import hashlib
 from pathlib import Path
 import random
-from parse_input import carica_input
+import re
+from parse_input import ADDRESS_VARIANTS, carica_input
 from genera_valori import carica_regole, genera_codice, REGOLE_DEFAULT
 
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSIONE_PROMPT = "5.0-draft4"
+VERSIONE_PROMPT = "5.1-address"
 MODALITA = ("senza_dati_personali", "con_dati_personali")
 ENTITA = {
     "persona_1": {"tipo": "PERSON", "segnaposto": "{{persona_1}}", "sostituzione": "[PERSON_1]"},
@@ -101,6 +102,9 @@ prima che il chatbot li utilizzi.
 
 Usa esattamente i segnaposto autorizzati per le entità personali, senza creare
 nomi, indirizzi, email, password o identificativi personali fuori dai segnaposto.
+Il segnaposto ADDRESS rappresenta l'intera forma superficiale assegnata: non
+anteporre o aggiungere parole come via, piazza, civico, interno o comune. Alcune
+forme sono intenzionalmente incomplete e devono restare tali.
 Ogni entità include un valore_proposto campionato localmente: usalo come
 contesto, ma nel testo scrivi il segnaposto. Il valore sarà inserito in seguito.
 Se un'entità si ripete, riusa lo stesso segnaposto, anche nella descrizione.
@@ -184,7 +188,9 @@ def campiona_indagine(scenario, dati, rng):
     return {k: scelta[k] for k in ("codice_psn", "nome_indagine", "tipo_rispondente")}
 
 
-def genera(catalogo, quantita, seed, data_inizio, giorni, dati, selezione=None, regole=None, totale=None):
+def genera(catalogo, quantita, seed, data_inizio, giorni, dati, selezione=None,
+           regole=None, totale=None, modalita_selezionate=None,
+           entita_obbligatorie=None, varianti_indirizzo=None, id_lotto=None):
     rng = random.Random(seed)
     regole = regole if regole is not None else carica_regole()
     scenari = [s for s in catalogo["scenari"] if not selezione or s["id"] in selezione]
@@ -192,9 +198,21 @@ def genera(catalogo, quantita, seed, data_inizio, giorni, dati, selezione=None, 
         if totale < 2 or totale % 2 or not scenari or any(not s["entita"] for s in scenari):
             raise ValueError("--totale richiede un numero positivo pari e scenari con entrambe le modalità")
         base, resto = divmod(totale // 2, len(scenari))
+    modalita_selezionate = tuple(modalita_selezionate or MODALITA)
+    if not set(modalita_selezionate) <= set(MODALITA) or not modalita_selezionate:
+        raise ValueError("Modalità selezionate non valide")
+    entita_obbligatorie = set(entita_obbligatorie or [])
+    if entita_obbligatorie - set(ENTITA):
+        raise ValueError("Entità obbligatorie non valide")
+    varianti_indirizzo = tuple(varianti_indirizzo or ())
+    if set(varianti_indirizzo) - set(ADDRESS_VARIANTS):
+        raise ValueError("Varianti indirizzo non valide")
+    if varianti_indirizzo and ("indirizzo_1" not in entita_obbligatorie
+                               or modalita_selezionate != ("con_dati_personali",)):
+        raise ValueError("Le varianti indirizzo richiedono ADDRESS obbligatorio e sola modalità con dati")
     for posizione, scenario in enumerate(scenari):
         quantita_scenario = quantita if totale is None else base + (posizione < resto)
-        for modalita in MODALITA:
+        for modalita in modalita_selezionate:
             if modalita == "con_dati_personali" and not scenario["entita"]:
                 continue
             for indice in range(quantita_scenario):
@@ -203,11 +221,26 @@ def genera(catalogo, quantita, seed, data_inizio, giorni, dati, selezione=None, 
                     pool = scenario["entita"]
                     richieste = (sorted(pool) if scenario.get("campionamento_entita") == "tutte"
                                  else sorted(rng.sample(pool, rng.randint(1, len(pool)))))
-                valori = dati.campiona(rng, richieste, email_indipendente=scenario.get("email_indipendente", False))
+                    if entita_obbligatorie - set(pool):
+                        raise ValueError(f"Entità obbligatorie assenti dallo scenario: {scenario['id']}")
+                    richieste = sorted(set(richieste) | entita_obbligatorie)
+                address_variant = (varianti_indirizzo[indice % len(varianti_indirizzo)]
+                                   if varianti_indirizzo else None)
+                valori = dati.campiona(
+                    rng, richieste,
+                    email_indipendente=scenario.get("email_indipendente", False),
+                    address_variant=address_variant,
+                )
                 for e in richieste:
                     if e not in valori:
                         valori[e] = genera_codice(ENTITA[e]["tipo"], rng, regole)
-                entita = [{**ENTITA[e], "id_entita": e, "id_forma": "completa", "valore_proposto": valori[e]} for e in richieste]
+                entita = []
+                for e in richieste:
+                    entity = {**ENTITA[e], "id_entita": e, "id_forma": "completa",
+                              "valore_proposto": valori[e]}
+                    if e == "indirizzo_1":
+                        entity.update(valori["indirizzo_1__metadata"])
+                    entita.append(entity)
                 indagine = campiona_indagine(scenario, dati, rng)
                 contesto = {}
                 if scenario.get("campiona_comune"):
@@ -274,7 +307,8 @@ def genera(catalogo, quantita, seed, data_inizio, giorni, dati, selezione=None, 
                     {k: r[k] for k in ("reference_id", "riferimento", "tipo")}
                     for r in riferimenti_analisi]
                 record = {
-                    "id": f"{scenario['id']}-{modalita}-{indice + 1:04d}",
+                    "id": "-".join(filter(None, (
+                        id_lotto, scenario["id"], modalita, f"{indice + 1:04d}"))),
                     "versione_prompt": VERSIONE_PROMPT,
                     "versione_catalogo": catalogo["versione"],
                     "versione_regole": regole["versione"],
@@ -290,6 +324,56 @@ def genera(catalogo, quantita, seed, data_inizio, giorni, dati, selezione=None, 
                 yield record
 
 
+def genera_da_piano(catalogo, piano, seed, data_inizio, giorni, dati, regole):
+    """Espande batch espliciti mantenendo quote e provenienza nel prompt."""
+    if (not isinstance(piano, dict) or set(piano) != {"versione", "totale", "batch"}
+            or not isinstance(piano["versione"], str)
+            or type(piano["totale"]) is not int or piano["totale"] < 1
+            or not isinstance(piano["batch"], list) or not piano["batch"]):
+        raise ValueError("Piano di generazione non valido")
+    scenario_ids = {scenario["id"] for scenario in catalogo["scenari"]}
+    records = []
+    batch_ids = set()
+    required = {"id", "per_scenario_modalita", "scenari", "modalita"}
+    optional = {"entita_obbligatorie", "varianti_indirizzo"}
+    for index, batch in enumerate(piano["batch"]):
+        if not isinstance(batch, dict) or set(batch) - required - optional or not required <= set(batch):
+            raise ValueError("Campi del batch non validi")
+        batch_id = batch["id"]
+        if (not isinstance(batch_id, str) or not re.fullmatch(r"[a-z0-9_]+", batch_id)
+                or batch_id in batch_ids):
+            raise ValueError("ID batch duplicato o non valido")
+        batch_ids.add(batch_id)
+        quantity = batch["per_scenario_modalita"]
+        if type(quantity) is not int or quantity < 1:
+            raise ValueError("Numerosità del batch non valida")
+        selection = None if batch["scenari"] == "all" else batch["scenari"]
+        if (selection is not None and (not isinstance(selection, list)
+                or not selection or set(selection) - scenario_ids)):
+            raise ValueError("Selezione scenari del batch non valida")
+        modes = batch["modalita"]
+        if not isinstance(modes, list):
+            raise ValueError("Modalità del batch non valide")
+        generated = list(genera(
+            catalogo, quantity, seed + index, data_inizio, giorni, dati,
+            selezione=selection, regole=regole,
+            modalita_selezionate=modes,
+            entita_obbligatorie=batch.get("entita_obbligatorie"),
+            varianti_indirizzo=batch.get("varianti_indirizzo"),
+            id_lotto=batch_id,
+        ))
+        for record in generated:
+            record["seed"] = seed
+            record["piano_generazione"] = {
+                "versione": piano["versione"], "batch": batch_id,
+                "seed_batch": seed + index,
+            }
+        records.extend(generated)
+    if len(records) != piano["totale"] or len({record["id"] for record in records}) != len(records):
+        raise ValueError(f"Il piano produce {len(records)} record invece di {piano['totale']}")
+    return records
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--catalogo", type=Path, default=ROOT / "config/scenari.json")
@@ -303,10 +387,14 @@ def main():
     parser.add_argument("--data-inizio", type=date.fromisoformat, default=date(2026, 4, 1))
     parser.add_argument("--giorni", type=int, default=21)
     parser.add_argument("--scenario", action="append", help="ID da includere; ripetibile")
+    parser.add_argument("--piano", type=Path,
+                        help="Piano stratificato; non combinare con --totale, --scenario o --per-modalita")
     args = parser.parse_args()
     if args.per_modalita < 1 or args.giorni < 1:
         parser.error("--per-modalita e --giorni devono essere positivi")
     try:
+        if args.piano and (args.totale is not None or args.scenario or args.per_modalita != 2):
+            raise ValueError("--piano non è combinabile con le opzioni di numerosità o scenario")
         catalogo = carica_scenari(args.catalogo)
         sconosciuti = set(args.scenario or []) - {s["id"] for s in catalogo["scenari"]}
         if sconosciuti:
@@ -316,11 +404,18 @@ def main():
         dati = carica_input(args.data_dir)
         print(json.dumps(dati.statistiche, ensure_ascii=False))
         regole = carica_regole(args.regole)
-        righe = list(genera(catalogo, args.per_modalita, args.seed, args.data_inizio, args.giorni, dati, args.scenario, regole, totale=args.totale))
+        if args.piano:
+            piano = json.loads(args.piano.read_text(encoding="utf-8"))
+            righe = genera_da_piano(catalogo, piano, args.seed, args.data_inizio, args.giorni,
+                                    dati, regole)
+        else:
+            righe = list(genera(catalogo, args.per_modalita, args.seed, args.data_inizio,
+                                args.giorni, dati, args.scenario, regole, totale=args.totale))
         inputs = [args.data_dir / n for n in ("nomi.txt", "cognomi.txt", "codici_comuni.csv", "strade_lazio.csv", "codici_psn.csv")]
-        hashes = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in inputs + [args.catalogo, args.regole]}
+        provenance_files = inputs + [args.catalogo, args.regole] + ([args.piano] if args.piano else [])
+        hashes = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in provenance_files}
         for riga in righe:
-            riga["provenienza_locale"] = {"specifica": "0.4", "sha256_file": hashes}
+            riga["provenienza_locale"] = {"specifica": "paper-address-1.0", "sha256_file": hashes}
         args.output.parent.mkdir(parents=True, exist_ok=True)
         # Evita di sovrascrivere accidentalmente un lotto già preparato.
         with args.output.open("x", encoding="utf-8") as f:

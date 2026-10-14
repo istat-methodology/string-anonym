@@ -1,0 +1,9 @@
+{
+  "catalogo": "config/scenari.json",
+  "piano": "config/piano_dataset_paper_300.json",
+  "totale": 300,
+  "seed": 20261014,
+  "prompts": "output/prompts_paper_300.jsonl",
+  "output": "output/lotto_paper_300",
+  "deployment": "gpt-5.6-terra"
+}

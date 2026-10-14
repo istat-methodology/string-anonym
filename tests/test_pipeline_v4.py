@@ -10,7 +10,7 @@ import unittest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'src'))
 from annotazioni import sostituisci_con_span, valida_span
 from genera_valori import carica_regole, genera_codice
-from parse_input import carica_input, leggi_indagini
+from parse_input import DatiInput, ADDRESS_VARIANTS, carica_input, leggi_indagini
 from validazione import prepara_chat
 
 
@@ -43,6 +43,21 @@ class InputTest(unittest.TestCase):
             with self.assertRaises(ValueError): carica_input(self.root)
         self.write('codici_psn.csv', ['codice_psn','nome_indagine','tipo_rispondente'], [['IST-00001','A','imprese'], ['IST-00001','B','imprese']])
         with self.assertRaises(ValueError): leggi_indagini(self.root / 'codici_psn.csv')
+
+    def test_varianti_indirizzo_con_componenti_esatte(self):
+        dati = DatiInput(['Anna'], ['Rossi'], {'001001': 'Alfa'},
+                         [('001001', 'VIA ANGELO LAURI')], {})
+        risultati = {variant: dati.campiona_indirizzo(random.Random(42), variant)
+                     for variant in ADDRESS_VARIANTS}
+        self.assertNotIn('street_type', risultati['without_street_type']['components'])
+        self.assertNotIn('house_number', risultati['without_house_number']['components'])
+        self.assertNotIn('municipality', risultati['without_municipality']['components'])
+        self.assertIn('house_extension', risultati['complex_house_number']['components'])
+        self.assertIn('internal', risultati['with_internal']['components'])
+        for result in risultati.values():
+            for component in result['components'].values():
+                self.assertEqual(result['value'][component['start']:component['end']],
+                                 component['text'])
 
 
 class RegoleTest(unittest.TestCase):

@@ -193,10 +193,25 @@ def prepara_chat(chat, scheda):
                 messaggio["testo"], scheda["entita_previste"], campo)
             concreta["conversazione"][indice]["testo"] = testo
             for span in occorrenze:
+                entity = next(e for e in scheda["entita_previste"]
+                              if e["id_entita"] == span["id_entita"])
+                metadata = {"reference_id": span["id_entita"]}
+                if span["tipo"] == "ADDRESS" and "address_components" in entity:
+                    metadata.update({
+                        "address_variant": entity["address_variant"],
+                        "address_components": {
+                            name: {
+                                "start": span["start"] + component["start"],
+                                "end": span["start"] + component["end"],
+                                "text": component["text"],
+                            }
+                            for name, component in entity["address_components"].items()
+                        },
+                    })
                 raw.append({"field": campo, "start": span["start"], "end": span["end"],
                             "text": span["testo"], "type": span["tipo"],
                             "sources": [{"detector": "synthetic_slot"}],
-                            "metadata": {"reference_id": span["id_entita"]}})
+                            "metadata": metadata})
         concreta["metadati"]["descrizione"] = sostituisci(
             chat["metadati"]["descrizione"],
             {e["segnaposto"]: e["valore_proposto"] for e in scheda["entita_previste"]})
@@ -240,7 +255,7 @@ def prepara_chat(chat, scheda):
     result = {
         "chat_template": chat, "chat": concreta,
         "stato": "da_verificare" if segnali or copertura or fuori_slot else "valido",
-        "validazione": {"versione": "3.3", "ambito": "strutturale_con_segnali_di_coerenza",
+        "validazione": {"versione": "3.4-address", "ambito": "strutturale_con_segnali_di_coerenza",
                         "identificativi_fuori_slot": fuori_slot,
                         "segnali_copertura": copertura,
                         "segnali_coerenza": segnali,

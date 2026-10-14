@@ -65,6 +65,26 @@ class DetectionExportTest(unittest.TestCase):
         self.assertEqual([(a["tipo"], a["testo"]) for a in legacy["annotazioni"]],
                          [("ADDRESS", "Via Roma 12, Alfa")])
 
+    def test_componenti_address_strutturate_e_opzionali(self):
+        parent = {
+            "detection_id": "det_address", "field": "conversazione.0.testo",
+            "start": 10, "end": 33, "text": "Angelo Lauri 96, interno 4", "type": "ADDRESS",
+            "sources": [{"detector": "synthetic_slot"}],
+            "metadata": {"address_variant": "with_internal", "address_components": {
+                "street_name": {"start": 10, "end": 22, "text": "Angelo Lauri"},
+                "house_number": {"start": 23, "end": 25, "text": "96"},
+                "internal": {"start": 27, "end": 36, "text": "interno 4"},
+            }},
+        }
+        # Corregge l'end del parent per includere tutti i componenti.
+        parent["end"] = 36
+        parent["text"] = "Angelo Lauri 96, interno 4"
+        expanded, added, unresolved = espandi_address([parent], {"Alfa"})
+        self.assertEqual((added, unresolved), (1, 0))
+        nested = next(d for d in expanded if d["type"] == "LOCATION")
+        self.assertEqual(nested["text"], "Angelo Lauri 96, interno 4")
+        self.assertEqual(nested["sources"][0]["component"], "street_address")
+
     def test_manifest_e_nessuna_sovrascrittura(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

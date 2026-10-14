@@ -61,6 +61,22 @@ L'inferenza sulle 46 conversazioni ha richiesto circa 2,5–6,2 secondi per
 modello; il picco VRAM osservato è stato circa 0,72–1,19 GB. Il costo rende
 praticabile un benchmark sintetico più ampio.
 
+## Secondo livello: protezione degli indirizzi
+
+La valutazione post-hoc di copertura produce, sui soli due indirizzi disponibili:
+
+| Modello | Completi | Copertura caratteri | Esito prevalente |
+|---|---:|---:|---|
+| GLiNER multilingual | 2/2 | 100,0% | completo |
+| GLiNER multilingual PII | 0/2 | 0,0% | non coperto |
+| WikiNEuRal | 0/2 | 90,5% | civico esposto |
+| Piiranha | 0/2 | 28,6% | solo comune |
+
+Questa analisi non sostituisce la metrica NER: mostra che gli errori di confine
+hanno conseguenze operative diverse. Con due soli esempi è una verifica del
+metodo, non una graduatoria affidabile. Il protocollo completo è descritto nella
+[valutazione degli indirizzi](valutazione_indirizzi.md).
+
 ## Validità e passi successivi
 
 Il campione è sintetico, piccolo e utilizzato durante lo sviluppo. I risultati

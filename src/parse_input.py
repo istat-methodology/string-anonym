@@ -11,6 +11,22 @@ import unicodedata
 
 ROOT = Path(__file__).resolve().parents[1]
 
+ADDRESS_VARIANTS = (
+    "complete_standard",
+    "without_street_type",
+    "without_house_number",
+    "without_municipality",
+    "complex_house_number",
+    "with_internal",
+)
+STREET_TYPES = (
+    "VIA", "VIALE", "PIAZZA", "CORSO", "LARGO", "VICOLO", "STRADA",
+    "LOCALITA'", "CONTRADA", "PIAZZALE", "TRAVERSA", "VOCABOLO", "VICO",
+    "PREDIO", "FRAZIONE", "SALITA", "CIRCONVALLAZIONE", "CASE", "PIAZZETTA",
+    "LUNGOTEVERE", "LUNGOMARE", "CASA", "PODERE", "BORGO", "VILLA", "NUCLEO",
+    "BORGATA", "RAMPA", "SCALINATA", "CLIVO",
+)
+
 
 def pulisci(value):
     return " ".join(unicodedata.normalize("NFC", value or "").split())
@@ -34,7 +50,56 @@ class DatiInput:
     codici_catastali: dict[str, str] = field(default_factory=dict)
     indagini: list[dict] = field(default_factory=list)
 
-    def campiona(self, rng, entita, email_indipendente=False):
+    def campiona_indirizzo(self, rng, variant="complete_standard"):
+        """Restituisce valore e componenti locali di una forma address controllata."""
+        if variant not in ADDRESS_VARIANTS:
+            raise ValueError(f"Variante indirizzo sconosciuta: {variant}")
+        codice, odonimo = rng.choice(self.strade)
+        words = odonimo.split()
+        street_type = words[0].title() if words and words[0].upper() in STREET_TYPES else None
+        street_name = " ".join(words[1:] if street_type else words).title()
+        if not street_name:
+            raise ValueError(f"Odonimo senza denominazione: {odonimo}")
+        number = str(rng.randint(1, 300))
+        extension = None
+        internal = None
+        municipality = self.comuni[codice]
+        if variant == "complex_house_number":
+            extension = rng.choice(("/A", "/B", " bis"))
+        if variant == "with_internal":
+            internal = rng.choice((f"interno {rng.randint(1, 20)}", f"scala {rng.choice('ABC')}"))
+
+        pieces = []
+        if variant != "without_street_type" and street_type:
+            pieces.append(("street_type", street_type))
+        pieces.append(("street_name", street_name))
+        if variant != "without_house_number":
+            pieces.append(("house_number", number))
+            if extension:
+                pieces.append(("house_extension", extension))
+        if internal:
+            pieces.append(("internal", internal))
+
+        value = ""
+        components = {}
+        for name, text in pieces:
+            separator = ("" if name == "house_extension" else
+                         ", " if name == "internal" else
+                         " " if value else "")
+            value += separator
+            start = len(value)
+            value += text
+            components[name] = {"start": start, "end": len(value), "text": text}
+        if variant != "without_municipality":
+            value += ", "
+            start = len(value)
+            value += municipality
+            components["municipality"] = {
+                "start": start, "end": len(value), "text": municipality,
+            }
+        return {"value": value, "variant": variant, "components": components}
+
+    def campiona(self, rng, entita, email_indipendente=False, address_variant=None):
         """Campionamento uniforme dalle liste; i civici sono fittizi (1–300)."""
         valori = {}
         if "persona_1" in entita or "email_1" in entita:
@@ -50,8 +115,12 @@ class DatiInput:
                 locale = re.sub(r"[^a-z.]", "", testo.encode("ascii", "ignore").decode().lower())
                 valori["email_1"] = f"{locale or 'utente'}@example.org"
         if "indirizzo_1" in entita:
-            codice, strada = rng.choice(self.strade)
-            valori["indirizzo_1"] = f"{strada.title()} {rng.randint(1, 300)}, {self.comuni[codice]}"
+            address = self.campiona_indirizzo(rng, address_variant or "complete_standard")
+            valori["indirizzo_1"] = address["value"]
+            valori["indirizzo_1__metadata"] = {
+                "address_variant": address["variant"],
+                "address_components": address["components"],
+            }
         return valori
 
 

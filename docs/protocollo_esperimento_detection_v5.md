@@ -88,6 +88,17 @@ La metrica globale su tutte le categorie resta una diagnostica secondaria della
 run solo NER. Diventerà una metrica end-to-end soltanto quando le predizioni NER
 saranno unite alle predizioni regex e valutate dopo `merge_detection`.
 
+### Analisi successiva degli indirizzi
+
+Dopo aver congelato e riportato le metriche NER standard, le stesse predizioni
+sono analizzate con `src/valuta_indirizzi.py`. Questa seconda vista misura
+completezza e copertura dei caratteri di strada, civico e comune, oltre al
+residuo identificativo esposto. È una metrica operativa specifica del caso d'uso
+e non sostituisce né modifica l'exact-match F1.
+
+La procedura e la tassonomia degli esiti sono definite in
+[valutazione_indirizzi.md](valutazione_indirizzi.md).
+
 ### Gold multilivello degli indirizzi
 
 La run pilota ha mostrato un limite dell'adattatore legacy: un indirizzo completo
