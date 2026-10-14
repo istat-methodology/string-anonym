@@ -19,7 +19,8 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def tipi_config(cfg):
     """Categorie ammesse dal protocollo, mantenendo compatibilita con il legacy."""
-    return set(DETECTION_TYPES if cfg.get('formato') == 'detection-5.0' else TIPI)
+    formato = cfg.get('formato', '')
+    return set(DETECTION_TYPES if formato.startswith('detection-5.') else TIPI)
 
 
 def tipi_valutati_config(cfg):

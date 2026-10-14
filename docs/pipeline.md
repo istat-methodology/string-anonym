@@ -114,6 +114,11 @@ python src/confronta_modelli.py --device cuda:0
 
 Per una nuova run NER, cambiare prima il percorso `output` nel file di configurazione. La valutazione operativa degli indirizzi è un passaggio successivo sulle stesse predizioni, descritto in [valutazione_indirizzi.md](valutazione_indirizzi.md).
 
+Per il corpus paper da 300 sorgenti, dopo il controllo qualità sono state
+esportate 289 conversazioni validate in `output/dataset_detection_paper_300/`.
+La configurazione dedicata, che conserva intatta la baseline precedente, è
+`config/esperimento_ner_person_location_paper_300.json`.
+
 ### Ramo regex del percorso end-to-end
 
 Il ramo regex individua span strutturati sul testo originale e si esegue

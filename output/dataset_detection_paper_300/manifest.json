@@ -1,0 +1,40 @@
+{
+  "versione": "detection-5.2-address-components",
+  "uso": "sviluppo sintetico; non test finale indipendente né gold revisionato umano",
+  "step": "1-detection-messaggio",
+  "fonti": [
+    {
+      "path": "/Users/mauro/Projects/string-anonym/output/generazione_paper_300/conversazioni.jsonl",
+      "sha256": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5"
+    }
+  ],
+  "record_letti": 300,
+  "esportati": 289,
+  "esclusi": 11,
+  "conversazioni_negative": 32,
+  "detection_attese": 1546,
+  "categorie": {
+    "ADDRESS": 124,
+    "COD_INDAGINE": 233,
+    "COD_UTENTE": 49,
+    "DATE": 70,
+    "EMAIL": 104,
+    "INDAGINE": 229,
+    "LOCATION": 296,
+    "NUM_PRATICA": 72,
+    "ORGANIZATION": 125,
+    "PASSWORD": 5,
+    "PERSON": 123,
+    "PHONE": 42,
+    "ROLE": 74
+  },
+  "detection_per_ruolo": {
+    "Agente": 594,
+    "Utente": 952
+  },
+  "input_modello": "Solo conversazione con testi e ruoli; nessuna policy, scheda o annotazione attesa.",
+  "gold": "Offset sintetici da slot e riferimenti controllati; da revisionare prima di una valutazione finale.",
+  "adattatore": "annotazioni_attese.jsonl mantiene il formato del runner legacy; detections_attese.jsonl è canonico.",
+  "gold_ner": "annotazioni_ner_attese.jsonl contiene PERSON e LOCATION, incluse le componenti LOCATION degli ADDRESS.",
+  "regola_address": "ADDRESS completo; parte stradale e comune, quando presente, come LOCATION annidate. Componenti strutturate preferite; fallback con comune verificato."
+}
