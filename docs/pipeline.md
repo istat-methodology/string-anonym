@@ -119,6 +119,17 @@ esportate 289 conversazioni validate in `output/dataset_detection_paper_300/`.
 La configurazione dedicata, che conserva intatta la baseline precedente, è
 `config/esperimento_ner_person_location_paper_300.json`.
 
+Sulle predizioni congelate della `run3` viene applicato un bootstrap appaiato
+per conversazione, senza nuova inferenza:
+
+```sh
+.venv/bin/python src/bootstrap_metriche.py \
+  --config config/bootstrap_paper_run3.json
+```
+
+Il protocollo e i limiti interpretativi sono descritti in
+[bootstrap_metriche.md](bootstrap_metriche.md).
+
 ### Ramo regex del percorso end-to-end
 
 Il ramo regex individua span strutturati sul testo originale e si esegue
@@ -172,3 +183,4 @@ Quando si cambia un file, usare una nuova cartella di output e conservare la ver
 - [Ramo regex](baseline_regex.md)
 - [Valutazione operativa degli indirizzi](valutazione_indirizzi.md)
 - [Piano dataset paper da 300 conversazioni](piano_dataset_paper_300.md)
+- [Bootstrap delle metriche della run 3](bootstrap_metriche.md)

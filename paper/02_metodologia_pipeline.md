@@ -118,10 +118,26 @@ La valutazione a livello di intera conversazione è prevista come fase futura;
 quella sull'intero dataset richiede anche un coinvolgimento organizzativo e
 rimane fuori dal perimetro corrente.
 
+## Incertezza mediante bootstrap
+
+Le predizioni congelate della `run3` sono analizzate con un bootstrap appaiato
+per conversazione. Ogni replica campiona con reinserimento 289 conversazioni e
+usa lo stesso campione per tutti i modelli. Sono eseguite 10.000 repliche con
+seed fisso `20261014`; vengono riportati intervalli percentile al 95%, media,
+bias, varianza ed errore standard bootstrap.
+
+Il cluster è l'intera conversazione, non il singolo span o indirizzo: in questo
+modo turni, entità e ripetizioni correlate restano insieme. Il disegno appaiato
+permette inoltre di stimare direttamente l'intervallo della differenza fra due
+modelli. Gli intervalli descrivono la variabilità condizionata al corpus
+sintetico e non la generalizzazione al traffico reale.
+
 ## Artefatti riproducibili
 
 - Configurazione: `config/esperimento_ner_person_location_paper_300.json`
 - Runner: `src/confronta_modelli.py`
 - Valutazione indirizzi: `src/valuta_indirizzi.py`
+- Bootstrap: `src/bootstrap_metriche.py`
 - Output principale: `output/confronto_ner_person_location_paper_300_run3/`
+- Output bootstrap: `output/bootstrap_ner_person_location_paper_300_run3/`
 

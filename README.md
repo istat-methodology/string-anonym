@@ -134,6 +134,13 @@ Test locali:
 .venv/bin/python -m unittest discover -s tests -v
 ```
 
+Bootstrap appaiato sulle predizioni congelate della `run3`:
+
+```sh
+.venv/bin/python src/bootstrap_metriche.py \
+  --config config/bootstrap_paper_run3.json
+```
+
 ## Struttura essenziale
 
 - `config/`: scenari, regole, configurazione NER e piano del corpus paper;
@@ -157,6 +164,7 @@ Git. Pesi dei modelli e credenziali non sono versionati.
 - [Valutazione operativa degli indirizzi](docs/valutazione_indirizzi.md)
 - [Piano del dataset paper da 300 conversazioni](docs/piano_dataset_paper_300.md)
 - [Confronto dei modelli](docs/confronto_modelli.md)
+- [Bootstrap delle metriche della run 3](docs/bootstrap_metriche.md)
 - [Setup Azure](docs/setup_azure.md)
 - [Classificazione PSN](docs/classificazione_psn.md)
 - [Regole regex](docs/baseline_regex.md)

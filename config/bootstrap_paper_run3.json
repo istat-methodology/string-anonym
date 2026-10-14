@@ -1,0 +1,13 @@
+{
+  "version": "paired-conversation-bootstrap-1.0",
+  "input": "output/dataset_detection_paper_300/input.jsonl",
+  "attese": "output/dataset_detection_paper_300/annotazioni_ner_attese.jsonl",
+  "gold_indirizzi": "output/dataset_detection_paper_300/detections_attese.jsonl",
+  "run_dir": "output/confronto_ner_person_location_paper_300_run3",
+  "models": ["gliner_multi", "gliner_pii", "wikineural", "piiranha"],
+  "replicates": 10000,
+  "seed": 20261014,
+  "confidence": 0.95,
+  "output": "output/bootstrap_ner_person_location_paper_300_run3/bootstrap.json",
+  "markdown_output": "output/bootstrap_ner_person_location_paper_300_run3/riepilogo.md"
+}

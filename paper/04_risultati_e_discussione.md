@@ -281,6 +281,34 @@ degli indirizzi osservata con GLiNER multi.
 
 ## Interpretazione preliminare
 
+### Incertezza bootstrap
+
+Il bootstrap appaiato per conversazione produce i seguenti intervalli
+percentile al 95% su 10.000 repliche.
+
+| Modello | F1 micro (IC 95%) | F1 PERSON (IC 95%) | F1 LOCATION (IC 95%) | Indirizzi completi (IC 95%) | Copertura caratteri (IC 95%) |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| GLiNER multi | 0,619 [0,560; 0,673] | 0,397 [0,330; 0,467] | 0,817 [0,763; 0,865] | 0,968 [0,928; 1,000] | 0,983 [0,962; 1,000] |
+| GLiNER PII | 0,278 [0,234; 0,321] | 0,342 [0,284; 0,404] | 0,213 [0,147; 0,284] | 0,984 [0,960; 1,000] | 0,986 [0,965; 1,000] |
+| WikiNEuRal | 0,649 [0,600; 0,696] | 0,763 [0,689; 0,833] | 0,599 [0,540; 0,656] | 0,129 [0,055; 0,217] | 0,792 [0,736; 0,842] |
+| Piiranha | 0,876 [0,833; 0,918] | 0,911 [0,857; 0,959] | 0,862 [0,806; 0,914] | 0,742 [0,628; 0,846] | 0,915 [0,869; 0,955] |
+
+Le differenze appaiate confermano che il vantaggio exact-match di Piiranha è
+stabile: rispetto a WikiNEuRal, la differenza di F1 micro è +0,227, con IC 95%
+[0,170; 0,286]; rispetto a GLiNER multi è +0,258 [0,199; 0,321]. GLiNER PII
+supera invece Piiranha di 0,242 nel tasso di indirizzi completi [0,146; 0,348].
+
+La differenza fra GLiNER PII e GLiNER multi sugli indirizzi è più sottile. Il
+vantaggio osservato di GLiNER PII nel tasso completo è +0,016, con intervallo
+[0,000; 0,040]; per la copertura dei caratteri la differenza è +0,003, con
+intervallo [-0,007; 0,019]. Sul corpus corrente i due GLiNER sono quindi molto
+vicini sul piano operativo, pur differendo nettamente per granularità degli
+span e falsi positivi.
+
+Questi intervalli quantificano la variabilità rispetto al ricampionamento del
+corpus sintetico. Non devono essere interpretati come garanzia di prestazione
+sul traffico reale.
+
 L'exact match aggregato non è sufficiente per scegliere il modello operativo.
 Piiranha è il riferimento più equilibrato per `PERSON` e `LOCATION`; GLiNER PII
 riduce maggiormente l'esposizione residua degli indirizzi, ma produce molte più
@@ -386,3 +414,5 @@ Per il prodotto e per un eventuale paper esteso, i passaggi naturali sono:
 - Predizioni e metriche principali: `output/confronto_ner_person_location_paper_300_run3/`
 - Valutazione indirizzi: riproducibile con `src/valuta_indirizzi.py` sulle
   predizioni della `run3`
+- Bootstrap e differenze appaiate:
+  `output/bootstrap_ner_person_location_paper_300_run3/`
