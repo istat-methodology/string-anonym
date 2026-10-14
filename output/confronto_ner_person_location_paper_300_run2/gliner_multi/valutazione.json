@@ -1,0 +1,4366 @@
+{
+  "versione": "1.1",
+  "conversazioni_totali": 289,
+  "conversazioni_valutate": 289,
+  "fallimenti_tecnici": [],
+  "nota": "Metriche sui soli esiti ok; fallimenti e predizioni mancanti esclusi e riportati separatamente. Annotazioni attese non necessariamente revisionate.",
+  "span_esatti_micro": {
+    "tp": 387,
+    "fp": 522,
+    "fn": 32,
+    "precision": 0.42574257425742573,
+    "recall": 0.9236276849642004,
+    "f1": 0.5828313253012049
+  },
+  "focus": {
+    "categorie": [
+      "LOCATION",
+      "PERSON"
+    ],
+    "span_esatti_micro": {
+      "tp": 387,
+      "fp": 522,
+      "fn": 32,
+      "precision": 0.42574257425742573,
+      "recall": 0.9236276849642004,
+      "f1": 0.5828313253012049
+    }
+  },
+  "per_tipo": {
+    "LOCATION": {
+      "tp": 270,
+      "fp": 162,
+      "fn": 26,
+      "precision": 0.625,
+      "recall": 0.9121621621621622,
+      "f1": 0.7417582417582418
+    },
+    "PERSON": {
+      "tp": 117,
+      "fp": 360,
+      "fn": 6,
+      "precision": 0.24528301886792453,
+      "recall": 0.9512195121951219,
+      "f1": 0.39
+    }
+  },
+  "per_ruolo": {
+    "Utente": {
+      "tp": 252,
+      "fp": 264,
+      "fn": 17,
+      "precision": 0.4883720930232558,
+      "recall": 0.9368029739776952,
+      "f1": 0.6420382165605095
+    },
+    "Agente": {
+      "tp": 135,
+      "fp": 258,
+      "fn": 15,
+      "precision": 0.3435114503816794,
+      "recall": 0.9,
+      "f1": 0.4972375690607735
+    }
+  },
+  "caratteri": {
+    "sensibili_attesi": 6375,
+    "sensibili_coperti": 6281,
+    "sensibili_scoperti": 94,
+    "non_sensibili_mascherati": 5393,
+    "non_sensibili_totali": 284243,
+    "recall_copertura": 0.9852549019607844
+  },
+  "conversazioni_con_omissioni_caratteri": 15,
+  "conversazioni_con_dati_attesi_valutate": 126,
+  "negative_valutate": 163,
+  "negative_con_falsi_positivi": 88,
+  "errori_span": [
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-recupero_accesso-senza_dati_personali-0001",
+      "fp": [
+        [
+          3,
+          171,
+          179,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-recupero_accesso-senza_dati_personali-0002",
+      "fp": [
+        [
+          2,
+          0,
+          13,
+          "PERSON"
+        ],
+        [
+          3,
+          156,
+          164,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-recupero_accesso-senza_dati_personali-0003",
+      "fp": [
+        [
+          2,
+          0,
+          13,
+          "PERSON"
+        ],
+        [
+          3,
+          118,
+          126,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-recupero_accesso-senza_dati_personali-0004",
+      "fp": [
+        [
+          2,
+          0,
+          13,
+          "PERSON"
+        ],
+        [
+          3,
+          137,
+          145,
+          "LOCATION"
+        ],
+        [
+          4,
+          17,
+          25,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-recupero_accesso-senza_dati_personali-0005",
+      "fp": [
+        [
+          2,
+          0,
+          13,
+          "PERSON"
+        ],
+        [
+          3,
+          174,
+          182,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-recupero_accesso-senza_dati_personali-0006",
+      "fp": [
+        [
+          1,
+          37,
+          49,
+          "PERSON"
+        ],
+        [
+          2,
+          0,
+          20,
+          "PERSON"
+        ],
+        [
+          3,
+          183,
+          191,
+          "LOCATION"
+        ],
+        [
+          7,
+          193,
+          201,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-recupero_accesso-senza_dati_personali-0007",
+      "fp": [
+        [
+          2,
+          0,
+          13,
+          "PERSON"
+        ],
+        [
+          3,
+          131,
+          139,
+          "PERSON"
+        ],
+        [
+          3,
+          197,
+          205,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-recupero_accesso-senza_dati_personali-0008",
+      "fp": [
+        [
+          2,
+          0,
+          13,
+          "PERSON"
+        ],
+        [
+          3,
+          168,
+          176,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-recupero_accesso-senza_dati_personali-0009",
+      "fp": [
+        [
+          1,
+          37,
+          49,
+          "PERSON"
+        ],
+        [
+          2,
+          0,
+          13,
+          "PERSON"
+        ],
+        [
+          3,
+          137,
+          145,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-recupero_accesso-senza_dati_personali-0010",
+      "fp": [
+        [
+          1,
+          37,
+          45,
+          "PERSON"
+        ],
+        [
+          2,
+          0,
+          13,
+          "PERSON"
+        ],
+        [
+          3,
+          141,
+          149,
+          "LOCATION"
+        ],
+        [
+          6,
+          24,
+          32,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-recupero_accesso-con_dati_personali-0001",
+      "fp": [
+        [
+          3,
+          158,
+          166,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-recupero_accesso-con_dati_personali-0002",
+      "fp": [
+        [
+          2,
+          95,
+          103,
+          "PERSON"
+        ],
+        [
+          3,
+          164,
+          172,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-recupero_accesso-con_dati_personali-0003",
+      "fp": [
+        [
+          2,
+          143,
+          151,
+          "LOCATION"
+        ],
+        [
+          5,
+          100,
+          108,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-recupero_accesso-con_dati_personali-0004",
+      "fp": [
+        [
+          2,
+          26,
+          36,
+          "PERSON"
+        ],
+        [
+          2,
+          117,
+          127,
+          "PERSON"
+        ],
+        [
+          3,
+          124,
+          132,
+          "LOCATION"
+        ]
+      ],
+      "fn": [
+        [
+          2,
+          17,
+          36,
+          "PERSON"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-recupero_accesso-con_dati_personali-0005",
+      "fp": [
+        [
+          0,
+          163,
+          171,
+          "PERSON"
+        ],
+        [
+          1,
+          48,
+          60,
+          "PERSON"
+        ],
+        [
+          3,
+          168,
+          176,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-recupero_accesso-con_dati_personali-0007",
+      "fp": [
+        [
+          0,
+          121,
+          133,
+          "PERSON"
+        ],
+        [
+          3,
+          138,
+          146,
+          "LOCATION"
+        ],
+        [
+          4,
+          50,
+          59,
+          "LOCATION"
+        ],
+        [
+          5,
+          138,
+          147,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-recupero_accesso-con_dati_personali-0008",
+      "fp": [
+        [
+          6,
+          39,
+          48,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-recupero_accesso-con_dati_personali-0009",
+      "fp": [
+        [
+          5,
+          76,
+          82,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-recupero_accesso-con_dati_personali-0010",
+      "fp": [
+        [
+          3,
+          143,
+          151,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-ricerca_questionario-senza_dati_personali-0003",
+      "fp": [
+        [
+          4,
+          41,
+          52,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-ricerca_questionario-senza_dati_personali-0010",
+      "fp": [
+        [
+          4,
+          41,
+          52,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-ricerca_questionario-con_dati_personali-0001",
+      "fp": [
+        [
+          0,
+          109,
+          116,
+          "PERSON"
+        ],
+        [
+          0,
+          117,
+          124,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-ricerca_questionario-con_dati_personali-0003",
+      "fp": [
+        [
+          4,
+          74,
+          83,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-ricerca_questionario-con_dati_personali-0005",
+      "fp": [
+        [
+          0,
+          99,
+          106,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-ricerca_questionario-con_dati_personali-0006",
+      "fp": [
+        [
+          0,
+          98,
+          107,
+          "PERSON"
+        ],
+        [
+          4,
+          41,
+          52,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-ricerca_questionario-con_dati_personali-0009",
+      "fp": [
+        [
+          4,
+          43,
+          54,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-assistenza_compilazione-senza_dati_personali-0007",
+      "fp": [
+        [
+          0,
+          8,
+          17,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-assistenza_compilazione-senza_dati_personali-0008",
+      "fp": [
+        [
+          0,
+          8,
+          17,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-assistenza_compilazione-con_dati_personali-0001",
+      "fp": [
+        [
+          0,
+          82,
+          95,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-assistenza_compilazione-con_dati_personali-0003",
+      "fp": [
+        [
+          0,
+          8,
+          17,
+          "PERSON"
+        ],
+        [
+          0,
+          98,
+          111,
+          "LOCATION"
+        ],
+        [
+          1,
+          48,
+          51,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-assistenza_compilazione-con_dati_personali-0008",
+      "fp": [
+        [
+          0,
+          85,
+          98,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-comunicazione_altra_persona-senza_dati_personali-0001",
+      "fp": [
+        [
+          0,
+          59,
+          68,
+          "PERSON"
+        ],
+        [
+          0,
+          140,
+          149,
+          "PERSON"
+        ],
+        [
+          2,
+          109,
+          129,
+          "PERSON"
+        ],
+        [
+          2,
+          157,
+          172,
+          "PERSON"
+        ],
+        [
+          3,
+          31,
+          40,
+          "PERSON"
+        ],
+        [
+          3,
+          106,
+          126,
+          "PERSON"
+        ],
+        [
+          4,
+          53,
+          62,
+          "PERSON"
+        ],
+        [
+          5,
+          69,
+          78,
+          "PERSON"
+        ],
+        [
+          5,
+          173,
+          182,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-comunicazione_altra_persona-senza_dati_personali-0002",
+      "fp": [
+        [
+          0,
+          59,
+          68,
+          "PERSON"
+        ],
+        [
+          0,
+          138,
+          147,
+          "PERSON"
+        ],
+        [
+          2,
+          8,
+          20,
+          "PERSON"
+        ],
+        [
+          2,
+          104,
+          124,
+          "PERSON"
+        ],
+        [
+          3,
+          111,
+          120,
+          "PERSON"
+        ],
+        [
+          5,
+          55,
+          67,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-comunicazione_altra_persona-senza_dati_personali-0003",
+      "fp": [
+        [
+          0,
+          59,
+          68,
+          "PERSON"
+        ],
+        [
+          0,
+          145,
+          154,
+          "PERSON"
+        ],
+        [
+          2,
+          65,
+          85,
+          "PERSON"
+        ],
+        [
+          3,
+          28,
+          37,
+          "PERSON"
+        ],
+        [
+          3,
+          109,
+          118,
+          "PERSON"
+        ],
+        [
+          5,
+          159,
+          168,
+          "PERSON"
+        ],
+        [
+          5,
+          218,
+          227,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-comunicazione_altra_persona-senza_dati_personali-0004",
+      "fp": [
+        [
+          0,
+          59,
+          68,
+          "PERSON"
+        ],
+        [
+          0,
+          129,
+          138,
+          "PERSON"
+        ],
+        [
+          2,
+          96,
+          113,
+          "PERSON"
+        ],
+        [
+          3,
+          123,
+          143,
+          "PERSON"
+        ],
+        [
+          4,
+          54,
+          66,
+          "PERSON"
+        ],
+        [
+          5,
+          110,
+          119,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-comunicazione_altra_persona-senza_dati_personali-0005",
+      "fp": [
+        [
+          0,
+          59,
+          68,
+          "PERSON"
+        ],
+        [
+          0,
+          142,
+          151,
+          "PERSON"
+        ],
+        [
+          2,
+          12,
+          24,
+          "PERSON"
+        ],
+        [
+          2,
+          82,
+          91,
+          "PERSON"
+        ],
+        [
+          3,
+          36,
+          45,
+          "PERSON"
+        ],
+        [
+          3,
+          111,
+          131,
+          "PERSON"
+        ],
+        [
+          5,
+          91,
+          103,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-comunicazione_altra_persona-senza_dati_personali-0006",
+      "fp": [
+        [
+          0,
+          59,
+          68,
+          "PERSON"
+        ],
+        [
+          0,
+          144,
+          153,
+          "PERSON"
+        ],
+        [
+          2,
+          8,
+          20,
+          "PERSON"
+        ],
+        [
+          2,
+          111,
+          131,
+          "PERSON"
+        ],
+        [
+          3,
+          134,
+          143,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-comunicazione_altra_persona-senza_dati_personali-0007",
+      "fp": [
+        [
+          0,
+          59,
+          68,
+          "PERSON"
+        ],
+        [
+          0,
+          132,
+          141,
+          "PERSON"
+        ],
+        [
+          2,
+          8,
+          20,
+          "PERSON"
+        ],
+        [
+          2,
+          78,
+          87,
+          "PERSON"
+        ],
+        [
+          3,
+          51,
+          60,
+          "PERSON"
+        ],
+        [
+          3,
+          136,
+          145,
+          "PERSON"
+        ],
+        [
+          5,
+          162,
+          171,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-comunicazione_altra_persona-senza_dati_personali-0008",
+      "fp": [
+        [
+          0,
+          59,
+          68,
+          "PERSON"
+        ],
+        [
+          0,
+          143,
+          152,
+          "PERSON"
+        ],
+        [
+          2,
+          8,
+          20,
+          "PERSON"
+        ],
+        [
+          2,
+          108,
+          128,
+          "PERSON"
+        ],
+        [
+          3,
+          28,
+          37,
+          "PERSON"
+        ],
+        [
+          3,
+          103,
+          123,
+          "PERSON"
+        ],
+        [
+          4,
+          93,
+          110,
+          "PERSON"
+        ],
+        [
+          5,
+          97,
+          106,
+          "PERSON"
+        ],
+        [
+          5,
+          141,
+          161,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-comunicazione_altra_persona-senza_dati_personali-0009",
+      "fp": [
+        [
+          0,
+          59,
+          68,
+          "PERSON"
+        ],
+        [
+          0,
+          135,
+          144,
+          "PERSON"
+        ],
+        [
+          2,
+          20,
+          32,
+          "PERSON"
+        ],
+        [
+          3,
+          119,
+          128,
+          "PERSON"
+        ],
+        [
+          5,
+          82,
+          91,
+          "PERSON"
+        ],
+        [
+          5,
+          162,
+          171,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-comunicazione_altra_persona-senza_dati_personali-0010",
+      "fp": [
+        [
+          0,
+          59,
+          68,
+          "PERSON"
+        ],
+        [
+          0,
+          143,
+          152,
+          "PERSON"
+        ],
+        [
+          2,
+          109,
+          126,
+          "PERSON"
+        ],
+        [
+          3,
+          137,
+          146,
+          "PERSON"
+        ],
+        [
+          5,
+          140,
+          149,
+          "PERSON"
+        ],
+        [
+          5,
+          184,
+          204,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-comunicazione_altra_persona-con_dati_personali-0001",
+      "fp": [
+        [
+          2,
+          20,
+          32,
+          "PERSON"
+        ],
+        [
+          2,
+          66,
+          72,
+          "LOCATION"
+        ],
+        [
+          2,
+          125,
+          145,
+          "PERSON"
+        ],
+        [
+          3,
+          140,
+          146,
+          "LOCATION"
+        ],
+        [
+          5,
+          167,
+          176,
+          "PERSON"
+        ],
+        [
+          5,
+          215,
+          235,
+          "PERSON"
+        ],
+        [
+          6,
+          74,
+          80,
+          "LOCATION"
+        ],
+        [
+          7,
+          21,
+          39,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-comunicazione_altra_persona-con_dati_personali-0002",
+      "fp": [
+        [
+          0,
+          54,
+          63,
+          "PERSON"
+        ],
+        [
+          0,
+          133,
+          142,
+          "PERSON"
+        ],
+        [
+          2,
+          104,
+          121,
+          "PERSON"
+        ],
+        [
+          3,
+          28,
+          37,
+          "PERSON"
+        ],
+        [
+          3,
+          111,
+          120,
+          "PERSON"
+        ],
+        [
+          4,
+          54,
+          60,
+          "LOCATION"
+        ],
+        [
+          5,
+          45,
+          63,
+          "LOCATION"
+        ],
+        [
+          5,
+          89,
+          99,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-comunicazione_altra_persona-con_dati_personali-0003",
+      "fp": [
+        [
+          2,
+          25,
+          37,
+          "PERSON"
+        ],
+        [
+          2,
+          71,
+          77,
+          "LOCATION"
+        ],
+        [
+          2,
+          154,
+          174,
+          "PERSON"
+        ],
+        [
+          3,
+          100,
+          120,
+          "PERSON"
+        ],
+        [
+          3,
+          155,
+          161,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-comunicazione_altra_persona-con_dati_personali-0004",
+      "fp": [
+        [
+          0,
+          59,
+          68,
+          "PERSON"
+        ],
+        [
+          0,
+          129,
+          138,
+          "PERSON"
+        ],
+        [
+          2,
+          20,
+          32,
+          "PERSON"
+        ],
+        [
+          2,
+          139,
+          145,
+          "LOCATION"
+        ],
+        [
+          3,
+          105,
+          125,
+          "PERSON"
+        ],
+        [
+          4,
+          33,
+          56,
+          "PERSON"
+        ],
+        [
+          5,
+          51,
+          71,
+          "PERSON"
+        ],
+        [
+          5,
+          162,
+          171,
+          "PERSON"
+        ],
+        [
+          7,
+          107,
+          116,
+          "PERSON"
+        ],
+        [
+          7,
+          149,
+          169,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-comunicazione_altra_persona-con_dati_personali-0005",
+      "fp": [
+        [
+          1,
+          75,
+          95,
+          "PERSON"
+        ],
+        [
+          2,
+          58,
+          78,
+          "PERSON"
+        ],
+        [
+          2,
+          125,
+          131,
+          "LOCATION"
+        ],
+        [
+          4,
+          76,
+          85,
+          "PERSON"
+        ],
+        [
+          5,
+          156,
+          165,
+          "PERSON"
+        ],
+        [
+          6,
+          55,
+          61,
+          "LOCATION"
+        ],
+        [
+          7,
+          40,
+          58,
+          "LOCATION"
+        ],
+        [
+          7,
+          84,
+          94,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-comunicazione_altra_persona-con_dati_personali-0006",
+      "fp": [
+        [
+          1,
+          79,
+          99,
+          "PERSON"
+        ],
+        [
+          2,
+          39,
+          59,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-comunicazione_altra_persona-con_dati_personali-0007",
+      "fp": [
+        [
+          0,
+          59,
+          68,
+          "PERSON"
+        ],
+        [
+          0,
+          141,
+          150,
+          "PERSON"
+        ],
+        [
+          2,
+          20,
+          32,
+          "PERSON"
+        ],
+        [
+          2,
+          63,
+          81,
+          "LOCATION"
+        ],
+        [
+          3,
+          100,
+          120,
+          "PERSON"
+        ],
+        [
+          3,
+          155,
+          161,
+          "LOCATION"
+        ],
+        [
+          4,
+          48,
+          60,
+          "PERSON"
+        ],
+        [
+          5,
+          70,
+          79,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-comunicazione_altra_persona-con_dati_personali-0008",
+      "fp": [
+        [
+          4,
+          81,
+          90,
+          "PERSON"
+        ],
+        [
+          5,
+          51,
+          63,
+          "PERSON"
+        ],
+        [
+          6,
+          113,
+          131,
+          "PERSON"
+        ],
+        [
+          7,
+          105,
+          114,
+          "PERSON"
+        ],
+        [
+          7,
+          198,
+          210,
+          "PERSON"
+        ],
+        [
+          9,
+          102,
+          111,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-comunicazione_altra_persona-con_dati_personali-0009",
+      "fp": [
+        [
+          2,
+          64,
+          84,
+          "PERSON"
+        ],
+        [
+          5,
+          46,
+          58,
+          "PERSON"
+        ],
+        [
+          5,
+          162,
+          171,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-comunicazione_altra_persona-con_dati_personali-0010",
+      "fp": [
+        [
+          1,
+          79,
+          99,
+          "PERSON"
+        ],
+        [
+          4,
+          71,
+          91,
+          "PERSON"
+        ],
+        [
+          5,
+          180,
+          200,
+          "PERSON"
+        ],
+        [
+          5,
+          235,
+          244,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-cambio_residenza-senza_dati_personali-0009",
+      "fp": [
+        [
+          6,
+          60,
+          76,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-cambio_residenza-con_dati_personali-0002",
+      "fp": [
+        [
+          2,
+          5,
+          16,
+          "PERSON"
+        ]
+      ],
+      "fn": [
+        [
+          2,
+          5,
+          17,
+          "PERSON"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-cambio_residenza-con_dati_personali-0003",
+      "fp": [
+        [
+          2,
+          86,
+          100,
+          "LOCATION"
+        ],
+        [
+          3,
+          86,
+          100,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-cambio_residenza-con_dati_personali-0004",
+      "fp": [
+        [
+          2,
+          103,
+          115,
+          "LOCATION"
+        ],
+        [
+          8,
+          6,
+          18,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-cambio_residenza-con_dati_personali-0006",
+      "fp": [
+        [
+          2,
+          92,
+          104,
+          "LOCATION"
+        ],
+        [
+          3,
+          136,
+          148,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-cambio_residenza-con_dati_personali-0007",
+      "fp": [
+        [
+          3,
+          154,
+          164,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-ricerca_dati_territoriali-senza_dati_personali-0003",
+      "fp": [
+        [
+          1,
+          18,
+          20,
+          "PERSON"
+        ],
+        [
+          5,
+          50,
+          56,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-ricerca_dati_territoriali-senza_dati_personali-0007",
+      "fp": [
+        [
+          5,
+          65,
+          71,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-ricerca_dati_territoriali-senza_dati_personali-0008",
+      "fp": [
+        [
+          1,
+          38,
+          40,
+          "PERSON"
+        ],
+        [
+          3,
+          67,
+          84,
+          "LOCATION"
+        ],
+        [
+          9,
+          50,
+          67,
+          "LOCATION"
+        ]
+      ],
+      "fn": [
+        [
+          3,
+          77,
+          84,
+          "LOCATION"
+        ],
+        [
+          9,
+          60,
+          67,
+          "LOCATION"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-ricerca_dati_territoriali-senza_dati_personali-0009",
+      "fp": [
+        [
+          1,
+          18,
+          20,
+          "PERSON"
+        ],
+        [
+          1,
+          38,
+          40,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-ricerca_dati_territoriali-con_dati_personali-0002",
+      "fp": [
+        [
+          4,
+          74,
+          82,
+          "LOCATION"
+        ],
+        [
+          4,
+          83,
+          90,
+          "PERSON"
+        ],
+        [
+          4,
+          104,
+          112,
+          "LOCATION"
+        ],
+        [
+          4,
+          113,
+          120,
+          "PERSON"
+        ]
+      ],
+      "fn": [
+        [
+          4,
+          104,
+          120,
+          "PERSON"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-ricerca_dati_territoriali-con_dati_personali-0003",
+      "fp": [
+        [
+          4,
+          126,
+          132,
+          "PERSON"
+        ],
+        [
+          4,
+          133,
+          140,
+          "PERSON"
+        ],
+        [
+          9,
+          29,
+          46,
+          "LOCATION"
+        ]
+      ],
+      "fn": [
+        [
+          9,
+          39,
+          46,
+          "LOCATION"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-ricerca_dati_territoriali-con_dati_personali-0004",
+      "fp": [
+        [
+          3,
+          184,
+          191,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-ricerca_dati_territoriali-con_dati_personali-0006",
+      "fp": [
+        [
+          4,
+          48,
+          55,
+          "LOCATION"
+        ],
+        [
+          4,
+          56,
+          64,
+          "PERSON"
+        ],
+        [
+          4,
+          83,
+          90,
+          "LOCATION"
+        ],
+        [
+          4,
+          91,
+          99,
+          "PERSON"
+        ],
+        [
+          5,
+          40,
+          47,
+          "LOCATION"
+        ],
+        [
+          5,
+          48,
+          56,
+          "PERSON"
+        ]
+      ],
+      "fn": [
+        [
+          4,
+          83,
+          99,
+          "PERSON"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-ricerca_dati_territoriali-con_dati_personali-0009",
+      "fp": [
+        [
+          2,
+          85,
+          92,
+          "LOCATION"
+        ],
+        [
+          3,
+          158,
+          165,
+          "PERSON"
+        ],
+        [
+          3,
+          166,
+          173,
+          "PERSON"
+        ],
+        [
+          4,
+          88,
+          103,
+          "LOCATION"
+        ]
+      ],
+      "fn": [
+        [
+          4,
+          88,
+          103,
+          "PERSON"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-ricerca_dati_territoriali-con_dati_personali-0010",
+      "fp": [
+        [
+          2,
+          93,
+          101,
+          "PERSON"
+        ],
+        [
+          3,
+          4,
+          9,
+          "PERSON"
+        ],
+        [
+          5,
+          81,
+          86,
+          "PERSON"
+        ]
+      ],
+      "fn": [
+        [
+          3,
+          4,
+          9,
+          "LOCATION"
+        ],
+        [
+          5,
+          81,
+          86,
+          "LOCATION"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-impresa_acquisita-senza_dati_personali-0001",
+      "fp": [
+        [
+          5,
+          39,
+          49,
+          "PERSON"
+        ],
+        [
+          5,
+          218,
+          228,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-impresa_acquisita-senza_dati_personali-0006",
+      "fp": [
+        [
+          4,
+          46,
+          50,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-impresa_acquisita-senza_dati_personali-0008",
+      "fp": [
+        [
+          5,
+          4,
+          13,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-impresa_acquisita-con_dati_personali-0001",
+      "fp": [
+        [
+          9,
+          108,
+          117,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-impresa_acquisita-con_dati_personali-0004",
+      "fp": [
+        [
+          4,
+          40,
+          52,
+          "PERSON"
+        ],
+        [
+          5,
+          193,
+          205,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-impresa_acquisita-con_dati_personali-0005",
+      "fp": [
+        [
+          4,
+          30,
+          46,
+          "PERSON"
+        ],
+        [
+          4,
+          47,
+          58,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-impresa_acquisita-con_dati_personali-0006",
+      "fp": [
+        [
+          2,
+          68,
+          73,
+          "LOCATION"
+        ],
+        [
+          3,
+          154,
+          170,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-impresa_acquisita-con_dati_personali-0008",
+      "fp": [
+        [
+          4,
+          154,
+          171,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-impresa_acquisita-con_dati_personali-0009",
+      "fp": [
+        [
+          4,
+          52,
+          72,
+          "PERSON"
+        ],
+        [
+          5,
+          212,
+          232,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-referente_irreperibile-senza_dati_personali-0001",
+      "fp": [
+        [
+          0,
+          0,
+          23,
+          "PERSON"
+        ],
+        [
+          1,
+          31,
+          51,
+          "PERSON"
+        ],
+        [
+          2,
+          36,
+          45,
+          "PERSON"
+        ],
+        [
+          3,
+          20,
+          29,
+          "PERSON"
+        ],
+        [
+          3,
+          171,
+          180,
+          "PERSON"
+        ],
+        [
+          5,
+          72,
+          81,
+          "PERSON"
+        ],
+        [
+          5,
+          245,
+          254,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-referente_irreperibile-senza_dati_personali-0002",
+      "fp": [
+        [
+          0,
+          0,
+          23,
+          "PERSON"
+        ],
+        [
+          1,
+          31,
+          40,
+          "PERSON"
+        ],
+        [
+          1,
+          168,
+          177,
+          "PERSON"
+        ],
+        [
+          2,
+          28,
+          37,
+          "PERSON"
+        ],
+        [
+          2,
+          99,
+          108,
+          "PERSON"
+        ],
+        [
+          3,
+          46,
+          55,
+          "PERSON"
+        ],
+        [
+          4,
+          53,
+          73,
+          "PERSON"
+        ],
+        [
+          5,
+          30,
+          50,
+          "PERSON"
+        ],
+        [
+          5,
+          190,
+          199,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-referente_irreperibile-senza_dati_personali-0003",
+      "fp": [
+        [
+          0,
+          0,
+          23,
+          "PERSON"
+        ],
+        [
+          0,
+          75,
+          84,
+          "PERSON"
+        ],
+        [
+          1,
+          52,
+          61,
+          "PERSON"
+        ],
+        [
+          3,
+          62,
+          82,
+          "PERSON"
+        ],
+        [
+          5,
+          26,
+          35,
+          "PERSON"
+        ],
+        [
+          5,
+          186,
+          195,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-referente_irreperibile-senza_dati_personali-0004",
+      "fp": [
+        [
+          0,
+          0,
+          23,
+          "PERSON"
+        ],
+        [
+          1,
+          114,
+          123,
+          "PERSON"
+        ],
+        [
+          3,
+          110,
+          130,
+          "PERSON"
+        ],
+        [
+          4,
+          67,
+          76,
+          "PERSON"
+        ],
+        [
+          5,
+          115,
+          124,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-referente_irreperibile-senza_dati_personali-0005",
+      "fp": [
+        [
+          0,
+          0,
+          23,
+          "PERSON"
+        ],
+        [
+          1,
+          117,
+          126,
+          "PERSON"
+        ],
+        [
+          2,
+          50,
+          70,
+          "PERSON"
+        ],
+        [
+          5,
+          20,
+          29,
+          "PERSON"
+        ],
+        [
+          5,
+          172,
+          181,
+          "PERSON"
+        ],
+        [
+          7,
+          96,
+          116,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-referente_irreperibile-senza_dati_personali-0006",
+      "fp": [
+        [
+          0,
+          0,
+          23,
+          "PERSON"
+        ],
+        [
+          1,
+          42,
+          51,
+          "PERSON"
+        ],
+        [
+          1,
+          81,
+          90,
+          "PERSON"
+        ],
+        [
+          2,
+          49,
+          69,
+          "PERSON"
+        ],
+        [
+          3,
+          144,
+          153,
+          "PERSON"
+        ],
+        [
+          4,
+          37,
+          46,
+          "PERSON"
+        ],
+        [
+          5,
+          111,
+          120,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-referente_irreperibile-senza_dati_personali-0008",
+      "fp": [
+        [
+          0,
+          0,
+          23,
+          "PERSON"
+        ],
+        [
+          0,
+          75,
+          84,
+          "PERSON"
+        ],
+        [
+          1,
+          109,
+          118,
+          "PERSON"
+        ],
+        [
+          2,
+          91,
+          111,
+          "PERSON"
+        ],
+        [
+          3,
+          69,
+          89,
+          "PERSON"
+        ],
+        [
+          5,
+          24,
+          33,
+          "PERSON"
+        ],
+        [
+          5,
+          181,
+          190,
+          "PERSON"
+        ],
+        [
+          6,
+          26,
+          46,
+          "PERSON"
+        ],
+        [
+          7,
+          93,
+          102,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-referente_irreperibile-senza_dati_personali-0009",
+      "fp": [
+        [
+          0,
+          0,
+          23,
+          "PERSON"
+        ],
+        [
+          0,
+          75,
+          84,
+          "PERSON"
+        ],
+        [
+          1,
+          52,
+          72,
+          "PERSON"
+        ],
+        [
+          3,
+          169,
+          178,
+          "PERSON"
+        ],
+        [
+          4,
+          84,
+          93,
+          "PERSON"
+        ],
+        [
+          5,
+          153,
+          173,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-referente_irreperibile-senza_dati_personali-0010",
+      "fp": [
+        [
+          0,
+          0,
+          23,
+          "PERSON"
+        ],
+        [
+          1,
+          31,
+          40,
+          "PERSON"
+        ],
+        [
+          1,
+          129,
+          138,
+          "PERSON"
+        ],
+        [
+          3,
+          160,
+          175,
+          "PERSON"
+        ],
+        [
+          4,
+          35,
+          44,
+          "LOCATION"
+        ],
+        [
+          4,
+          72,
+          81,
+          "PERSON"
+        ],
+        [
+          4,
+          110,
+          119,
+          "PERSON"
+        ],
+        [
+          5,
+          125,
+          134,
+          "PERSON"
+        ],
+        [
+          5,
+          256,
+          265,
+          "PERSON"
+        ],
+        [
+          6,
+          28,
+          48,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-referente_irreperibile-con_dati_personali-0001",
+      "fp": [
+        [
+          1,
+          42,
+          51,
+          "PERSON"
+        ],
+        [
+          1,
+          179,
+          188,
+          "PERSON"
+        ],
+        [
+          2,
+          87,
+          92,
+          "LOCATION"
+        ],
+        [
+          4,
+          111,
+          120,
+          "PERSON"
+        ],
+        [
+          5,
+          188,
+          208,
+          "PERSON"
+        ],
+        [
+          5,
+          242,
+          251,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-referente_irreperibile-con_dati_personali-0002",
+      "fp": [
+        [
+          0,
+          0,
+          23,
+          "PERSON"
+        ],
+        [
+          1,
+          31,
+          51,
+          "PERSON"
+        ],
+        [
+          3,
+          97,
+          106,
+          "PERSON"
+        ],
+        [
+          4,
+          32,
+          38,
+          "PERSON"
+        ],
+        [
+          4,
+          39,
+          50,
+          "PERSON"
+        ],
+        [
+          5,
+          38,
+          49,
+          "PERSON"
+        ],
+        [
+          6,
+          85,
+          94,
+          "PERSON"
+        ],
+        [
+          7,
+          115,
+          124,
+          "PERSON"
+        ],
+        [
+          7,
+          208,
+          217,
+          "PERSON"
+        ],
+        [
+          8,
+          41,
+          51,
+          "LOCATION"
+        ],
+        [
+          9,
+          134,
+          144,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-referente_irreperibile-con_dati_personali-0003",
+      "fp": [
+        [
+          0,
+          0,
+          23,
+          "PERSON"
+        ],
+        [
+          1,
+          52,
+          61,
+          "PERSON"
+        ],
+        [
+          2,
+          37,
+          44,
+          "PERSON"
+        ],
+        [
+          2,
+          45,
+          56,
+          "LOCATION"
+        ],
+        [
+          4,
+          67,
+          76,
+          "PERSON"
+        ],
+        [
+          5,
+          108,
+          117,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-referente_irreperibile-con_dati_personali-0004",
+      "fp": [
+        [
+          1,
+          31,
+          40,
+          "PERSON"
+        ],
+        [
+          1,
+          154,
+          163,
+          "PERSON"
+        ],
+        [
+          2,
+          116,
+          125,
+          "PERSON"
+        ],
+        [
+          3,
+          32,
+          41,
+          "PERSON"
+        ],
+        [
+          6,
+          48,
+          68,
+          "PERSON"
+        ],
+        [
+          7,
+          70,
+          90,
+          "PERSON"
+        ],
+        [
+          9,
+          90,
+          99,
+          "PERSON"
+        ],
+        [
+          9,
+          153,
+          162,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-referente_irreperibile-con_dati_personali-0005",
+      "fp": [
+        [
+          0,
+          0,
+          23,
+          "PERSON"
+        ],
+        [
+          1,
+          42,
+          51,
+          "PERSON"
+        ],
+        [
+          1,
+          129,
+          138,
+          "PERSON"
+        ],
+        [
+          2,
+          82,
+          100,
+          "PERSON"
+        ],
+        [
+          3,
+          44,
+          62,
+          "PERSON"
+        ],
+        [
+          4,
+          74,
+          83,
+          "PERSON"
+        ],
+        [
+          5,
+          139,
+          148,
+          "PERSON"
+        ],
+        [
+          5,
+          224,
+          233,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-referente_irreperibile-con_dati_personali-0006",
+      "fp": [
+        [
+          0,
+          0,
+          23,
+          "PERSON"
+        ],
+        [
+          1,
+          42,
+          51,
+          "PERSON"
+        ],
+        [
+          1,
+          179,
+          188,
+          "PERSON"
+        ],
+        [
+          3,
+          143,
+          152,
+          "PERSON"
+        ],
+        [
+          4,
+          36,
+          41,
+          "LOCATION"
+        ],
+        [
+          5,
+          69,
+          78,
+          "PERSON"
+        ],
+        [
+          5,
+          233,
+          242,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-referente_irreperibile-con_dati_personali-0007",
+      "fp": [
+        [
+          0,
+          0,
+          23,
+          "PERSON"
+        ],
+        [
+          1,
+          31,
+          40,
+          "PERSON"
+        ],
+        [
+          1,
+          209,
+          218,
+          "PERSON"
+        ],
+        [
+          2,
+          119,
+          126,
+          "PERSON"
+        ],
+        [
+          3,
+          42,
+          57,
+          "PERSON"
+        ],
+        [
+          4,
+          78,
+          87,
+          "PERSON"
+        ],
+        [
+          5,
+          159,
+          168,
+          "PERSON"
+        ],
+        [
+          6,
+          51,
+          71,
+          "PERSON"
+        ],
+        [
+          7,
+          136,
+          151,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-referente_irreperibile-con_dati_personali-0008",
+      "fp": [
+        [
+          1,
+          42,
+          51,
+          "PERSON"
+        ],
+        [
+          1,
+          152,
+          161,
+          "PERSON"
+        ],
+        [
+          5,
+          112,
+          121,
+          "PERSON"
+        ],
+        [
+          7,
+          50,
+          59,
+          "PERSON"
+        ],
+        [
+          7,
+          218,
+          227,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-referente_irreperibile-con_dati_personali-0009",
+      "fp": [
+        [
+          1,
+          42,
+          51,
+          "PERSON"
+        ],
+        [
+          1,
+          179,
+          188,
+          "PERSON"
+        ],
+        [
+          6,
+          67,
+          87,
+          "PERSON"
+        ],
+        [
+          7,
+          74,
+          94,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-referente_irreperibile-con_dati_personali-0010",
+      "fp": [
+        [
+          0,
+          0,
+          23,
+          "PERSON"
+        ],
+        [
+          1,
+          31,
+          40,
+          "PERSON"
+        ],
+        [
+          1,
+          168,
+          177,
+          "PERSON"
+        ],
+        [
+          2,
+          40,
+          47,
+          "PERSON"
+        ],
+        [
+          3,
+          87,
+          96,
+          "PERSON"
+        ],
+        [
+          3,
+          222,
+          231,
+          "PERSON"
+        ],
+        [
+          4,
+          111,
+          120,
+          "PERSON"
+        ],
+        [
+          5,
+          182,
+          191,
+          "PERSON"
+        ],
+        [
+          5,
+          226,
+          235,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-ricevuta_sollecito_conflitto-senza_dati_personali-0004",
+      "fp": [
+        [
+          5,
+          35,
+          45,
+          "PERSON"
+        ],
+        [
+          5,
+          197,
+          207,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-ricevuta_sollecito_conflitto-senza_dati_personali-0007",
+      "fp": [
+        [
+          3,
+          4,
+          13,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-ricevuta_sollecito_conflitto-senza_dati_personali-0008",
+      "fp": [
+        [
+          3,
+          155,
+          164,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-ricevuta_sollecito_conflitto-con_dati_personali-0002",
+      "fp": [
+        [
+          2,
+          128,
+          132,
+          "PERSON"
+        ],
+        [
+          3,
+          207,
+          211,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-ricevuta_sollecito_conflitto-con_dati_personali-0003",
+      "fp": [
+        [
+          2,
+          35,
+          51,
+          "PERSON"
+        ],
+        [
+          3,
+          135,
+          142,
+          "PERSON"
+        ],
+        [
+          3,
+          143,
+          151,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-ricevuta_sollecito_conflitto-con_dati_personali-0004",
+      "fp": [
+        [
+          2,
+          47,
+          54,
+          "PERSON"
+        ],
+        [
+          2,
+          55,
+          62,
+          "PERSON"
+        ],
+        [
+          3,
+          153,
+          160,
+          "PERSON"
+        ],
+        [
+          3,
+          161,
+          168,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-ricevuta_sollecito_conflitto-con_dati_personali-0006",
+      "fp": [
+        [
+          2,
+          64,
+          70,
+          "PERSON"
+        ],
+        [
+          2,
+          71,
+          78,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-ricevuta_sollecito_conflitto-con_dati_personali-0007",
+      "fp": [
+        [
+          2,
+          26,
+          30,
+          "PERSON"
+        ],
+        [
+          2,
+          31,
+          43,
+          "PERSON"
+        ],
+        [
+          3,
+          65,
+          69,
+          "PERSON"
+        ],
+        [
+          3,
+          70,
+          82,
+          "PERSON"
+        ],
+        [
+          6,
+          27,
+          36,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-ricevuta_sollecito_conflitto-con_dati_personali-0008",
+      "fp": [
+        [
+          2,
+          91,
+          97,
+          "PERSON"
+        ],
+        [
+          3,
+          192,
+          204,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-ricevuta_sollecito_conflitto-con_dati_personali-0010",
+      "fp": [
+        [
+          2,
+          33,
+          40,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-obbligo_sanzione-senza_dati_personali-0001",
+      "fp": [
+        [
+          5,
+          16,
+          27,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-obbligo_sanzione-senza_dati_personali-0009",
+      "fp": [
+        [
+          3,
+          4,
+          13,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-obbligo_sanzione-con_dati_personali-0002",
+      "fp": [
+        [
+          2,
+          68,
+          78,
+          "PERSON"
+        ],
+        [
+          3,
+          89,
+          99,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-obbligo_sanzione-con_dati_personali-0003",
+      "fp": [
+        [
+          3,
+          4,
+          13,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-obbligo_sanzione-con_dati_personali-0004",
+      "fp": [
+        [
+          4,
+          26,
+          35,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-obbligo_sanzione-con_dati_personali-0006",
+      "fp": [
+        [
+          4,
+          26,
+          35,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-obbligo_sanzione-con_dati_personali-0009",
+      "fp": [
+        [
+          2,
+          16,
+          25,
+          "LOCATION"
+        ],
+        [
+          3,
+          90,
+          99,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-tracciamento_richiesta_documento-con_dati_personali-0001",
+      "fp": [
+        [
+          2,
+          36,
+          44,
+          "PERSON"
+        ],
+        [
+          2,
+          45,
+          56,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-tracciamento_richiesta_documento-con_dati_personali-0002",
+      "fp": [
+        [
+          2,
+          15,
+          36,
+          "PERSON"
+        ],
+        [
+          2,
+          37,
+          48,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-tracciamento_richiesta_documento-con_dati_personali-0003",
+      "fp": [
+        [
+          2,
+          56,
+          71,
+          "PERSON"
+        ],
+        [
+          2,
+          72,
+          83,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-tracciamento_richiesta_documento-con_dati_personali-0004",
+      "fp": [
+        [
+          2,
+          15,
+          31,
+          "PERSON"
+        ],
+        [
+          2,
+          32,
+          43,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-tracciamento_richiesta_documento-con_dati_personali-0005",
+      "fp": [
+        [
+          2,
+          51,
+          58,
+          "PERSON"
+        ],
+        [
+          2,
+          67,
+          78,
+          "LOCATION"
+        ],
+        [
+          4,
+          22,
+          32,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-tracciamento_richiesta_documento-con_dati_personali-0006",
+      "fp": [
+        [
+          2,
+          31,
+          37,
+          "PERSON"
+        ],
+        [
+          2,
+          45,
+          56,
+          "LOCATION"
+        ],
+        [
+          3,
+          59,
+          72,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-tracciamento_richiesta_documento-con_dati_personali-0007",
+      "fp": [
+        [
+          2,
+          71,
+          79,
+          "PERSON"
+        ],
+        [
+          3,
+          51,
+          67,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-tracciamento_richiesta_documento-con_dati_personali-0008",
+      "fp": [
+        [
+          2,
+          68,
+          78,
+          "PERSON"
+        ],
+        [
+          3,
+          70,
+          80,
+          "LOCATION"
+        ],
+        [
+          3,
+          81,
+          87,
+          "PERSON"
+        ],
+        [
+          6,
+          84,
+          89,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-tracciamento_richiesta_documento-con_dati_personali-0009",
+      "fp": [
+        [
+          2,
+          57,
+          65,
+          "PERSON"
+        ],
+        [
+          3,
+          84,
+          98,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-accesso_microdati-senza_dati_personali-0010",
+      "fp": [
+        [
+          2,
+          57,
+          63,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_extra-recupero_accesso-senza_dati_personali-0001",
+      "fp": [
+        [
+          1,
+          31,
+          39,
+          "PERSON"
+        ],
+        [
+          2,
+          0,
+          13,
+          "PERSON"
+        ],
+        [
+          3,
+          126,
+          134,
+          "LOCATION"
+        ],
+        [
+          5,
+          32,
+          40,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_extra-recupero_accesso-con_dati_personali-0001",
+      "fp": [
+        [
+          3,
+          141,
+          149,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_extra-comunicazione_altra_persona-senza_dati_personali-0001",
+      "fp": [
+        [
+          0,
+          59,
+          68,
+          "PERSON"
+        ],
+        [
+          0,
+          145,
+          154,
+          "PERSON"
+        ],
+        [
+          2,
+          8,
+          20,
+          "PERSON"
+        ],
+        [
+          3,
+          134,
+          143,
+          "PERSON"
+        ],
+        [
+          5,
+          77,
+          86,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_extra-comunicazione_altra_persona-con_dati_personali-0001",
+      "fp": [
+        [
+          4,
+          60,
+          66,
+          "LOCATION"
+        ],
+        [
+          5,
+          264,
+          270,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_extra-cambio_residenza-senza_dati_personali-0001",
+      "fp": [
+        [
+          4,
+          80,
+          89,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_extra-cambio_residenza-con_dati_personali-0001",
+      "fp": [
+        [
+          4,
+          49,
+          65,
+          "LOCATION"
+        ],
+        [
+          5,
+          159,
+          175,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_extra-ricerca_dati_territoriali-con_dati_personali-0001",
+      "fp": [
+        [
+          3,
+          168,
+          174,
+          "LOCATION"
+        ],
+        [
+          5,
+          164,
+          167,
+          "PERSON"
+        ]
+      ],
+      "fn": [
+        [
+          5,
+          164,
+          167,
+          "LOCATION"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0002",
+      "fp": [
+        [
+          6,
+          41,
+          57,
+          "PERSON"
+        ]
+      ],
+      "fn": [
+        [
+          6,
+          41,
+          61,
+          "LOCATION"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0006",
+      "fp": [
+        [
+          0,
+          147,
+          165,
+          "LOCATION"
+        ],
+        [
+          0,
+          167,
+          176,
+          "LOCATION"
+        ],
+        [
+          7,
+          64,
+          82,
+          "LOCATION"
+        ],
+        [
+          7,
+          84,
+          93,
+          "LOCATION"
+        ]
+      ],
+      "fn": [
+        [
+          0,
+          147,
+          176,
+          "LOCATION"
+        ],
+        [
+          7,
+          64,
+          93,
+          "LOCATION"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0007",
+      "fp": [
+        [
+          0,
+          8,
+          17,
+          "PERSON"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0018",
+      "fp": [
+        [
+          0,
+          147,
+          168,
+          "LOCATION"
+        ],
+        [
+          0,
+          170,
+          177,
+          "LOCATION"
+        ],
+        [
+          5,
+          163,
+          184,
+          "LOCATION"
+        ],
+        [
+          5,
+          186,
+          193,
+          "LOCATION"
+        ]
+      ],
+      "fn": [
+        [
+          0,
+          147,
+          177,
+          "LOCATION"
+        ],
+        [
+          5,
+          163,
+          193,
+          "LOCATION"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0024",
+      "fp": [
+        [
+          0,
+          140,
+          160,
+          "LOCATION"
+        ],
+        [
+          0,
+          162,
+          172,
+          "LOCATION"
+        ],
+        [
+          1,
+          15,
+          35,
+          "LOCATION"
+        ],
+        [
+          1,
+          37,
+          47,
+          "LOCATION"
+        ]
+      ],
+      "fn": [
+        [
+          0,
+          140,
+          172,
+          "LOCATION"
+        ],
+        [
+          1,
+          15,
+          47,
+          "LOCATION"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0030",
+      "fp": [
+        [
+          0,
+          8,
+          17,
+          "PERSON"
+        ],
+        [
+          0,
+          178,
+          197,
+          "LOCATION"
+        ],
+        [
+          0,
+          199,
+          209,
+          "LOCATION"
+        ],
+        [
+          3,
+          217,
+          236,
+          "LOCATION"
+        ],
+        [
+          3,
+          238,
+          248,
+          "LOCATION"
+        ]
+      ],
+      "fn": [
+        [
+          0,
+          178,
+          209,
+          "LOCATION"
+        ],
+        [
+          3,
+          217,
+          248,
+          "LOCATION"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0001",
+      "fp": [
+        [
+          4,
+          39,
+          51,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0002",
+      "fp": [
+        [
+          2,
+          93,
+          109,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0003",
+      "fp": [
+        [
+          4,
+          60,
+          76,
+          "LOCATION"
+        ],
+        [
+          5,
+          122,
+          138,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0005",
+      "fp": [
+        [
+          2,
+          124,
+          140,
+          "LOCATION"
+        ],
+        [
+          4,
+          100,
+          117,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0006",
+      "fp": [
+        [
+          1,
+          177,
+          186,
+          "LOCATION"
+        ],
+        [
+          2,
+          23,
+          52,
+          "LOCATION"
+        ],
+        [
+          2,
+          54,
+          61,
+          "LOCATION"
+        ],
+        [
+          3,
+          23,
+          52,
+          "LOCATION"
+        ],
+        [
+          3,
+          54,
+          61,
+          "LOCATION"
+        ]
+      ],
+      "fn": [
+        [
+          2,
+          23,
+          61,
+          "LOCATION"
+        ],
+        [
+          3,
+          23,
+          61,
+          "LOCATION"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0008",
+      "fp": [
+        [
+          2,
+          59,
+          74,
+          "LOCATION"
+        ]
+      ],
+      "fn": [
+        [
+          2,
+          59,
+          74,
+          "PERSON"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0009",
+      "fp": [
+        [
+          2,
+          70,
+          84,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0010",
+      "fp": [
+        [
+          5,
+          89,
+          101,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0012",
+      "fp": [
+        [
+          2,
+          66,
+          87,
+          "LOCATION"
+        ],
+        [
+          2,
+          89,
+          98,
+          "LOCATION"
+        ],
+        [
+          3,
+          22,
+          43,
+          "LOCATION"
+        ],
+        [
+          3,
+          45,
+          54,
+          "LOCATION"
+        ],
+        [
+          4,
+          59,
+          75,
+          "LOCATION"
+        ]
+      ],
+      "fn": [
+        [
+          2,
+          66,
+          98,
+          "LOCATION"
+        ],
+        [
+          3,
+          22,
+          54,
+          "LOCATION"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0013",
+      "fp": [
+        [
+          2,
+          110,
+          120,
+          "LOCATION"
+        ],
+        [
+          4,
+          77,
+          81,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0015",
+      "fp": [
+        [
+          2,
+          126,
+          136,
+          "LOCATION"
+        ]
+      ],
+      "fn": [
+        [
+          4,
+          69,
+          91,
+          "LOCATION"
+        ],
+        [
+          5,
+          77,
+          99,
+          "LOCATION"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0018",
+      "fp": [
+        [
+          2,
+          38,
+          52,
+          "LOCATION"
+        ],
+        [
+          2,
+          54,
+          64,
+          "LOCATION"
+        ],
+        [
+          5,
+          102,
+          116,
+          "LOCATION"
+        ],
+        [
+          5,
+          118,
+          128,
+          "LOCATION"
+        ]
+      ],
+      "fn": [
+        [
+          2,
+          38,
+          64,
+          "LOCATION"
+        ],
+        [
+          5,
+          102,
+          128,
+          "LOCATION"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0019",
+      "fp": [
+        [
+          4,
+          70,
+          82,
+          "LOCATION"
+        ],
+        [
+          5,
+          171,
+          183,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0020",
+      "fp": [
+        [
+          2,
+          109,
+          121,
+          "LOCATION"
+        ],
+        [
+          3,
+          18,
+          28,
+          "PERSON"
+        ],
+        [
+          3,
+          129,
+          141,
+          "LOCATION"
+        ],
+        [
+          3,
+          145,
+          155,
+          "PERSON"
+        ],
+        [
+          4,
+          86,
+          103,
+          "LOCATION"
+        ],
+        [
+          6,
+          102,
+          119,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0021",
+      "fp": [
+        [
+          4,
+          34,
+          46,
+          "LOCATION"
+        ],
+        [
+          5,
+          152,
+          164,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0022",
+      "fp": [
+        [
+          2,
+          91,
+          103,
+          "LOCATION"
+        ],
+        [
+          3,
+          221,
+          233,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0023",
+      "fp": [
+        [
+          2,
+          144,
+          156,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0024",
+      "fp": [
+        [
+          2,
+          47,
+          69,
+          "LOCATION"
+        ],
+        [
+          2,
+          71,
+          81,
+          "LOCATION"
+        ],
+        [
+          5,
+          118,
+          140,
+          "LOCATION"
+        ],
+        [
+          5,
+          142,
+          152,
+          "LOCATION"
+        ],
+        [
+          6,
+          54,
+          71,
+          "LOCATION"
+        ]
+      ],
+      "fn": [
+        [
+          2,
+          47,
+          81,
+          "LOCATION"
+        ],
+        [
+          5,
+          118,
+          152,
+          "LOCATION"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0025",
+      "fp": [
+        [
+          1,
+          176,
+          196,
+          "LOCATION"
+        ],
+        [
+          4,
+          88,
+          105,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0027",
+      "fp": [
+        [
+          1,
+          178,
+          198,
+          "LOCATION"
+        ],
+        [
+          7,
+          82,
+          94,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0028",
+      "fp": [
+        [
+          4,
+          35,
+          47,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0030",
+      "fp": [
+        [
+          0,
+          67,
+          83,
+          "LOCATION"
+        ],
+        [
+          0,
+          85,
+          92,
+          "LOCATION"
+        ]
+      ],
+      "fn": [
+        [
+          0,
+          67,
+          92,
+          "LOCATION"
+        ]
+      ]
+    }
+  ]
+}

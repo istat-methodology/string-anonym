@@ -1,0 +1,909 @@
+{
+  "versione": "1.1",
+  "conversazioni_totali": 289,
+  "conversazioni_valutate": 289,
+  "fallimenti_tecnici": [],
+  "nota": "Metriche sui soli esiti ok; fallimenti e predizioni mancanti esclusi e riportati separatamente. Annotazioni attese non necessariamente revisionate.",
+  "span_esatti_micro": {
+    "tp": 372,
+    "fp": 58,
+    "fn": 47,
+    "precision": 0.8651162790697674,
+    "recall": 0.8878281622911695,
+    "f1": 0.8763250883392226
+  },
+  "focus": {
+    "categorie": [
+      "LOCATION",
+      "PERSON"
+    ],
+    "span_esatti_micro": {
+      "tp": 372,
+      "fp": 58,
+      "fn": 47,
+      "precision": 0.8651162790697674,
+      "recall": 0.8878281622911695,
+      "f1": 0.8763250883392226
+    }
+  },
+  "per_tipo": {
+    "LOCATION": {
+      "tp": 259,
+      "fp": 46,
+      "fn": 37,
+      "precision": 0.8491803278688524,
+      "recall": 0.875,
+      "f1": 0.8618968386023295
+    },
+    "PERSON": {
+      "tp": 113,
+      "fp": 12,
+      "fn": 10,
+      "precision": 0.904,
+      "recall": 0.9186991869918699,
+      "f1": 0.9112903225806451
+    }
+  },
+  "per_ruolo": {
+    "Utente": {
+      "tp": 242,
+      "fp": 31,
+      "fn": 27,
+      "precision": 0.8864468864468864,
+      "recall": 0.8996282527881041,
+      "f1": 0.8929889298892989
+    },
+    "Agente": {
+      "tp": 130,
+      "fp": 27,
+      "fn": 20,
+      "precision": 0.8280254777070064,
+      "recall": 0.8666666666666667,
+      "f1": 0.8469055374592834
+    }
+  },
+  "caratteri": {
+    "sensibili_attesi": 6375,
+    "sensibili_coperti": 5989,
+    "sensibili_scoperti": 386,
+    "non_sensibili_mascherati": 17,
+    "non_sensibili_totali": 284243,
+    "recall_copertura": 0.9394509803921569
+  },
+  "conversazioni_con_omissioni_caratteri": 21,
+  "conversazioni_con_dati_attesi_valutate": 126,
+  "negative_valutate": 163,
+  "negative_con_falsi_positivi": 0,
+  "errori_span": [
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-assistenza_compilazione-con_dati_personali-0006",
+      "fp": [
+        [
+          2,
+          154,
+          161,
+          "PERSON"
+        ]
+      ],
+      "fn": [
+        [
+          2,
+          144,
+          161,
+          "PERSON"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-assistenza_compilazione-con_dati_personali-0009",
+      "fp": [
+        [
+          0,
+          150,
+          164,
+          "LOCATION"
+        ]
+      ],
+      "fn": [
+        [
+          0,
+          150,
+          174,
+          "LOCATION"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-comunicazione_altra_persona-con_dati_personali-0010",
+      "fp": [
+        [
+          2,
+          120,
+          137,
+          "LOCATION"
+        ]
+      ],
+      "fn": [
+        [
+          2,
+          120,
+          137,
+          "PERSON"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-cambio_residenza-con_dati_personali-0009",
+      "fp": [
+        [
+          2,
+          38,
+          40,
+          "LOCATION"
+        ],
+        [
+          3,
+          157,
+          163,
+          "LOCATION"
+        ],
+        [
+          3,
+          167,
+          169,
+          "LOCATION"
+        ]
+      ],
+      "fn": [
+        [
+          2,
+          28,
+          40,
+          "LOCATION"
+        ],
+        [
+          3,
+          157,
+          169,
+          "LOCATION"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-ricerca_dati_territoriali-senza_dati_personali-0003",
+      "fp": [
+        [
+          3,
+          77,
+          85,
+          "LOCATION"
+        ]
+      ],
+      "fn": [
+        [
+          3,
+          77,
+          83,
+          "LOCATION"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-ricerca_dati_territoriali-con_dati_personali-0005",
+      "fp": [
+        [
+          2,
+          36,
+          55,
+          "PERSON"
+        ]
+      ],
+      "fn": [
+        [
+          2,
+          36,
+          53,
+          "PERSON"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-ricerca_dati_territoriali-con_dati_personali-0009",
+      "fp": [
+        [
+          5,
+          97,
+          98,
+          "LOCATION"
+        ]
+      ],
+      "fn": []
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-ricerca_dati_territoriali-con_dati_personali-0010",
+      "fp": [
+        [
+          3,
+          4,
+          11,
+          "PERSON"
+        ],
+        [
+          4,
+          40,
+          44,
+          "LOCATION"
+        ],
+        [
+          5,
+          81,
+          86,
+          "PERSON"
+        ]
+      ],
+      "fn": [
+        [
+          3,
+          4,
+          9,
+          "LOCATION"
+        ],
+        [
+          5,
+          81,
+          86,
+          "LOCATION"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-referente_irreperibile-con_dati_personali-0001",
+      "fp": [
+        [
+          3,
+          106,
+          112,
+          "PERSON"
+        ]
+      ],
+      "fn": [
+        [
+          3,
+          98,
+          112,
+          "PERSON"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-referente_irreperibile-con_dati_personali-0004",
+      "fp": [
+        [
+          4,
+          57,
+          70,
+          "PERSON"
+        ]
+      ],
+      "fn": [
+        [
+          4,
+          57,
+          68,
+          "PERSON"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_extra-ricerca_dati_territoriali-con_dati_personali-0001",
+      "fp": [
+        [
+          5,
+          164,
+          167,
+          "PERSON"
+        ]
+      ],
+      "fn": [
+        [
+          5,
+          164,
+          167,
+          "LOCATION"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0002",
+      "fp": [
+        [
+          0,
+          193,
+          196,
+          "LOCATION"
+        ],
+        [
+          1,
+          125,
+          128,
+          "LOCATION"
+        ],
+        [
+          6,
+          58,
+          61,
+          "LOCATION"
+        ]
+      ],
+      "fn": [
+        [
+          0,
+          176,
+          196,
+          "LOCATION"
+        ],
+        [
+          1,
+          108,
+          128,
+          "LOCATION"
+        ],
+        [
+          6,
+          41,
+          61,
+          "LOCATION"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0006",
+      "fp": [
+        [
+          0,
+          147,
+          165,
+          "LOCATION"
+        ],
+        [
+          0,
+          175,
+          176,
+          "LOCATION"
+        ],
+        [
+          7,
+          64,
+          82,
+          "LOCATION"
+        ],
+        [
+          7,
+          92,
+          93,
+          "LOCATION"
+        ]
+      ],
+      "fn": [
+        [
+          0,
+          147,
+          176,
+          "LOCATION"
+        ],
+        [
+          7,
+          64,
+          93,
+          "LOCATION"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0008",
+      "fp": [
+        [
+          4,
+          63,
+          69,
+          "LOCATION"
+        ],
+        [
+          4,
+          92,
+          100,
+          "PERSON"
+        ],
+        [
+          4,
+          106,
+          111,
+          "PERSON"
+        ]
+      ],
+      "fn": [
+        [
+          0,
+          177,
+          194,
+          "LOCATION"
+        ],
+        [
+          4,
+          44,
+          61,
+          "LOCATION"
+        ],
+        [
+          4,
+          63,
+          67,
+          "LOCATION"
+        ],
+        [
+          4,
+          92,
+          111,
+          "PERSON"
+        ],
+        [
+          5,
+          186,
+          203,
+          "LOCATION"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0018",
+      "fp": [
+        [
+          0,
+          147,
+          168,
+          "LOCATION"
+        ],
+        [
+          5,
+          163,
+          184,
+          "LOCATION"
+        ],
+        [
+          5,
+          192,
+          193,
+          "LOCATION"
+        ]
+      ],
+      "fn": [
+        [
+          0,
+          147,
+          177,
+          "LOCATION"
+        ],
+        [
+          5,
+          163,
+          193,
+          "LOCATION"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0020",
+      "fp": [
+        [
+          0,
+          160,
+          163,
+          "LOCATION"
+        ]
+      ],
+      "fn": [
+        [
+          0,
+          149,
+          163,
+          "LOCATION"
+        ],
+        [
+          3,
+          53,
+          67,
+          "LOCATION"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0024",
+      "fp": [
+        [
+          0,
+          140,
+          160,
+          "LOCATION"
+        ],
+        [
+          0,
+          170,
+          172,
+          "LOCATION"
+        ],
+        [
+          1,
+          15,
+          35,
+          "LOCATION"
+        ],
+        [
+          1,
+          45,
+          47,
+          "LOCATION"
+        ]
+      ],
+      "fn": [
+        [
+          0,
+          140,
+          172,
+          "LOCATION"
+        ],
+        [
+          1,
+          15,
+          47,
+          "LOCATION"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0026",
+      "fp": [],
+      "fn": [
+        [
+          0,
+          200,
+          210,
+          "LOCATION"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0030",
+      "fp": [
+        [
+          0,
+          178,
+          197,
+          "LOCATION"
+        ],
+        [
+          0,
+          207,
+          209,
+          "LOCATION"
+        ],
+        [
+          3,
+          217,
+          236,
+          "LOCATION"
+        ],
+        [
+          3,
+          246,
+          248,
+          "LOCATION"
+        ]
+      ],
+      "fn": [
+        [
+          0,
+          178,
+          209,
+          "LOCATION"
+        ],
+        [
+          3,
+          217,
+          248,
+          "LOCATION"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0006",
+      "fp": [
+        [
+          2,
+          23,
+          52,
+          "LOCATION"
+        ],
+        [
+          3,
+          23,
+          52,
+          "LOCATION"
+        ]
+      ],
+      "fn": [
+        [
+          2,
+          23,
+          61,
+          "LOCATION"
+        ],
+        [
+          3,
+          23,
+          61,
+          "LOCATION"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0008",
+      "fp": [],
+      "fn": [
+        [
+          0,
+          67,
+          78,
+          "LOCATION"
+        ],
+        [
+          3,
+          104,
+          115,
+          "LOCATION"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0012",
+      "fp": [
+        [
+          2,
+          66,
+          87,
+          "LOCATION"
+        ],
+        [
+          2,
+          97,
+          98,
+          "LOCATION"
+        ],
+        [
+          3,
+          22,
+          43,
+          "LOCATION"
+        ],
+        [
+          3,
+          53,
+          54,
+          "LOCATION"
+        ]
+      ],
+      "fn": [
+        [
+          2,
+          66,
+          98,
+          "LOCATION"
+        ],
+        [
+          3,
+          22,
+          54,
+          "LOCATION"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0018",
+      "fp": [
+        [
+          2,
+          38,
+          52,
+          "LOCATION"
+        ],
+        [
+          2,
+          62,
+          64,
+          "LOCATION"
+        ],
+        [
+          5,
+          102,
+          116,
+          "LOCATION"
+        ],
+        [
+          5,
+          126,
+          128,
+          "LOCATION"
+        ]
+      ],
+      "fn": [
+        [
+          2,
+          38,
+          64,
+          "LOCATION"
+        ],
+        [
+          5,
+          102,
+          128,
+          "LOCATION"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0019",
+      "fp": [
+        [
+          3,
+          22,
+          31,
+          "LOCATION"
+        ],
+        [
+          3,
+          33,
+          35,
+          "LOCATION"
+        ]
+      ],
+      "fn": [
+        [
+          3,
+          22,
+          35,
+          "LOCATION"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0020",
+      "fp": [
+        [
+          2,
+          62,
+          79,
+          "PERSON"
+        ]
+      ],
+      "fn": [
+        [
+          2,
+          62,
+          77,
+          "PERSON"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0022",
+      "fp": [
+        [
+          2,
+          64,
+          72,
+          "PERSON"
+        ],
+        [
+          3,
+          206,
+          219,
+          "LOCATION"
+        ]
+      ],
+      "fn": [
+        [
+          2,
+          59,
+          72,
+          "PERSON"
+        ],
+        [
+          3,
+          206,
+          219,
+          "PERSON"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0024",
+      "fp": [
+        [
+          2,
+          47,
+          69,
+          "LOCATION"
+        ],
+        [
+          2,
+          79,
+          81,
+          "LOCATION"
+        ],
+        [
+          5,
+          118,
+          140,
+          "LOCATION"
+        ],
+        [
+          5,
+          150,
+          152,
+          "LOCATION"
+        ]
+      ],
+      "fn": [
+        [
+          2,
+          47,
+          81,
+          "LOCATION"
+        ],
+        [
+          5,
+          118,
+          152,
+          "LOCATION"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0028",
+      "fp": [
+        [
+          2,
+          33,
+          42,
+          "PERSON"
+        ]
+      ],
+      "fn": [
+        [
+          2,
+          33,
+          50,
+          "PERSON"
+        ]
+      ]
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0030",
+      "fp": [
+        [
+          0,
+          67,
+          83,
+          "LOCATION"
+        ]
+      ],
+      "fn": [
+        [
+          0,
+          67,
+          92,
+          "LOCATION"
+        ]
+      ]
+    }
+  ]
+}
