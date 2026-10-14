@@ -64,6 +64,11 @@ def carica(path):
             raise ValueError('Mappatura etichette non valida')
         if set(m['unisci_adiacenti']) - tipi_ammessi:
             raise ValueError('Categorie di aggregazione non valide')
+        sequenze = m.get('unisci_sequenze_native', [])
+        if (not isinstance(sequenze, list) or
+                any(not isinstance(coppia, list) or len(coppia) != 2 for coppia in sequenze) or
+                any(label not in m['etichette'] for coppia in sequenze for label in coppia)):
+            raise ValueError('Sequenze native di aggregazione non valide')
     inputs = leggi(ROOT / cfg['input'])
     gold = leggi(ROOT / cfg['attese'])
     # Valida i riferimenti prima di scaricare pesi o creare cartelle.
@@ -72,6 +77,16 @@ def carica(path):
         gold = [{**r, 'annotazioni':[a for a in r['annotazioni'] if a['tipo'] in tipi_valutati]}
                 for r in gold]
     return cfg, inputs, gold
+
+
+def confini_contenuto(testo, start, end):
+    """Esclude spazi e separatori esterni inclusi dal tokenizer."""
+    separatori = ' \t\r\n,;:'
+    while start < end and testo[start] in separatori:
+        start += 1
+    while end > start and testo[end-1] in separatori:
+        end -= 1
+    return start, end
 
 
 def normalizza(raw, testo, m):
@@ -86,10 +101,7 @@ def normalizza(raw, testo, m):
             raise ValueError('Span o score del modello non valido')
         # Alcuni tokenizer includono negli offset gli spazi adiacenti all'entità.
         # Il formato comune usa invece i confini del solo contenuto identificativo.
-        while start < end and testo[start].isspace():
-            start += 1
-        while end > start and testo[end-1].isspace():
-            end -= 1
+        start, end = confini_contenuto(testo, start, end)
         if start == end:
             ignorate[f'{label}:span_vuoto'] += 1
             continue
@@ -98,22 +110,27 @@ def normalizza(raw, testo, m):
             continue
         if score < m['soglia']:
             continue
-        mapped.append(dict(start=start, end=end, tipo=tipo, score=score))
+        mapped.append(dict(start=start, end=end, tipo=tipo, score=score, native_type=label))
     # Score non confrontati tra modelli. Conflitti risolti solo nella stessa risposta.
     selected = []
     for a in sorted(mapped, key=lambda x: (-x['score'], -(x['end']-x['start']), x['start'], x['tipo'])):
         if not any(a['start'] < b['end'] and a['end'] > b['start'] for b in selected):
             selected.append(a)
     result = []
+    sequenze_native = {tuple(coppia) for coppia in m.get('unisci_sequenze_native', [])}
     for a in sorted(selected, key=lambda x: x['start']):
-        if (result and a['tipo'] in m['unisci_adiacenti'] and result[-1]['tipo'] == a['tipo']
+        unione_tipo = result and a['tipo'] in m['unisci_adiacenti'] and result[-1]['tipo'] == a['tipo']
+        unione_nativa = result and (result[-1]['native_type'], a['native_type']) in sequenze_native
+        if ((unione_tipo or unione_nativa) and result[-1]['tipo'] == a['tipo']
                 and re.fullmatch(r'[\s,]*', testo[result[-1]['end']:a['start']])):
             result[-1]['end'] = a['end']
             result[-1]['score'] = min(result[-1]['score'], a['score'])
+            result[-1]['native_type'] = a['native_type']
         else:
             result.append(dict(a))
     for a in result:
         a['testo'] = testo[a['start']:a['end']]
+        del a['native_type']
     return result, dict(ignorate)
 
 
@@ -129,10 +146,7 @@ def detect_model(raw, testo, m, campo):
         start, end, score = int(entity['start']), int(entity['end']), float(entity['score'])
         if not 0 <= start < end <= len(testo) or not math.isfinite(score):
             raise ValueError('Span o score del modello non valido')
-        while start < end and testo[start].isspace():
-            start += 1
-        while end > start and testo[end-1].isspace():
-            end -= 1
+        start, end = confini_contenuto(testo, start, end)
         if start == end:
             ignorate[f'{label}:span_vuoto'] += 1
             continue

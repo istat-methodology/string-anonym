@@ -1,10 +1,10 @@
 {
-  "versione": "4.0-ner-person-location-paper-300",
+  "versione": "4.1-ner-person-location-address-mapping",
   "formato": "detection-5.2-address-components",
   "contesto": "messaggio_isolato",
   "input": "output/dataset_detection_paper_300/input.jsonl",
   "attese": "output/dataset_detection_paper_300/annotazioni_ner_attese.jsonl",
-  "output": "output/confronto_ner_person_location_paper_300_run1",
+  "output": "output/confronto_ner_person_location_paper_300_run2",
   "tipi_valutati": ["PERSON", "LOCATION"],
   "tipi_focus_ner": ["PERSON", "LOCATION"],
   "modelli": [
@@ -15,7 +15,7 @@
       "backend": "gliner",
       "soglia": 0.5,
       "max_tokens": 384,
-      "etichette": {"person": "PERSON", "location": "LOCATION"},
+      "etichette": {"person": "PERSON", "location": "LOCATION", "address": "LOCATION"},
       "unisci_adiacenti": [],
       "licenza": "apache-2.0"
     },
@@ -49,14 +49,15 @@
       "soglia": 0.0,
       "max_tokens": 256,
       "etichette": {
-        "ACCOUNTNUM": null, "BUILDINGNUM": null, "CITY": "LOCATION",
+        "ACCOUNTNUM": null, "BUILDINGNUM": "LOCATION", "CITY": "LOCATION",
         "CREDITCARDNUMBER": null, "DATEOFBIRTH": null, "DRIVERLICENSENUM": null,
         "EMAIL": null, "GIVENNAME": "PERSON", "IDCARDNUM": null,
-        "PASSWORD": null, "SOCIALNUM": null, "STREET": null,
+        "PASSWORD": null, "SOCIALNUM": null, "STREET": "LOCATION",
         "SURNAME": "PERSON", "TAXNUM": null, "TELEPHONENUM": null,
         "USERNAME": null, "ZIPCODE": null
       },
       "unisci_adiacenti": ["PERSON"],
+      "unisci_sequenze_native": [["STREET", "BUILDINGNUM"]],
       "licenza": "cc-by-nc-nd-4.0"
     }
   ]

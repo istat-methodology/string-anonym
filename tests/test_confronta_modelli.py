@@ -32,6 +32,22 @@ class ConfrontoTest(unittest.TestCase):
         self.assertEqual(ignored, {})
         self.assertEqual(spans, [dict(start=1, end=5, tipo='PERSON', score=0.9, testo='Anna')])
 
+    def test_rimuove_virgola_esterna_e_unisce_street_building(self):
+        testo = 'Via Roma 12, Milano'
+        raw = [
+            dict(entity_group='STREET', start=0, end=8, score=0.99),
+            dict(entity_group='BUILDINGNUM', start=8, end=12, score=0.98),
+            dict(entity_group='CITY', start=12, end=19, score=0.97),
+        ]
+        model = {**self.model,
+                 'etichette': {'STREET':'LOCATION', 'BUILDINGNUM':'LOCATION', 'CITY':'LOCATION'},
+                 'unisci_adiacenti': [],
+                 'unisci_sequenze_native': [['STREET', 'BUILDINGNUM']]}
+        spans, ignored = normalizza(raw, testo, model)
+        self.assertEqual(ignored, {})
+        self.assertEqual([(s['testo'], s['start'], s['end']) for s in spans],
+                         [('Via Roma 12', 0, 11), ('Milano', 13, 19)])
+
     def test_ignora_span_di_soli_spazi(self):
         raw = [dict(label='GIVENNAME', start=0, end=2, score=0.9)]
         spans, ignored = normalizza(raw, '  ', self.model)
