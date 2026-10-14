@@ -1,0 +1,100 @@
+{
+  "versione": "4.2-ner-person-location-address-mapping",
+  "formato": "detection-5.2-address-components",
+  "contesto": "messaggio_isolato",
+  "input": "output/dataset_detection_paper_300/input.jsonl",
+  "attese": "output/dataset_detection_paper_300/annotazioni_ner_attese.jsonl",
+  "output": "output/confronto_ner_person_location_paper_300_run3",
+  "tipi_valutati": [
+    "PERSON",
+    "LOCATION"
+  ],
+  "tipi_focus_ner": [
+    "PERSON",
+    "LOCATION"
+  ],
+  "modelli": [
+    {
+      "nome": "gliner_multi",
+      "repository": "urchade/gliner_multi-v2.1",
+      "revision": "main",
+      "backend": "gliner",
+      "soglia": 0.5,
+      "max_tokens": 384,
+      "etichette": {
+        "person": "PERSON",
+        "location": "LOCATION"
+      },
+      "unisci_adiacenti": [],
+      "licenza": "apache-2.0"
+    },
+    {
+      "nome": "gliner_pii",
+      "repository": "urchade/gliner_multi_pii-v1",
+      "revision": "main",
+      "backend": "gliner",
+      "soglia": 0.5,
+      "max_tokens": 384,
+      "etichette": {
+        "person": "PERSON",
+        "location": "LOCATION",
+        "address": "LOCATION"
+      },
+      "unisci_adiacenti": [],
+      "licenza": "apache-2.0"
+    },
+    {
+      "nome": "wikineural",
+      "repository": "Babelscape/wikineural-multilingual-ner",
+      "revision": "main",
+      "backend": "transformers",
+      "soglia": 0.0,
+      "max_tokens": 512,
+      "etichette": {
+        "PER": "PERSON",
+        "LOC": "LOCATION",
+        "ORG": null,
+        "MISC": null
+      },
+      "unisci_adiacenti": [],
+      "licenza": "cc-by-nc-sa-4.0"
+    },
+    {
+      "nome": "piiranha",
+      "repository": "iiiorg/piiranha-v1-detect-personal-information",
+      "revision": "main",
+      "backend": "transformers",
+      "soglia": 0.0,
+      "max_tokens": 256,
+      "etichette": {
+        "ACCOUNTNUM": null,
+        "BUILDINGNUM": "LOCATION",
+        "CITY": "LOCATION",
+        "CREDITCARDNUMBER": null,
+        "DATEOFBIRTH": null,
+        "DRIVERLICENSENUM": null,
+        "EMAIL": null,
+        "GIVENNAME": "PERSON",
+        "IDCARDNUM": null,
+        "PASSWORD": null,
+        "SOCIALNUM": null,
+        "STREET": "LOCATION",
+        "SURNAME": "PERSON",
+        "TAXNUM": null,
+        "TELEPHONENUM": null,
+        "USERNAME": null,
+        "ZIPCODE": null
+      },
+      "unisci_adiacenti": [
+        "PERSON"
+      ],
+      "unisci_sequenze_native": [
+        [
+          "STREET",
+          "BUILDINGNUM"
+        ]
+      ],
+      "licenza": "cc-by-nc-nd-4.0"
+    }
+  ]
+}

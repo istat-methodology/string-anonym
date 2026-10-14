@@ -1,0 +1,51 @@
+{
+  "modello": {
+    "nome": "piiranha",
+    "repository": "iiiorg/piiranha-v1-detect-personal-information",
+    "revision": "main",
+    "backend": "transformers",
+    "soglia": 0.0,
+    "max_tokens": 256,
+    "etichette": {
+      "ACCOUNTNUM": null,
+      "BUILDINGNUM": "LOCATION",
+      "CITY": "LOCATION",
+      "CREDITCARDNUMBER": null,
+      "DATEOFBIRTH": null,
+      "DRIVERLICENSENUM": null,
+      "EMAIL": null,
+      "GIVENNAME": "PERSON",
+      "IDCARDNUM": null,
+      "PASSWORD": null,
+      "SOCIALNUM": null,
+      "STREET": "LOCATION",
+      "SURNAME": "PERSON",
+      "TAXNUM": null,
+      "TELEPHONENUM": null,
+      "USERNAME": null,
+      "ZIPCODE": null
+    },
+    "unisci_adiacenti": [
+      "PERSON"
+    ],
+    "unisci_sequenze_native": [
+      [
+        "STREET",
+        "BUILDINGNUM"
+      ]
+    ],
+    "licenza": "cc-by-nc-nd-4.0"
+  },
+  "categorie_mappate": [
+    "LOCATION",
+    "PERSON"
+  ],
+  "revision_risolta": "255acde67a2f34cf452eb42e365b24d2957352fc",
+  "prestazioni": {
+    "secondi_caricamento": 0.7357805309999321,
+    "secondi_inferenza": 35.37918986,
+    "secondi_totali": 36.12195103600004,
+    "picco_vram_allocata_byte": 1140152832,
+    "picco_vram_riservata_byte": 1182793728
+  }
+}
