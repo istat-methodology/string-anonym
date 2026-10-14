@@ -61,8 +61,11 @@ I modelli sono caricati ed eseguiti in sequenza sulla stessa GPU. La run salva:
 - metriche, errori per record, tempi e picchi di memoria;
 - fallimenti tecnici, separati dalle metriche.
 
-Nella run paper tutti e quattro i modelli hanno elaborato 289/289 conversazioni
-senza fallimenti tecnici.
+Nella `run3`, assunta come esperimento principale definitivo, tutti e quattro i
+modelli hanno elaborato 289/289 conversazioni senza fallimenti tecnici. Le run
+precedenti sono conservate per audit: la `run1` documenta il mapping iniziale
+incompleto degli indirizzi, mentre la `run2` costituisce un'ablazione in cui
+l'etichetta testuale `address` era applicata a GLiNER multi.
 
 ## Metriche NER
 
@@ -96,6 +99,14 @@ analisi è complementare all'exact match e risponde a una domanda diversa:
 quanto contenuto identificativo rimarrebbe esposto se le detection fossero
 utilizzate per il masking?
 
+Questa misura può essere interpretata come **copertura dell'indirizzo invariante
+rispetto alla segmentazione**. Considera operativamente equivalenti una
+predizione unica, per esempio `Via Nome 12, Comune`, e due predizioni separate,
+`Via Nome 12` e `Comune`, quando la loro unione copre gli stessi caratteri
+sensibili. Non sostituisce l'exact match standard e non modifica il gold: rende
+visibile quanto degli errori di confine derivi dalla diversa granularità degli
+span anziché da una mancata detection.
+
 ## Interpretazione e confini delle conclusioni
 
 Il confronto è diagnostico e orientato alla progettazione della pipeline. Non
@@ -112,5 +123,5 @@ rimane fuori dal perimetro corrente.
 - Configurazione: `config/esperimento_ner_person_location_paper_300.json`
 - Runner: `src/confronta_modelli.py`
 - Valutazione indirizzi: `src/valuta_indirizzi.py`
-- Output: `output/confronto_ner_person_location_paper_300_run1/`
+- Output principale: `output/confronto_ner_person_location_paper_300_run3/`
 

@@ -21,11 +21,15 @@ primarie per la riproducibilità.
 
 ## Messaggio centrale emerso
 
-Il benchmark non identifica un modello *one-size-fits-all*. Sul corpus
-sintetico Piiranha è il modello più efficace per `PERSON`, mentre GLiNER multi
-offre la migliore copertura operativa degli indirizzi. L'exact match aggregato
-non è sufficiente a rappresentare il rischio residuo: una valutazione per
-componenti mostra se civico, interno, strada o comune restano visibili.
+Il benchmark non identifica un modello *one-size-fits-all*. Nell'esperimento
+principale definitivo (`run3`), Piiranha ottiene il miglior equilibrio
+exact-match sia complessivo sia per `PERSON` e `LOCATION`. GLiNER PII raggiunge
+invece la massima copertura operativa degli indirizzi, ma produce una forte
+tendenza al mascheramento oltre i confini del gold `PERSON`–`LOCATION`.
+L'exact match aggregato non è quindi sufficiente a
+rappresentare il rischio residuo: una valutazione per componenti mostra se
+civico, interno, strada o comune restano visibili e rende esplicito il
+trade-off fra esposizione residua e contenuto aggiuntivo mascherato.
 
 ## Perimetro dello short paper
 
@@ -43,4 +47,6 @@ risultati quantitativi correnti riguardano soltanto `PERSON` e `LOCATION`.
 - 123 annotazioni `PERSON` e 296 `LOCATION`;
 - 124 occorrenze di indirizzo valutate;
 - quattro modelli, 289/289 conversazioni elaborate e zero fallimenti tecnici.
+- `run3` come esperimento principale definitivo; `run1` e `run2` conservate
+  soltanto come traccia dell'evoluzione metodologica e analisi di ablazione.
 

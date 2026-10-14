@@ -17,22 +17,27 @@ usati per confronto di ricerca.
 ## Configurazione comune
 
 Tutti i modelli sono valutati su `PERSON` e `LOCATION`. Non è stato effettuato
-fine-tuning sul corpus. GLiNER riceve le etichette testuali `person` e
-`location` con soglia 0,5 e limite di 384 token. WikiNEuRal e Piiranha usano le
-etichette native mappate nelle due categorie comuni; le altre etichette vengono
-ignorate ma conteggiate.
+fine-tuning sul corpus. GLiNER multi riceve le etichette testuali `person` e
+`location`; GLiNER PII riceve anche `address`, normalizzata a `LOCATION` per
+misurare la protezione operativa degli indirizzi. Entrambi usano soglia 0,5 e
+limite di 384 token. WikiNEuRal e Piiranha usano le etichette native mappate
+nelle due categorie comuni; le altre etichette vengono ignorate ma conteggiate.
 
 | Modello | Etichette native utilizzate | Soglia | Limite token |
 | --- | --- | ---: | ---: |
 | GLiNER multi | `person`, `location` | 0,5 | 384 |
-| GLiNER PII | `person`, `location` | 0,5 | 384 |
+| GLiNER PII | `person`, `location`, `address` | 0,5 | 384 |
 | WikiNEuRal | `PER`, `LOC` | nativa | 512 |
-| Piiranha | `GIVENNAME`, `SURNAME`, `CITY` | nativa | 256 |
+| Piiranha | `GIVENNAME`, `SURNAME`, `STREET`, `BUILDINGNUM`, `CITY` | nativa | 256 |
 
-Per Piiranha nome e cognome adiacenti vengono uniti in uno span `PERSON`. Gli
-score di architetture diverse non sono confrontati direttamente. Non è stata
-condotta una ricerca delle soglie sui 289 esempi; un'eventuale calibrazione
-richiederà una separazione esplicita fra development e test set.
+Per Piiranha nome e cognome adiacenti vengono uniti in uno span `PERSON`, mentre
+le sequenze native `STREET`–`BUILDINGNUM` vengono ricomposte in uno span
+`LOCATION`; `CITY` resta separata. Questo mapping è parte del protocollo della
+`run3`: omettere `STREET` e `BUILDINGNUM` sottostimava sistematicamente la
+capacità del modello sugli indirizzi. Gli score di architetture diverse non
+sono confrontati direttamente. Non è stata condotta una ricerca delle soglie
+sui 289 esempi; un'eventuale calibrazione richiederà una separazione esplicita
+fra development e test set.
 
 ## Perché quattro modelli
 
@@ -45,8 +50,10 @@ Il confronto include modelli con obiettivi diversi:
 - Piiranha è un modello dedicato al riconoscimento di categorie PII.
 
 Il disegno non assume che un singolo modello debba essere il migliore per tutte
-le categorie. I risultati confermano una specializzazione: Piiranha è più
-efficace su `PERSON`, mentre GLiNER multi protegge molto meglio gli indirizzi.
+le categorie. I risultati confermano una specializzazione: Piiranha offre il
+miglior equilibrio exact-match, mentre GLiNER PII e GLiNER multi riducono
+maggiormente l'esposizione residua degli indirizzi al costo di molti più falsi
+positivi.
 
 ## Ruolo del ramo regex
 
@@ -86,7 +93,7 @@ degli input, tempi e memoria. I quattro modelli hanno completato l'intero
 benchmark senza fallimenti. La configurazione e i manifest sono disponibili in:
 
 - `config/esperimento_ner_person_location_paper_300.json`;
-- `output/confronto_ner_person_location_paper_300_run1/manifest.json`;
+- `output/confronto_ner_person_location_paper_300_run3/manifest.json`;
 - sottocartelle di ciascun modello con predizioni native, predizioni
   normalizzate, valutazione e manifest.
 
