@@ -1,7 +1,8 @@
 # Dataset sintetico per lo short paper: piano da 300 conversazioni
 
-Stato al 14 ottobre 2026: implementazione completata; 300 prompt generati e
-controllati localmente; chiamate al modello non ancora eseguite.
+Stato al 14 ottobre 2026: 300 prompt e 300 conversazioni generate; 289
+conversazioni validate ed esportate nel benchmark, 11 escluse in modo
+tracciato. La run NER sui quattro modelli è completata senza fallimenti tecnici.
 
 SHA-256 del file corrente `output/prompts_paper_300.jsonl`:
 `7e87744eadb7156e9d36664e45fbd3aec63d847c5b84f15e25bd0a772a9bab70`.
@@ -90,9 +91,16 @@ Generazione remota delle conversazioni:
 .venv/bin/python src/pipeline_generazione.py genera --config config/generazione_paper_300.json
 ```
 
-Il risultato sarà `output/generazione_paper_300/conversazioni.jsonl`. Il runner non
-riprende automaticamente una generazione interrotta e non sovrascrive directory
-esistenti. Dopo la generazione occorre esaminare gli stati `valido`,
+Il risultato è `output/generazione_paper_300/conversazioni.jsonl`. Il runner non
+sovrascrive directory esistenti; una generazione interrotta si continua con la
+fase esplicita `riprendi`, che verifica il piano e non ripete le chiamate già
+riuscite:
+
+```sh
+.venv/bin/python src/pipeline_generazione.py riprendi --config config/generazione_paper_300.json
+```
+
+Dopo la generazione occorre esaminare gli stati `valido`,
 `da_verificare` ed eventuali errori prima di congelare il corpus.
 
 ## Passaggi dopo la generazione

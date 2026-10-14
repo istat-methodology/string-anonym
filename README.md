@@ -86,6 +86,9 @@ dipendono dalle decisioni della policy conversazionale.
 La [guida della pipeline](docs/pipeline.md) descrive entrambi i percorsi, i file
 prodotti dall’esportazione e la funzione delle regole; la [baseline regex](docs/baseline_regex.md)
 spiega il detector regex nel dettaglio, appartenente al percorso end-to-end.
+I materiali condivisibili per la scrittura dello short paper — dataset,
+metodologia, modelli e risultati — sono raccolti nella cartella
+[`paper/`](paper/README.md).
 
 ## Baseline corrente
 

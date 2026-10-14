@@ -1,0 +1,3683 @@
+{
+  "version": "address-eval-1.0",
+  "scope": "Post-hoc complement to exact-match PERSON/LOCATION metrics; predictions unchanged.",
+  "addresses_evaluated": 124,
+  "technical_failures": [],
+  "full_address": {
+    "complete": 0,
+    "total": 124,
+    "complete_rate": 0.0,
+    "character_coverage": 0.2719108082997832,
+    "residual_exposure_rate": 0.7280891917002168
+  },
+  "components": {
+    "street": {
+      "complete": 0,
+      "total": 124,
+      "complete_rate": 0.0,
+      "character_coverage": 0.0
+    },
+    "house_number": {
+      "complete": 0,
+      "total": 110,
+      "complete_rate": 0.0,
+      "character_coverage": 0.0
+    },
+    "internal": {
+      "complete": 0,
+      "total": 17,
+      "complete_rate": 0.0,
+      "character_coverage": 0.0
+    },
+    "municipality": {
+      "complete": 105,
+      "total": 105,
+      "complete_rate": 1.0,
+      "character_coverage": 1.0
+    }
+  },
+  "outcomes": {
+    "municipality_only": 105,
+    "uncovered": 19
+  },
+  "details": [
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-assistenza_compilazione-con_dati_personali-0006",
+      "address_id": "det_d98c9079a85bf0f7",
+      "field": "conversazione.0.testo",
+      "text": "Via Casal Di Zaino 109, Cisterna di Latina",
+      "coverage": 0.47058823529411764,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 15,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 16,
+          "covered_characters": 16,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaCasalDiZaino109"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-assistenza_compilazione-con_dati_personali-0007",
+      "address_id": "det_c55bd73611636bcb",
+      "field": "conversazione.0.testo",
+      "text": "Via Filippo Turati 177, Cittaducale",
+      "coverage": 0.36666666666666664,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 16,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 11,
+          "covered_characters": 11,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaFilippoTurati177"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-assistenza_compilazione-con_dati_personali-0009",
+      "address_id": "det_a46795bf02d984da",
+      "field": "conversazione.0.testo",
+      "text": "Piazza Azolino Hazon 103, Roma",
+      "coverage": 0.16,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 18,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 4,
+          "covered_characters": 4,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "PiazzaAzolinoHazon103"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-assistenza_compilazione-con_dati_personali-0010",
+      "address_id": "det_f0d6a46550e113ac",
+      "field": "conversazione.2.testo",
+      "text": "Via Montello 194, Roma",
+      "coverage": 0.2222222222222222,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 11,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 4,
+          "covered_characters": 4,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaMontello194"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-cambio_residenza-con_dati_personali-0001",
+      "address_id": "det_b88219514246d804",
+      "field": "conversazione.2.testo",
+      "text": "Via Laerte 115, Pomezia",
+      "coverage": 0.3684210526315789,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 9,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 7,
+          "covered_characters": 7,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaLaerte115"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-cambio_residenza-con_dati_personali-0001",
+      "address_id": "det_41e223808e6ab7d4",
+      "field": "conversazione.3.testo",
+      "text": "Via Laerte 115, Pomezia",
+      "coverage": 0.3684210526315789,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 9,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 7,
+          "covered_characters": 7,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaLaerte115"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-cambio_residenza-con_dati_personali-0002",
+      "address_id": "det_fe8761ffaf5ec14b",
+      "field": "conversazione.0.testo",
+      "text": "Via Dei Simonetta 22, Roma",
+      "coverage": 0.19047619047619047,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 15,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 2,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 4,
+          "covered_characters": 4,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaDeiSimonetta22"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-cambio_residenza-con_dati_personali-0002",
+      "address_id": "det_b45cd0a2e7c8e622",
+      "field": "conversazione.3.testo",
+      "text": "Via Dei Simonetta 22, Roma",
+      "coverage": 0.19047619047619047,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 15,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 2,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 4,
+          "covered_characters": 4,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaDeiSimonetta22"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-cambio_residenza-con_dati_personali-0003",
+      "address_id": "det_42864f899fe57cdb",
+      "field": "conversazione.0.testo",
+      "text": "Via Soriso 121, Roma",
+      "coverage": 0.25,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 9,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 4,
+          "covered_characters": 4,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaSoriso121"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-cambio_residenza-con_dati_personali-0007",
+      "address_id": "det_5b34a67709253696",
+      "field": "conversazione.0.testo",
+      "text": "Via Del Pioppeto 293, Latina",
+      "coverage": 0.2608695652173913,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 14,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 6,
+          "covered_characters": 6,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaDelPioppeto293"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-cambio_residenza-con_dati_personali-0008",
+      "address_id": "det_caf86a488b8eae82",
+      "field": "conversazione.0.testo",
+      "text": "Via Della Torretta 218, Cave",
+      "coverage": 0.17391304347826086,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 16,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 4,
+          "covered_characters": 4,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaDellaTorretta218"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-cambio_residenza-con_dati_personali-0008",
+      "address_id": "det_151042aa88d6c76a",
+      "field": "conversazione.3.testo",
+      "text": "Via Della Torretta 218, Cave",
+      "coverage": 0.17391304347826086,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 16,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 4,
+          "covered_characters": 4,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaDellaTorretta218"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-cambio_residenza-con_dati_personali-0008",
+      "address_id": "det_0dd48b0af8254e70",
+      "field": "conversazione.6.testo",
+      "text": "Via Della Torretta 218, Cave",
+      "coverage": 0.17391304347826086,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 16,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 4,
+          "covered_characters": 4,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaDellaTorretta218"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-cambio_residenza-con_dati_personali-0009",
+      "address_id": "det_607708a8a606760d",
+      "field": "conversazione.2.testo",
+      "text": "Via Lazio 94, Roma",
+      "coverage": 0.2857142857142857,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 8,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 2,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 4,
+          "covered_characters": 4,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaLazio94"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-cambio_residenza-con_dati_personali-0009",
+      "address_id": "det_d3d27cb3e02d2e6e",
+      "field": "conversazione.3.testo",
+      "text": "Via Lazio 94, Roma",
+      "coverage": 0.2857142857142857,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 8,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 2,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 4,
+          "covered_characters": 4,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaLazio94"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_core-cambio_residenza-con_dati_personali-0010",
+      "address_id": "det_394fe615f184c6e3",
+      "field": "conversazione.0.testo",
+      "text": "Via Mare Del Margine 257, Ardea",
+      "coverage": 0.2,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 17,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 5,
+          "covered_characters": 5,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaMareDelMargine257"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_extra-cambio_residenza-con_dati_personali-0001",
+      "address_id": "det_8a5ac9fa2a49ed17",
+      "field": "conversazione.0.testo",
+      "text": "Via Dei Tinozzi 274, Nettuno",
+      "coverage": 0.30434782608695654,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 13,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 7,
+          "covered_characters": 7,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaDeiTinozzi274"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_extra-cambio_residenza-con_dati_personali-0001",
+      "address_id": "det_f1a6fc0f92d99eb4",
+      "field": "conversazione.6.testo",
+      "text": "Via Dei Tinozzi 274, Nettuno",
+      "coverage": 0.30434782608695654,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 13,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 7,
+          "covered_characters": 7,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaDeiTinozzi274"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:general_extra-cambio_residenza-con_dati_personali-0001",
+      "address_id": "det_ab0c7551ccab79b8",
+      "field": "conversazione.7.testo",
+      "text": "Via Dei Tinozzi 274, Nettuno",
+      "coverage": 0.30434782608695654,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 13,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 7,
+          "covered_characters": 7,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaDeiTinozzi274"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0001",
+      "address_id": "det_4b7c51efa66eb428",
+      "field": "conversazione.0.testo",
+      "text": "Via Lipuni 281, Minturno",
+      "coverage": 0.4,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 9,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 8,
+          "covered_characters": 8,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaLipuni281"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0001",
+      "address_id": "det_7da54f985d119dc1",
+      "field": "conversazione.5.testo",
+      "text": "Via Lipuni 281, Minturno",
+      "coverage": 0.4,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 9,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 8,
+          "covered_characters": 8,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaLipuni281"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0002",
+      "address_id": "det_1af8249d644f2acb",
+      "field": "conversazione.0.testo",
+      "text": "Giovanni Agnelli 185, Minturno",
+      "coverage": 0.3076923076923077,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 15,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 8,
+          "covered_characters": 8,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "GiovanniAgnelli185"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0002",
+      "address_id": "det_a9267a452965be70",
+      "field": "conversazione.1.testo",
+      "text": "Giovanni Agnelli 185, Minturno",
+      "coverage": 0.3076923076923077,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 15,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 8,
+          "covered_characters": 8,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "GiovanniAgnelli185"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0002",
+      "address_id": "det_87c931cde396090a",
+      "field": "conversazione.6.testo",
+      "text": "Giovanni Agnelli 185, Minturno",
+      "coverage": 0.3076923076923077,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 15,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 8,
+          "covered_characters": 8,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "GiovanniAgnelli185"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0004",
+      "address_id": "det_ff8fdacae551511e",
+      "field": "conversazione.0.testo",
+      "text": "Via Colle Sant'Upica 28",
+      "coverage": 0.0,
+      "complete": false,
+      "outcome": "uncovered",
+      "components": {
+        "street": {
+          "expected_characters": 17,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 2,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        }
+      },
+      "residual_text": "ViaColleSantUpica28"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0005",
+      "address_id": "det_75c87687d6602435",
+      "field": "conversazione.0.testo",
+      "text": "Via Silvio Pellico 198 bis, Antrodoco",
+      "coverage": 0.2903225806451613,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 16,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 6,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 9,
+          "covered_characters": 9,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaSilvioPellico198bis"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0005",
+      "address_id": "det_3508c2d04d0259de",
+      "field": "conversazione.3.testo",
+      "text": "Via Silvio Pellico 198 bis, Antrodoco",
+      "coverage": 0.2903225806451613,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 16,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 6,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 9,
+          "covered_characters": 9,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaSilvioPellico198bis"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0006",
+      "address_id": "det_747a55631daad4ce",
+      "field": "conversazione.0.testo",
+      "text": "Via La Foresta 169, interno 7, Anagni",
+      "coverage": 0.20689655172413793,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 12,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "internal": {
+          "expected_characters": 8,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 6,
+          "covered_characters": 6,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaLaForesta169interno7"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0006",
+      "address_id": "det_2e4461656da8b4cf",
+      "field": "conversazione.7.testo",
+      "text": "Via La Foresta 169, interno 7, Anagni",
+      "coverage": 0.20689655172413793,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 12,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "internal": {
+          "expected_characters": 8,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 6,
+          "covered_characters": 6,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaLaForesta169interno7"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0007",
+      "address_id": "det_9f68e88a2436f5bd",
+      "field": "conversazione.2.testo",
+      "text": "Via Don Giuseppe Morosini 14, Palestrina",
+      "coverage": 0.29411764705882354,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 22,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 2,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 10,
+          "covered_characters": 10,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaDonGiuseppeMorosini14"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0007",
+      "address_id": "det_acce763ef8fb49f0",
+      "field": "conversazione.5.testo",
+      "text": "Via Don Giuseppe Morosini 14, Palestrina",
+      "coverage": 0.29411764705882354,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 22,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 2,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 10,
+          "covered_characters": 10,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaDonGiuseppeMorosini14"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0008",
+      "address_id": "det_bfc6116c84576a66",
+      "field": "conversazione.0.testo",
+      "text": "Della Faterna 248, Poli",
+      "coverage": 0.21052631578947367,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 12,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 4,
+          "covered_characters": 4,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "DellaFaterna248"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0008",
+      "address_id": "det_5455d313255f0125",
+      "field": "conversazione.4.testo",
+      "text": "Della Faterna 248, Poli",
+      "coverage": 0.21052631578947367,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 12,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 4,
+          "covered_characters": 4,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "DellaFaterna248"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0008",
+      "address_id": "det_b78482ab7f173c77",
+      "field": "conversazione.5.testo",
+      "text": "Della Faterna 248, Poli",
+      "coverage": 0.21052631578947367,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 12,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 4,
+          "covered_characters": 4,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "DellaFaterna248"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0009",
+      "address_id": "det_b2b60909c1861568",
+      "field": "conversazione.0.testo",
+      "text": "Traversa Prima Vigne Inferiori, Santi Cosma e Damiano",
+      "coverage": 0.4,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 27,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 18,
+          "covered_characters": 18,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "TraversaPrimaVigneInferiori"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0010",
+      "address_id": "det_382239f7cfe09aeb",
+      "field": "conversazione.0.testo",
+      "text": "Via San Gimignano 241",
+      "coverage": 0.0,
+      "complete": false,
+      "outcome": "uncovered",
+      "components": {
+        "street": {
+          "expected_characters": 15,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        }
+      },
+      "residual_text": "ViaSanGimignano241"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0010",
+      "address_id": "det_580a854d1ffe8ae3",
+      "field": "conversazione.5.testo",
+      "text": "Via San Gimignano 241",
+      "coverage": 0.0,
+      "complete": false,
+      "outcome": "uncovered",
+      "components": {
+        "street": {
+          "expected_characters": 15,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        }
+      },
+      "residual_text": "ViaSanGimignano241"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0011",
+      "address_id": "det_f1f0a6b6ff4e6d3b",
+      "field": "conversazione.0.testo",
+      "text": "Contrada Costa 52/B, Colle San Magno",
+      "coverage": 0.4482758620689655,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 13,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 13,
+          "covered_characters": 13,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ContradaCosta52B"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0011",
+      "address_id": "det_5c509b1486f16864",
+      "field": "conversazione.3.testo",
+      "text": "Contrada Costa 52/B, Colle San Magno",
+      "coverage": 0.4482758620689655,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 13,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 13,
+          "covered_characters": 13,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ContradaCosta52B"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0014",
+      "address_id": "det_65b1ccc5270ff57d",
+      "field": "conversazione.0.testo",
+      "text": "Luigi Farini 203, Latina",
+      "coverage": 0.3,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 11,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 6,
+          "covered_characters": 6,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "LuigiFarini203"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0015",
+      "address_id": "det_5bc39e314a8f0b72",
+      "field": "conversazione.0.testo",
+      "text": "Via Femmina Morta, Rocca Massima",
+      "coverage": 0.4444444444444444,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 15,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 12,
+          "covered_characters": 12,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaFemminaMorta"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0015",
+      "address_id": "det_6e83855e8cf25d25",
+      "field": "conversazione.5.testo",
+      "text": "Via Femmina Morta, Rocca Massima",
+      "coverage": 0.4444444444444444,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 15,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 12,
+          "covered_characters": 12,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaFemminaMorta"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0016",
+      "address_id": "det_0c012179da0ca7de",
+      "field": "conversazione.0.testo",
+      "text": "Via Giovanni Bausan 34",
+      "coverage": 0.0,
+      "complete": false,
+      "outcome": "uncovered",
+      "components": {
+        "street": {
+          "expected_characters": 17,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 2,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        }
+      },
+      "residual_text": "ViaGiovanniBausan34"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0016",
+      "address_id": "det_8ac190c020d1bc15",
+      "field": "conversazione.5.testo",
+      "text": "Via Giovanni Bausan 34",
+      "coverage": 0.0,
+      "complete": false,
+      "outcome": "uncovered",
+      "components": {
+        "street": {
+          "expected_characters": 17,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 2,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        }
+      },
+      "residual_text": "ViaGiovanniBausan34"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0018",
+      "address_id": "det_1e595f4bbd5b6774",
+      "field": "conversazione.0.testo",
+      "text": "Via Nicola Porpora 42, scala C, Zagarolo",
+      "coverage": 0.25,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 16,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 2,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "internal": {
+          "expected_characters": 6,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 8,
+          "covered_characters": 8,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaNicolaPorpora42scalaC"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0018",
+      "address_id": "det_0e93bfff49bb5524",
+      "field": "conversazione.5.testo",
+      "text": "Via Nicola Porpora 42, scala C, Zagarolo",
+      "coverage": 0.25,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 16,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 2,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "internal": {
+          "expected_characters": 6,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 8,
+          "covered_characters": 8,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaNicolaPorpora42scalaC"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0019",
+      "address_id": "det_c64bddeb6e876d70",
+      "field": "conversazione.0.testo",
+      "text": "Via Del Fosso Di Presciano 155, Lanuvio",
+      "coverage": 0.21875,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 22,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 7,
+          "covered_characters": 7,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaDelFossoDiPresciano155"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0020",
+      "address_id": "det_189f76dcb80bbbdd",
+      "field": "conversazione.0.testo",
+      "text": "San Pietro 286, Carpineto Romano",
+      "coverage": 0.5555555555555556,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 9,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 15,
+          "covered_characters": 15,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "SanPietro286"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0020",
+      "address_id": "det_1afb954c08d229f0",
+      "field": "conversazione.3.testo",
+      "text": "San Pietro 286, Carpineto Romano",
+      "coverage": 0.5555555555555556,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 9,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 15,
+          "covered_characters": 15,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "SanPietro286"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0021",
+      "address_id": "det_672dea24fa768f49",
+      "field": "conversazione.2.testo",
+      "text": "Via Tarso, Roma",
+      "coverage": 0.3333333333333333,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 8,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 4,
+          "covered_characters": 4,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaTarso"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0022",
+      "address_id": "det_e6928f566ba26754",
+      "field": "conversazione.0.testo",
+      "text": "Via Per Frosinone 86",
+      "coverage": 0.0,
+      "complete": false,
+      "outcome": "uncovered",
+      "components": {
+        "street": {
+          "expected_characters": 15,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 2,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        }
+      },
+      "residual_text": "ViaPerFrosinone86"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0023",
+      "address_id": "det_8d7f17355537e6e4",
+      "field": "conversazione.0.testo",
+      "text": "Via Cascatelle 289/B, Isola del Liri",
+      "coverage": 0.41379310344827586,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 13,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 4,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 12,
+          "covered_characters": 12,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaCascatelle289B"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0023",
+      "address_id": "det_51895c46a8fd1709",
+      "field": "conversazione.3.testo",
+      "text": "Via Cascatelle 289/B, Isola del Liri",
+      "coverage": 0.41379310344827586,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 13,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 4,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 12,
+          "covered_characters": 12,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaCascatelle289B"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0024",
+      "address_id": "det_ceee69e4c32f8a21",
+      "field": "conversazione.0.testo",
+      "text": "Via Saudoni Primo 54, interno 19, Castrocielo",
+      "coverage": 0.2972972972972973,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 15,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 2,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "internal": {
+          "expected_characters": 9,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 11,
+          "covered_characters": 11,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaSaudoniPrimo54interno19"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0024",
+      "address_id": "det_a1dfad7d95e61c10",
+      "field": "conversazione.1.testo",
+      "text": "Via Saudoni Primo 54, interno 19, Castrocielo",
+      "coverage": 0.2972972972972973,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 15,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 2,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "internal": {
+          "expected_characters": 9,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 11,
+          "covered_characters": 11,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaSaudoniPrimo54interno19"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0025",
+      "address_id": "det_84861944a09943a7",
+      "field": "conversazione.2.testo",
+      "text": "Via Delle Margherite 238, Pomezia",
+      "coverage": 0.25,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 18,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 7,
+          "covered_characters": 7,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaDelleMargherite238"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0025",
+      "address_id": "det_854e482306ae8afc",
+      "field": "conversazione.5.testo",
+      "text": "Via Delle Margherite 238, Pomezia",
+      "coverage": 0.25,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 18,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 7,
+          "covered_characters": 7,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaDelleMargherite238"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0026",
+      "address_id": "det_aec3cece5a68d196",
+      "field": "conversazione.0.testo",
+      "text": "Ottusa 213, Viterbo",
+      "coverage": 0.4375,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 6,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 7,
+          "covered_characters": 7,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "Ottusa213"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0027",
+      "address_id": "det_32e0d18df0f439c1",
+      "field": "conversazione.2.testo",
+      "text": "Via Comiso, Roma",
+      "coverage": 0.3076923076923077,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 9,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 4,
+          "covered_characters": 4,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaComiso"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0029",
+      "address_id": "det_aebab538bd08bb38",
+      "field": "conversazione.0.testo",
+      "text": "Via Cristiano Di Magonza 249/A, Frascati",
+      "coverage": 0.24242424242424243,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 21,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 4,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 8,
+          "covered_characters": 8,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaCristianoDiMagonza249A"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0029",
+      "address_id": "det_c390758b330b789b",
+      "field": "conversazione.4.testo",
+      "text": "Via Cristiano Di Magonza 249/A, Frascati",
+      "coverage": 0.24242424242424243,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 21,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 4,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 8,
+          "covered_characters": 8,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaCristianoDiMagonza249A"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0029",
+      "address_id": "det_0e3413e75927193e",
+      "field": "conversazione.5.testo",
+      "text": "Via Cristiano Di Magonza 249/A, Frascati",
+      "coverage": 0.24242424242424243,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 21,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 4,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 8,
+          "covered_characters": 8,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaCristianoDiMagonza249A"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0030",
+      "address_id": "det_84cfa40719bf2605",
+      "field": "conversazione.0.testo",
+      "text": "Via Settecamini 251, interno 17, Rieti",
+      "coverage": 0.16129032258064516,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 14,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "internal": {
+          "expected_characters": 9,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 5,
+          "covered_characters": 5,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaSettecamini251interno17"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-assistenza_compilazione-con_dati_personali-0030",
+      "address_id": "det_b46c803d90cee388",
+      "field": "conversazione.3.testo",
+      "text": "Via Settecamini 251, interno 17, Rieti",
+      "coverage": 0.16129032258064516,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 14,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "internal": {
+          "expected_characters": 9,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 5,
+          "covered_characters": 5,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaSettecamini251interno17"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0001",
+      "address_id": "det_06ef20a0f309d5d0",
+      "field": "conversazione.0.testo",
+      "text": "Via Delle Boscare 158, Marino",
+      "coverage": 0.25,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 15,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 6,
+          "covered_characters": 6,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaDelleBoscare158"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0002",
+      "address_id": "det_fe8761ffaf5ec14b",
+      "field": "conversazione.0.testo",
+      "text": "Leonardo Patrasso 30, Roma",
+      "coverage": 0.18181818181818182,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 16,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 2,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 4,
+          "covered_characters": 4,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "LeonardoPatrasso30"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0003",
+      "address_id": "det_42864f899fe57cdb",
+      "field": "conversazione.0.testo",
+      "text": "Via Dei Salumi, Roma",
+      "coverage": 0.25,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 12,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 4,
+          "covered_characters": 4,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaDeiSalumi"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0003",
+      "address_id": "det_7bd0a97aeaff2a8b",
+      "field": "conversazione.5.testo",
+      "text": "Via Dei Salumi, Roma",
+      "coverage": 0.25,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 12,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 4,
+          "covered_characters": 4,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaDeiSalumi"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0004",
+      "address_id": "det_ca780f1000520fa1",
+      "field": "conversazione.0.testo",
+      "text": "Piazza Filippo Nicola E Giuseppe Pimpinella 12",
+      "coverage": 0.0,
+      "complete": false,
+      "outcome": "uncovered",
+      "components": {
+        "street": {
+          "expected_characters": 38,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 2,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        }
+      },
+      "residual_text": "PiazzaFilippoNicolaEGiuseppePimpinella12"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0004",
+      "address_id": "det_c32161ce762c43f9",
+      "field": "conversazione.4.testo",
+      "text": "Piazza Filippo Nicola E Giuseppe Pimpinella 12",
+      "coverage": 0.0,
+      "complete": false,
+      "outcome": "uncovered",
+      "components": {
+        "street": {
+          "expected_characters": 38,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 2,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        }
+      },
+      "residual_text": "PiazzaFilippoNicolaEGiuseppePimpinella12"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0004",
+      "address_id": "det_1ee8c72a3ac65e17",
+      "field": "conversazione.5.testo",
+      "text": "Piazza Filippo Nicola E Giuseppe Pimpinella 12",
+      "coverage": 0.0,
+      "complete": false,
+      "outcome": "uncovered",
+      "components": {
+        "street": {
+          "expected_characters": 38,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 2,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        }
+      },
+      "residual_text": "PiazzaFilippoNicolaEGiuseppePimpinella12"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0005",
+      "address_id": "det_6ec7a6997dc88fcb",
+      "field": "conversazione.0.testo",
+      "text": "Via Cantinella 287/A, Roma",
+      "coverage": 0.19047619047619047,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 13,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 4,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 4,
+          "covered_characters": 4,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaCantinella287A"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0006",
+      "address_id": "det_292ec68e06295845",
+      "field": "conversazione.2.testo",
+      "text": "Localita' Piane Del Marta 159, scala C, Tarquinia",
+      "coverage": 0.23076923076923078,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 21,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "internal": {
+          "expected_characters": 6,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 9,
+          "covered_characters": 9,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "LocalitaPianeDelMarta159scalaC"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0006",
+      "address_id": "det_5b76eee21dfa0c1e",
+      "field": "conversazione.3.testo",
+      "text": "Localita' Piane Del Marta 159, scala C, Tarquinia",
+      "coverage": 0.23076923076923078,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 21,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "internal": {
+          "expected_characters": 6,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 9,
+          "covered_characters": 9,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "LocalitaPianeDelMarta159scalaC"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0007",
+      "address_id": "det_46ad75a7e5558713",
+      "field": "conversazione.0.testo",
+      "text": "Via Del Paradiso 108, Valmontone",
+      "coverage": 0.37037037037037035,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 14,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 10,
+          "covered_characters": 10,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaDelParadiso108"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0007",
+      "address_id": "det_87de7b36b90b6737",
+      "field": "conversazione.4.testo",
+      "text": "Via Del Paradiso 108, Valmontone",
+      "coverage": 0.37037037037037035,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 14,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 10,
+          "covered_characters": 10,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaDelParadiso108"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0007",
+      "address_id": "det_dbfe24062ce87790",
+      "field": "conversazione.5.testo",
+      "text": "Via Del Paradiso 108, Valmontone",
+      "coverage": 0.37037037037037035,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 14,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 10,
+          "covered_characters": 10,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaDelParadiso108"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0008",
+      "address_id": "det_14613e9821b59c8e",
+      "field": "conversazione.0.testo",
+      "text": "Ranilze 111, Collepardo",
+      "coverage": 0.5,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 7,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 10,
+          "covered_characters": 10,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "Ranilze111"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0008",
+      "address_id": "det_3d9904f049cbbd4f",
+      "field": "conversazione.3.testo",
+      "text": "Ranilze 111, Collepardo",
+      "coverage": 0.5,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 7,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 10,
+          "covered_characters": 10,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "Ranilze111"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0009",
+      "address_id": "det_7c546d51a8fd20a1",
+      "field": "conversazione.0.testo",
+      "text": "Vicolo Di Via Piscina, Norma",
+      "coverage": 0.21739130434782608,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 18,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 5,
+          "covered_characters": 5,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "VicoloDiViaPiscina"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0010",
+      "address_id": "det_00e373064416d32d",
+      "field": "conversazione.0.testo",
+      "text": "Via Ivano Scarioli 157",
+      "coverage": 0.0,
+      "complete": false,
+      "outcome": "uncovered",
+      "components": {
+        "street": {
+          "expected_characters": 16,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        }
+      },
+      "residual_text": "ViaIvanoScarioli157"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0010",
+      "address_id": "det_b8f87cfa420f7c86",
+      "field": "conversazione.1.testo",
+      "text": "Via Ivano Scarioli 157",
+      "coverage": 0.0,
+      "complete": false,
+      "outcome": "uncovered",
+      "components": {
+        "street": {
+          "expected_characters": 16,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        }
+      },
+      "residual_text": "ViaIvanoScarioli157"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0011",
+      "address_id": "det_e736042e07a2ba0b",
+      "field": "conversazione.0.testo",
+      "text": "Largo Cencio 266/B, Stimigliano",
+      "coverage": 0.4230769230769231,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 11,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 4,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 11,
+          "covered_characters": 11,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "LargoCencio266B"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0011",
+      "address_id": "det_6e2fa59bc04ee67a",
+      "field": "conversazione.4.testo",
+      "text": "Largo Cencio 266/B, Stimigliano",
+      "coverage": 0.4230769230769231,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 11,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 4,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 11,
+          "covered_characters": 11,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "LargoCencio266B"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0011",
+      "address_id": "det_56bdda916fb16b1b",
+      "field": "conversazione.5.testo",
+      "text": "Largo Cencio 266/B, Stimigliano",
+      "coverage": 0.4230769230769231,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 11,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 4,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 11,
+          "covered_characters": 11,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "LargoCencio266B"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0012",
+      "address_id": "det_d60635dabe8baf05",
+      "field": "conversazione.2.testo",
+      "text": "Via Colle Di Sora 165, interno 6, Campoli Appennino",
+      "coverage": 0.3902439024390244,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 14,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "internal": {
+          "expected_characters": 8,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 16,
+          "covered_characters": 16,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaColleDiSora165interno6"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0012",
+      "address_id": "det_2212fb54324601e6",
+      "field": "conversazione.3.testo",
+      "text": "Via Colle Di Sora 165, interno 6, Campoli Appennino",
+      "coverage": 0.3902439024390244,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 14,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "internal": {
+          "expected_characters": 8,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 16,
+          "covered_characters": 16,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaColleDiSora165interno6"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0013",
+      "address_id": "det_fe8761ffaf5ec14b",
+      "field": "conversazione.0.testo",
+      "text": "Via Amedeo Maiuri 45, Roma",
+      "coverage": 0.19047619047619047,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 15,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 2,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 4,
+          "covered_characters": 4,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaAmedeoMaiuri45"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0013",
+      "address_id": "det_468468f3daefbd1c",
+      "field": "conversazione.3.testo",
+      "text": "Via Amedeo Maiuri 45, Roma",
+      "coverage": 0.19047619047619047,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 15,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 2,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 4,
+          "covered_characters": 4,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaAmedeoMaiuri45"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0014",
+      "address_id": "det_a1a860fd5e0227bc",
+      "field": "conversazione.0.testo",
+      "text": "Della Liberta' 139, Castiglione in Teverina",
+      "coverage": 0.5833333333333334,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 12,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 21,
+          "covered_characters": 21,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "DellaLiberta139"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0014",
+      "address_id": "det_52318fe9efdafe07",
+      "field": "conversazione.3.testo",
+      "text": "Della Liberta' 139, Castiglione in Teverina",
+      "coverage": 0.5833333333333334,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 12,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 21,
+          "covered_characters": 21,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "DellaLiberta139"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0015",
+      "address_id": "det_d8ebfaa070498697",
+      "field": "conversazione.0.testo",
+      "text": "Via Giuseppe Garibaldi, Ferentino",
+      "coverage": 0.3103448275862069,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 20,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 9,
+          "covered_characters": 9,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaGiuseppeGaribaldi"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0015",
+      "address_id": "det_305c0125393957cb",
+      "field": "conversazione.4.testo",
+      "text": "Via Giuseppe Garibaldi, Ferentino",
+      "coverage": 0.3103448275862069,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 20,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 9,
+          "covered_characters": 9,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaGiuseppeGaribaldi"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0015",
+      "address_id": "det_98b372c3c0490628",
+      "field": "conversazione.5.testo",
+      "text": "Via Giuseppe Garibaldi, Ferentino",
+      "coverage": 0.3103448275862069,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 20,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 9,
+          "covered_characters": 9,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaGiuseppeGaribaldi"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0016",
+      "address_id": "det_04463b790da2bb19",
+      "field": "conversazione.0.testo",
+      "text": "Via Francesco Filelfo 113",
+      "coverage": 0.0,
+      "complete": false,
+      "outcome": "uncovered",
+      "components": {
+        "street": {
+          "expected_characters": 19,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        }
+      },
+      "residual_text": "ViaFrancescoFilelfo113"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0016",
+      "address_id": "det_017e327c0f2f0eb6",
+      "field": "conversazione.4.testo",
+      "text": "Via Francesco Filelfo 113",
+      "coverage": 0.0,
+      "complete": false,
+      "outcome": "uncovered",
+      "components": {
+        "street": {
+          "expected_characters": 19,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        }
+      },
+      "residual_text": "ViaFrancescoFilelfo113"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0016",
+      "address_id": "det_718d0ad2f9c362fb",
+      "field": "conversazione.5.testo",
+      "text": "Via Francesco Filelfo 113",
+      "coverage": 0.0,
+      "complete": false,
+      "outcome": "uncovered",
+      "components": {
+        "street": {
+          "expected_characters": 19,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        }
+      },
+      "residual_text": "ViaFrancescoFilelfo113"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0017",
+      "address_id": "det_2b781a7a58d18f99",
+      "field": "conversazione.2.testo",
+      "text": "Via Di Vigna Caio 212/A, Bracciano",
+      "coverage": 0.3333333333333333,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 14,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 4,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 9,
+          "covered_characters": 9,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaDiVignaCaio212A"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0017",
+      "address_id": "det_c9be7676ecfcfc23",
+      "field": "conversazione.3.testo",
+      "text": "Via Di Vigna Caio 212/A, Bracciano",
+      "coverage": 0.3333333333333333,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 14,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 4,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 9,
+          "covered_characters": 9,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaDiVignaCaio212A"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0018",
+      "address_id": "det_48baf64faabb3e93",
+      "field": "conversazione.2.testo",
+      "text": "Via Oneglia 29, interno 10, Fiumicino",
+      "coverage": 0.3,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 10,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 2,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "internal": {
+          "expected_characters": 9,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 9,
+          "covered_characters": 9,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaOneglia29interno10"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0018",
+      "address_id": "det_ea83f38b1a458ab5",
+      "field": "conversazione.5.testo",
+      "text": "Via Oneglia 29, interno 10, Fiumicino",
+      "coverage": 0.3,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 10,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 2,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "internal": {
+          "expected_characters": 9,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 9,
+          "covered_characters": 9,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaOneglia29interno10"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0019",
+      "address_id": "det_3fc99e9827b80cc1",
+      "field": "conversazione.2.testo",
+      "text": "Via Casale 76, Sant'Elia Fiumerapido",
+      "coverage": 0.6333333333333333,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 9,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 2,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 19,
+          "covered_characters": 19,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaCasale76"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0019",
+      "address_id": "det_735da4bbf4a882c2",
+      "field": "conversazione.3.testo",
+      "text": "Via Casale 76, Sant'Elia Fiumerapido",
+      "coverage": 0.6333333333333333,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 9,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 2,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 19,
+          "covered_characters": 19,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaCasale76"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0020",
+      "address_id": "det_572cbbb82a75d896",
+      "field": "conversazione.0.testo",
+      "text": "Stradone Sant'Anastasio 60, Anzio",
+      "coverage": 0.17857142857142858,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 21,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 2,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 5,
+          "covered_characters": 5,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "StradoneSantAnastasio60"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0020",
+      "address_id": "det_a0560aeddec28b96",
+      "field": "conversazione.7.testo",
+      "text": "Stradone Sant'Anastasio 60, Anzio",
+      "coverage": 0.17857142857142858,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 21,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 2,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 5,
+          "covered_characters": 5,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "StradoneSantAnastasio60"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0021",
+      "address_id": "det_f9b94362351f2223",
+      "field": "conversazione.0.testo",
+      "text": "Via Terminillo, Roma",
+      "coverage": 0.23529411764705882,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 13,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 4,
+          "covered_characters": 4,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaTerminillo"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0022",
+      "address_id": "det_fe8761ffaf5ec14b",
+      "field": "conversazione.0.testo",
+      "text": "Via Venticinque Aprile 154",
+      "coverage": 0.0,
+      "complete": false,
+      "outcome": "uncovered",
+      "components": {
+        "street": {
+          "expected_characters": 20,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        }
+      },
+      "residual_text": "ViaVenticinqueAprile154"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0022",
+      "address_id": "det_1bfb6d9922549a34",
+      "field": "conversazione.1.testo",
+      "text": "Via Venticinque Aprile 154",
+      "coverage": 0.0,
+      "complete": false,
+      "outcome": "uncovered",
+      "components": {
+        "street": {
+          "expected_characters": 20,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        }
+      },
+      "residual_text": "ViaVenticinqueAprile154"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0022",
+      "address_id": "det_914e95754ad77d0a",
+      "field": "conversazione.3.testo",
+      "text": "Via Venticinque Aprile 154",
+      "coverage": 0.0,
+      "complete": false,
+      "outcome": "uncovered",
+      "components": {
+        "street": {
+          "expected_characters": 20,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        }
+      },
+      "residual_text": "ViaVenticinqueAprile154"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0023",
+      "address_id": "det_688ec30699c5764a",
+      "field": "conversazione.2.testo",
+      "text": "Via Cardinale Paolo Marella 265/B, Roma",
+      "coverage": 0.125,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 24,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 4,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 4,
+          "covered_characters": 4,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaCardinalePaoloMarella265B"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0023",
+      "address_id": "det_9f7063b0ad1cf7d1",
+      "field": "conversazione.3.testo",
+      "text": "Via Cardinale Paolo Marella 265/B, Roma",
+      "coverage": 0.125,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 24,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 4,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 4,
+          "covered_characters": 4,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaCardinalePaoloMarella265B"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0024",
+      "address_id": "det_68fa78d791499880",
+      "field": "conversazione.2.testo",
+      "text": "Piazza Della Madonna 2, interno 19, Casape",
+      "coverage": 0.17647058823529413,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 18,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 1,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "internal": {
+          "expected_characters": 9,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 6,
+          "covered_characters": 6,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "PiazzaDellaMadonna2interno19"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0024",
+      "address_id": "det_53cbf45291bc6ad4",
+      "field": "conversazione.5.testo",
+      "text": "Piazza Della Madonna 2, interno 19, Casape",
+      "coverage": 0.17647058823529413,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 18,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 1,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "internal": {
+          "expected_characters": 9,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 6,
+          "covered_characters": 6,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "PiazzaDellaMadonna2interno19"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0025",
+      "address_id": "det_572cbbb82a75d896",
+      "field": "conversazione.0.testo",
+      "text": "Via Della Dogana 86, Monterotondo",
+      "coverage": 0.42857142857142855,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 14,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 2,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 12,
+          "covered_characters": 12,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaDellaDogana86"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0025",
+      "address_id": "det_6c76cc69752791eb",
+      "field": "conversazione.5.testo",
+      "text": "Via Della Dogana 86, Monterotondo",
+      "coverage": 0.42857142857142855,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 14,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 2,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 12,
+          "covered_characters": 12,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaDellaDogana86"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0026",
+      "address_id": "det_0281b168ed5fc2f7",
+      "field": "conversazione.0.testo",
+      "text": "Mar Baltico 160, Pomezia",
+      "coverage": 0.35,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 10,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 7,
+          "covered_characters": 7,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "MarBaltico160"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0026",
+      "address_id": "det_6a08b467a72970c5",
+      "field": "conversazione.4.testo",
+      "text": "Mar Baltico 160, Pomezia",
+      "coverage": 0.35,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 10,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 7,
+          "covered_characters": 7,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "MarBaltico160"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0026",
+      "address_id": "det_45b52279b8192e3e",
+      "field": "conversazione.5.testo",
+      "text": "Mar Baltico 160, Pomezia",
+      "coverage": 0.35,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 10,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 7,
+          "covered_characters": 7,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "MarBaltico160"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0027",
+      "address_id": "det_0026ec6c1dcb93f6",
+      "field": "conversazione.0.testo",
+      "text": "Via Fosso Della Cerqueta, Cerveteri",
+      "coverage": 0.3,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 21,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 9,
+          "covered_characters": 9,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaFossoDellaCerqueta"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0027",
+      "address_id": "det_4e6eb0eb48e58586",
+      "field": "conversazione.6.testo",
+      "text": "Via Fosso Della Cerqueta, Cerveteri",
+      "coverage": 0.3,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 21,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 9,
+          "covered_characters": 9,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "ViaFossoDellaCerqueta"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0028",
+      "address_id": "det_62b29da510101243",
+      "field": "conversazione.0.testo",
+      "text": "Via Delle More 157",
+      "coverage": 0.0,
+      "complete": false,
+      "outcome": "uncovered",
+      "components": {
+        "street": {
+          "expected_characters": 12,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        }
+      },
+      "residual_text": "ViaDelleMore157"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0028",
+      "address_id": "det_506bc13e0223a378",
+      "field": "conversazione.5.testo",
+      "text": "Via Delle More 157",
+      "coverage": 0.0,
+      "complete": false,
+      "outcome": "uncovered",
+      "components": {
+        "street": {
+          "expected_characters": 12,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        }
+      },
+      "residual_text": "ViaDelleMore157"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0029",
+      "address_id": "det_25a28ec011c96672",
+      "field": "conversazione.0.testo",
+      "text": "Localita' Vallecroce 48 bis, Rignano Flaminio",
+      "coverage": 0.39473684210526316,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 18,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 5,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 15,
+          "covered_characters": 15,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "LocalitaVallecroce48bis"
+    },
+    {
+      "id": "bf3bbe7005def6832a57cbf2a7ca2688a13d3fc4f119036a8983bc8fe1c5bca5:address_focus-cambio_residenza-con_dati_personali-0030",
+      "address_id": "det_3cb7afd0a375c9f3",
+      "field": "conversazione.0.testo",
+      "text": "Viale Boston 100, scala B, Roma",
+      "coverage": 0.16666666666666666,
+      "complete": false,
+      "outcome": "municipality_only",
+      "components": {
+        "street": {
+          "expected_characters": 11,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "house_number": {
+          "expected_characters": 3,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "internal": {
+          "expected_characters": 6,
+          "covered_characters": 0,
+          "coverage": 0.0,
+          "complete": false
+        },
+        "municipality": {
+          "expected_characters": 4,
+          "covered_characters": 4,
+          "coverage": 1.0,
+          "complete": true
+        }
+      },
+      "residual_text": "VialeBoston100scalaB"
+    }
+  ],
+  "sources": {
+    "input": {
+      "path": "/Users/mauro/Projects/string-anonym/output/dataset_detection_paper_300/input.jsonl",
+      "sha256": "0c390a30c6bd23a1b3afc37f8b745568e228e64b7c739a2463ff52db288b1d62"
+    },
+    "gold": {
+      "path": "/Users/mauro/Projects/string-anonym/output/dataset_detection_paper_300/detections_attese.jsonl",
+      "sha256": "ab653fa4aa0b351a4ae595dfdd2f162a9755714633301e09d3f36018ec37eaea"
+    },
+    "predictions": {
+      "path": "/Users/mauro/Projects/string-anonym/output/confronto_ner_person_location_paper_300_run1/piiranha/predizioni.jsonl",
+      "sha256": "201e3d9957bce8531ebd3b7f69f5a801155902e203bae7ac98652057d216e5af"
+    }
+  }
+}
