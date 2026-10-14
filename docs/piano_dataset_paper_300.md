@@ -8,7 +8,7 @@ SHA-256 del file corrente `output/prompts_paper_300.jsonl`:
 
 ## Obiettivo
 
-Il lotto amplia la baseline senza cambiare il perimetro scientifico. Mantiene i
+Il corpus amplia la baseline senza cambiare il perimetro scientifico. Mantiene i
 12 scenari già validati e aggiunge una sovracampionatura controllata degli
 indirizzi. Il corpus resta sintetico e serve a valutare la pipeline, non a
 stimare direttamente le prestazioni sul traffico reale.
@@ -72,23 +72,26 @@ richieste ai modelli NER.
 Rigenerazione deterministica dei prompt, soltanto se il file non esiste:
 
 ```sh
-.venv/bin/python src/lotto.py prepara --config config/lotto_paper_300.json
+.venv/bin/python src/pipeline_generazione.py prepara --config config/generazione_paper_300.json
 ```
 
 Controllo senza chiamate API:
 
 ```sh
-.venv/bin/python src/lotto.py controlla --config config/lotto_paper_300.json
+.venv/bin/python src/pipeline_generazione.py controlla --config config/generazione_paper_300.json
 ```
+
+Il controllo rifiuta prompt con seed o versione differenti e prompt i cui hash
+non coincidono più con scenari, regole, piano e cataloghi locali correnti.
 
 Generazione remota delle conversazioni:
 
 ```sh
-.venv/bin/python src/lotto.py genera --config config/lotto_paper_300.json
+.venv/bin/python src/pipeline_generazione.py genera --config config/generazione_paper_300.json
 ```
 
-Il risultato sarà `output/lotto_paper_300/chat_lotto.jsonl`. Il runner non
-riprende automaticamente un lotto interrotto e non sovrascrive directory
+Il risultato sarà `output/generazione_paper_300/conversazioni.jsonl`. Il runner non
+riprende automaticamente una generazione interrotta e non sovrascrive directory
 esistenti. Dopo la generazione occorre esaminare gli stati `valido`,
 `da_verificare` ed eventuali errori prima di congelare il corpus.
 

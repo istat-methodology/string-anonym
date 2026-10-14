@@ -1,6 +1,7 @@
-"""Prepara, controlla o genera un lotto OpenAI da un file di configurazione."""
+"""Prepara, controlla o genera un corpus sintetico da un file di configurazione."""
 
 import argparse
+import hashlib
 import json
 from pathlib import Path
 import subprocess
@@ -10,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def comando(config, fase):
-    richiesti = {'catalogo', 'totale', 'seed', 'prompts', 'output', 'deployment'}
+    richiesti = {'catalogo', 'totale', 'seed', 'prompts', 'output', 'deployment', 'versione_prompt'}
     opzionali = {'piano'}
     if not richiesti <= set(config) or set(config) - richiesti - opzionali:
         raise ValueError('Campi richiesti: ' + ', '.join(sorted(richiesti)))
@@ -34,23 +35,38 @@ def comando(config, fase):
         else:
             cmd.extend(['--totale', str(config['totale'])])
         return cmd
-    if fase not in {'controlla', 'genera'}:
+    if fase not in {'controlla', 'genera', 'riprendi'}:
         raise ValueError('Fase sconosciuta')
-    # Verifica il lotto prima di qualsiasi chiamata: non basta il nome del file.
+    # Verifica i prompt prima di qualsiasi chiamata: non basta il nome del file.
     records = [json.loads(line) for line in Path(percorso('prompts')).read_text(encoding='utf-8').splitlines() if line.strip()]
     if len(records) != config['totale'] or any(r.get('seed') != config['seed'] for r in records):
         raise ValueError('Il file dei prompt non corrisponde a totale e seed della configurazione')
-    cmd = [sys.executable, str(ROOT / 'src/genera_lotto.py'),
+    if any(r.get('versione_prompt') != config['versione_prompt'] for r in records):
+        raise ValueError('Il file dei prompt non corrisponde alla versione richiesta dalla configurazione')
+    provenienze = [r.get('provenienza_locale', {}).get('sha256_file') for r in records]
+    if any(not isinstance(p, dict) for p in provenienze) or any(p != provenienze[0] for p in provenienze[1:]):
+        raise ValueError('Provenienza delle sorgenti assente o non uniforme nel file dei prompt')
+    for nome, atteso in provenienze[0].items():
+        candidati = [ROOT / cartella / nome for cartella in ('data', 'config')]
+        presenti = [path for path in candidati if path.is_file()]
+        if len(presenti) != 1:
+            raise ValueError(f'Impossibile verificare univocamente la sorgente dei prompt: {nome}')
+        corrente = hashlib.sha256(presenti[0].read_bytes()).hexdigest()
+        if corrente != atteso:
+            raise ValueError(f'Il file dei prompt è obsoleto rispetto alla sorgente corrente: {nome}')
+    cmd = [sys.executable, str(ROOT / 'src/esegui_generazione.py'),
            '--input', percorso('prompts'), '--cartella-output', percorso('output'),
            '--deployment', config['deployment']]
     if fase == 'controlla':
         cmd.append('--solo-controllo')
+    elif fase == 'riprendi':
+        cmd.append('--riprendi')
     return cmd
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('fase', choices=['prepara', 'controlla', 'genera'])
+    parser.add_argument('fase', choices=['prepara', 'controlla', 'genera', 'riprendi'])
     parser.add_argument('--config', type=Path, required=True)
     args = parser.parse_args()
     try:

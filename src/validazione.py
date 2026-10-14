@@ -110,7 +110,7 @@ def controlla_coerenza(chat):
 
 
 def controlla_copertura(chat, scheda):
-    """Controlli letterali sui soli obiettivi espliciti del lotto mirato."""
+    """Controlli letterali sui soli obiettivi espliciti del corpus mirato."""
     obiettivi = scheda.get("copertura_mirata", {})
     segnali = []
     messaggi = chat["conversazione"]

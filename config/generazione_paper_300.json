@@ -3,7 +3,8 @@
   "piano": "config/piano_dataset_paper_300.json",
   "totale": 300,
   "seed": 20261014,
+  "versione_prompt": "5.1-address",
   "prompts": "output/prompts_paper_300.jsonl",
-  "output": "output/lotto_paper_300",
+  "output": "output/generazione_paper_300",
   "deployment": "gpt-5.6-terra"
 }

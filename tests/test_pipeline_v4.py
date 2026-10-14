@@ -63,11 +63,11 @@ class InputTest(unittest.TestCase):
 class RegoleTest(unittest.TestCase):
     def test_formati_seed_e_configurazione(self):
         regole = carica_regole()
-        def lotto():
+        def campione():
             rng = random.Random(42)
             return [genera_codice(t, rng, regole) for _ in range(30) for t in ('COD_UTENTE','NUM_PRATICA','PASSWORD','PHONE')]
-        self.assertEqual(lotto(), lotto())
-        for i, valore in enumerate(lotto()):
+        self.assertEqual(campione(), campione())
+        for i, valore in enumerate(campione()):
             if i % 4 == 0: self.assertRegex(valore, r'^(P0\d{8}|QOL\d{7}|\d{9})$')
             if i % 4 == 1: self.assertRegex(valore, r'^\d{7}/(25|26)$')
             if i % 4 == 2: self.assertIn(len(valore), [8,10,12])

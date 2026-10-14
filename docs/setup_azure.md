@@ -76,7 +76,7 @@ Verificare configurazione e dataset senza scaricare pesi o eseguire inferenza:
 python src/confronta_modelli.py --solo-controllo
 ```
 
-Per il lotto corrente il risultato atteso è di 46 conversazioni e quattro
+Per il corpus corrente il risultato atteso è di 46 conversazioni e quattro
 modelli. Se il controllo passa, avviare il confronto sulla prima GPU:
 
 ```sh

@@ -6,16 +6,16 @@ import tempfile
 import json
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'src'))
-from genera_lotto import seleziona, riepilogo_esistente
+from esegui_generazione import seleziona, riepilogo_esistente, prossimo_segmento, verifica_piano_ripresa
 from genera_chat import parametri_richiesta
 
 
-class LottoTest(unittest.TestCase):
+class EsecuzioneGenerazioneTest(unittest.TestCase):
     def test_riepilogo_esistente_completo_parziale_e_incompatibile(self):
         with tempfile.TemporaryDirectory() as directory:
             cartella = Path(directory)
             self.assertIn('senza risultato finale', riepilogo_esistente(cartella, [self.prompt], 'modello'))
-            finale = cartella / 'chat_lotto.jsonl'
+            finale = cartella / 'conversazioni.jsonl'
             finale.write_text(json.dumps(self.record) + '\n')
             testo = riepilogo_esistente(cartella, [self.prompt], 'modello')
             self.assertIn('Risposte presenti: 1/1; valide: 1', testo)
@@ -28,7 +28,7 @@ class LottoTest(unittest.TestCase):
             with self.assertRaises(ValueError):
                 riepilogo_esistente(cartella, [self.prompt], 'modello')
             finale.write_text('')
-            self.assertIn('Lotto incompleto', riepilogo_esistente(cartella, [self.prompt], 'modello'))
+            self.assertIn('Generazione incompleta', riepilogo_esistente(cartella, [self.prompt], 'modello'))
             finale.write_text(json.dumps({**self.record, 'stato': 'errore_api'}))
             self.assertIn('errori API: 1', riepilogo_esistente(cartella, [self.prompt], 'modello'))
 
@@ -59,10 +59,32 @@ class LottoTest(unittest.TestCase):
 
     def test_rifiuta_errori_api_duplicati_e_ambiguita(self):
         with self.assertRaises(ValueError): self.scegli([{**self.record,'stato':'errore_api'}])
+        mancanti, riusati, _ = seleziona(
+            [self.prompt], [('test.jsonl', {**self.record, 'stato':'errore_api', 'risposta_originale':None})],
+            'modello', 'https://risorsa/openai/v1/', 6000, ignora_errori_api=True)
+        self.assertEqual(mancanti, [self.prompt]); self.assertFalse(riusati)
         with self.assertRaises(ValueError): self.scegli([], [self.prompt,self.prompt])
         secondo = copy.deepcopy(self.record); secondo['risposta_originale']['id']='altra'
         with self.assertRaises(ValueError): self.scegli([self.record,secondo])
         self.assertEqual(len(self.scegli([self.record,self.record])[1]),1)
+
+    def test_verifica_piano_e_numera_segmenti_di_ripresa(self):
+        with tempfile.TemporaryDirectory() as directory:
+            cartella = Path(directory)
+            input_path = cartella / 'prompts.jsonl'
+            piano = {'input': str(input_path), 'deployment': 'modello',
+                     'endpoint': 'https://risorsa/openai/v1/', 'max_output_tokens': 6000,
+                     'id_previsti': ['caso-1']}
+            (cartella / 'piano.json').write_text(json.dumps(piano))
+            verifica_piano_ripresa(cartella, [self.prompt], input_path, 'modello',
+                                   'https://risorsa/openai/v1', 6000)
+            pending, output = prossimo_segmento(cartella)
+            self.assertTrue(pending.name.endswith('001.jsonl'))
+            output.touch()
+            self.assertTrue(prossimo_segmento(cartella)[1].name.endswith('002.jsonl'))
+            with self.assertRaises(ValueError):
+                verifica_piano_ripresa(cartella, [self.prompt], input_path, 'altro',
+                                       'https://risorsa/openai/v1', 6000)
 
 
 if __name__ == '__main__': unittest.main()

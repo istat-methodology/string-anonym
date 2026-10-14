@@ -417,7 +417,7 @@ def main():
         for riga in righe:
             riga["provenienza_locale"] = {"specifica": "paper-address-1.0", "sha256_file": hashes}
         args.output.parent.mkdir(parents=True, exist_ok=True)
-        # Evita di sovrascrivere accidentalmente un lotto già preparato.
+        # Evita di sovrascrivere accidentalmente un corpus già preparato.
         with args.output.open("x", encoding="utf-8") as f:
             for riga in righe:
                 f.write(json.dumps(riga, ensure_ascii=False) + "\n")

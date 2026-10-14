@@ -1,27 +1,91 @@
 # Query anonymization per le conversazioni Istat
 
-Il progetto costruisce conversazioni sintetiche e valuta una pipeline di
-riconoscimento degli elementi identificativi. L'obiettivo corrente è misurare
-in modo riproducibile la **detection a livello di messaggio**, separandola dalle
-decisioni contestuali di masking.
+Il progetto sviluppa due percorsi con obiettivi e formati distinti. La
+separazione è intenzionale: la V5 restringe il problema per produrre uno short
+paper in tempi brevi; il percorso end-to-end estende il lavoro fino alle
+decisioni contestuali e al masking finale.
 
-## Architettura
+## Architettura e stato
 
-La pipeline è divisa in tre step:
+### V5: percorso dello short paper
 
-1. **Detection del messaggio**: regex e NER leggono indipendentemente il testo
-   originale; `merge_detection` conserva provenienza, overlap e disaccordi.
-2. **Policy di conversazione**: userà l'intera chat per decidere se una detection
-   debba essere mantenuta, mascherata o generalizzata. Non è nel workflow
-   sperimentale corrente.
-3. **Valutazione complessiva**: stimerà il rischio residuo della conversazione.
-   Non è implementata. La valutazione a livello di intero dataset resta fuori
-   dal perimetro corrente.
+La V5 produce chat sintetiche con detection attese costruite dal codice,
+esporta un dataset pulito, valuta il riconoscimento NER di `PERSON` e
+`LOCATION` e analizza in modo specifico la copertura degli indirizzi.
 
-Il benchmark NER assegna ai modelli `PERSON` e `LOCATION`. Identificativi
-strutturati come telefono, codice indagine, ruolo e numero pratica appartengono
-al ramo regex o a lookup controllati. Le metriche end-to-end avranno senso dopo
-la riconciliazione dei due rami.
+```mermaid
+flowchart LR
+    A[Scenari e cataloghi] --> B[Prompt e generazione chat_v5]
+    B --> C[detection_attesa]
+    C --> D[esporta_dataset_detection.py]
+    D --> E[Gold PERSON / LOCATION]
+    E --> F[Confronto NER]
+    F --> G[Valutazione degli indirizzi]
+```
+
+Questo è il perimetro sperimentale corrente. Le metriche descrivono la
+detection, non il masking end-to-end.
+
+### Percorso end-to-end
+
+Il percorso più ampio aggiungerà la detection combinata, la policy a livello di
+conversazione (`MASK`, `KEEP`, `GENERALIZE` o `REVIEW`), l’applicazione delle
+decisioni e la valutazione del masking finale. Richiede annotazioni e output
+con un contratto diverso da quello V5 ed è un lavoro di più lungo periodo.
+
+```mermaid
+flowchart LR
+    A[Detection] --> B[Policy sull'intera conversazione]
+    B --> C[MASK / KEEP / GENERALIZE / REVIEW]
+    C --> D[Applicazione delle decisioni]
+    D --> E[Valutazione del masking finale]
+```
+
+Nei file e nei materiali precedenti questo percorso più ampio può essere
+chiamato “Legacy” o “4.x”. In questa documentazione lo chiamiamo **percorso
+end-to-end**: “Legacy” può suggerire che sia stato abbandonato, mentre è un
+filone distinto ancora da completare.
+
+Per l’ordine dei comandi, gli input e gli output di ogni passaggio, consultare
+la [guida operativa della pipeline](docs/pipeline.md). In breve, il corpus
+configurato si prepara, si controlla e poi si genera:
+
+Il file dei prompt è già presente. Per rigenerarlo o creare un nuovo corpus,
+assegnare percorsi di output nuovi nel file di configurazione; per usare i
+prompt esistenti, saltare `prepara`.
+
+```sh
+.venv/bin/python src/pipeline_generazione.py prepara --config config/generazione_paper_300.json
+.venv/bin/python src/pipeline_generazione.py controlla --config config/generazione_paper_300.json
+.venv/bin/python src/pipeline_generazione.py genera --config config/generazione_paper_300.json
+```
+
+Se una generazione si interrompe per un errore di rete, riprenderla senza
+ripetere le chiamate già riuscite con la fase `riprendi`:
+
+```sh
+.venv/bin/python src/pipeline_generazione.py riprendi --config config/generazione_paper_300.json
+```
+
+I due esportatori corrispondono ai due percorsi: `src/esporta_dataset_detection.py`
+prepara gli input e il gold per la V5; `src/esporta_dataset_masking.py` prepara
+input e annotazioni di masking per il percorso end-to-end e richiede
+`chat.trattamento_atteso.mascherare`. I contratti sono diversi per scelta: la
+V5 non va convertita artificialmente in annotazioni di masking, perché queste
+dipendono dalle decisioni della policy conversazionale.
+
+## File di regole
+
+- [`config/regole_generazione.json`](config/regole_generazione.json) stabilisce
+  i formati e i parametri dei valori sintetici campionati durante la
+  preparazione dei prompt. Non definisce ciò che regex riconosce.
+- [`config/regole_masking.json`](config/regole_masking.json) contiene pattern,
+  categorie e priorità usati dal detector regex. Non genera valori né decide da
+  sola se mascherarli.
+
+La [guida della pipeline](docs/pipeline.md) descrive entrambi i percorsi, i file
+prodotti dall’esportazione e la funzione delle regole; la [baseline regex](docs/baseline_regex.md)
+spiega il detector regex nel dettaglio, appartenente al percorso end-to-end.
 
 ## Baseline corrente
 
@@ -69,7 +133,7 @@ Test locali:
 
 ## Struttura essenziale
 
-- `config/`: scenari, regole, configurazione NER e piano del lotto paper;
+- `config/`: scenari, regole, configurazione NER e piano del corpus paper;
 - `data/`: cataloghi locali, inclusi i codici PSN reali;
 - `src/`: generazione, esportazione, detection, merge e valutazione;
 - `output/chat_v5_draft4_finale.jsonl`: corpus sintetico sorgente;

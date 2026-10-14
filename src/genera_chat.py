@@ -86,8 +86,13 @@ def main():
     parser.add_argument("--max-conversazioni", "--limit", dest="limit", type=int, default=1, help="Numero di conversazioni (default: 1)")
     parser.add_argument("--id", help="Seleziona un singolo ID di prompt")
     parser.add_argument("--max-output-tokens", type=int, default=6000)
+    parser.add_argument("--progresso-iniziale", type=int, default=0,
+                        help="Numero di conversazioni già completate prima di questa esecuzione")
+    parser.add_argument("--progresso-totale", type=int,
+                        help="Totale globale delle conversazioni previste")
     args = parser.parse_args()
-    if args.limit < 1 or args.max_output_tokens < 1:
+    if (args.limit < 1 or args.max_output_tokens < 1 or args.progresso_iniziale < 0 or
+            (args.progresso_totale is not None and args.progresso_totale < args.progresso_iniziale)):
         parser.error("Limiti non validi")
     provider = scegli_provider(args.deployment, args.provider)
     if provider == "anthropic":
@@ -119,8 +124,9 @@ def main():
         print(f"Provider: {provider}; deployment: {args.deployment}", flush=True)
         with Client(base_url=endpoint, api_key=key,
                     timeout=120, max_retries=0) as client, args.output.open("x", encoding="utf-8") as f:
-            for prompt in prompts:
-                print(f"Generazione: {prompt['id']}", flush=True)
+            totale = args.progresso_totale or args.progresso_iniziale + len(prompts)
+            for indice, prompt in enumerate(prompts, start=args.progresso_iniziale + 1):
+                print(f"[{indice}/{totale}] Generazione: {prompt['id']}", flush=True)
                 parametri = parametri_richiesta(prompt, args.deployment, args.max_output_tokens, provider)
                 record = {
                     "id": prompt["id"], "deployment": args.deployment,
