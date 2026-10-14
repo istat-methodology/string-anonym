@@ -1,0 +1,28 @@
+{
+  "modello": {
+    "nome": "gliner_pii",
+    "repository": "urchade/gliner_multi_pii-v1",
+    "revision": "main",
+    "backend": "gliner",
+    "soglia": 0.5,
+    "max_tokens": 384,
+    "etichette": {
+      "person": "PERSON",
+      "location": "LOCATION"
+    },
+    "unisci_adiacenti": [],
+    "licenza": "apache-2.0"
+  },
+  "categorie_mappate": [
+    "LOCATION",
+    "PERSON"
+  ],
+  "revision_risolta": "1fcf13e85f4eef5394e1fcd406cf2ca9ea82351d",
+  "prestazioni": {
+    "secondi_caricamento": 12.049114956000011,
+    "secondi_inferenza": 31.22405060799997,
+    "secondi_totali": 43.28675641799998,
+    "picco_vram_allocata_byte": 1190902784,
+    "picco_vram_riservata_byte": 1249902592
+  }
+}
